@@ -13,10 +13,10 @@ export const CreatePrescriptions = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [newRowData, setNewRowData] = useState({
         Medicine: '',
-        Dose: { text: '0', dropdown: 'mg' },
+        Dose: { text: '', dropdown: 'mg' },
         Route: 'Oral',
         Frequency: ['0', '0', '0'],
-        Duration: { text: '0', dropdown: 'days' }
+        Duration: { text: '', dropdown: 'days' }
     });
 
     const [data, setData] = useState([
@@ -225,16 +225,16 @@ export const CreatePrescriptions = () => {
                 <HorizontalLine width='96%' color="#F0F0F0" />
                 <div className={styles.medicines}>
                     <table {...getTableProps()} className={styles.table}>
-                        <thead>
+                        <thead className={styles.thead}>
                             {headerGroups.map(headerGroup => (
-                                <tr {...headerGroup.getHeaderGroupProps()}>
+                                <tr {...headerGroup.getHeaderGroupProps()} className={styles.tr}>
                                     {headerGroup.headers.map(column => (
-                                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                        <th {...column.getHeaderProps()} className={styles.th}>{column.render('Header')}</th>
                                     ))}
                                 </tr>
                             ))}
                         </thead>
-                        <tbody {...getTableBodyProps()}>
+                        <tbody {...getTableBodyProps()} className={styles.tbody}>
                             {rows.map(row => {
                                 prepareRow(row);
                                 return (
@@ -246,9 +246,9 @@ export const CreatePrescriptions = () => {
 
                                 );
                             })}
-                            <tr>
-                                <td><input type="text" value={newRowData.Medicine} onChange={(e) => handleInputChange(e, 'Medicine')} /></td>
-                                <td>
+                            <tr className={styles.tr}>
+                                <td className={styles.td}><input type="text" value={newRowData.Medicine} onChange={(e) => handleInputChange(e, 'Medicine')} /></td>
+                                <td className={styles.td}>
                                     <input type="number" value={newRowData.Dose.text} onChange={(e) => handleDoseChange(e, 'text')} style={{ width: '8ch' }} />
                                     <select value={newRowData.Dose.dropdown} onChange={(e) => handleDoseChange(e, 'dropdown')} style={{ width: '8ch' }}>
                                         <option value="mg">mg</option>
@@ -257,7 +257,7 @@ export const CreatePrescriptions = () => {
                                         <option value="tablet">tablet</option>
                                     </select>
                                 </td>
-                                <td><input type="text" value={newRowData.Route} onChange={(e) => handleInputChange(e, 'Route')} /></td>
+                                <td className={styles.td}><input type="text" value={newRowData.Route} onChange={(e) => handleInputChange(e, 'Route')} /></td>
                                 <td>
                                     <select value={newRowData.Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0)} >
                                         <option value={'0'} >0</option>
@@ -284,7 +284,7 @@ export const CreatePrescriptions = () => {
                                     </select>
                                 </td>
 
-                                <td>
+                                <td className={styles.td}>
                                     <input type="number" value={newRowData.Duration.text} onChange={(e) => handleDurationChange(e, 'text')} style={{ width: "7ch" }} />
                                     <select value={newRowData.Duration.dropdown} onChange={(e) => handleDurationChange(e, 'dropdown')} >
                                         <option value="days">Days</option>
@@ -292,7 +292,7 @@ export const CreatePrescriptions = () => {
                                         <option value="months">Months</option>
                                     </select>
                                 </td>
-                                <td><button onClick={handleAddRow}>Add</button></td>
+                                <td className={styles.td}><button onClick={handleAddRow}>Add</button></td>
                             </tr>
                         </tbody>
                     </table>
