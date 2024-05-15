@@ -1,0 +1,24 @@
+@import url('../../../vars.css');
+
+.container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.overview{
+    display: flex;
+    width: 96%;
+    height:100px;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
+
+.overview > h2{
+    font-weight: normal;
+    color: var(--text-dark);
+    padding-left: 30px;
+    padding-top: 14px;
+}

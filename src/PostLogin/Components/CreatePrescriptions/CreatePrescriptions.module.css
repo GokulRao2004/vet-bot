@@ -1,0 +1,178 @@
+@import url("../../../vars.css");
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.prescription {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.doctorInfo {
+  display: flex;
+  flex-direction: row;
+  padding: 15px 50px;
+  justify-content: space-between;
+}
+
+.darkHeading {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.lightText {
+  color: rgb(170, 170, 170);
+}
+
+.rx {
+  height: 50px;
+  padding-left: 30px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.date {
+  padding-right: 30px;
+}
+
+.inputFields {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.petID > input,
+.phoneNumber > input {
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+
+.petInfo {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: var(--text-dark);
+}
+
+.petInfoLeft {
+  display: flex;
+  width: calc(2 / 3 * 100%);
+  justify-content: space-between;
+}
+
+.petInfoRight {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: calc(1 / 3 * 100%);
+}
+
+.petInfoLeft > div {
+  width: 50%;
+}
+
+.prescriptionLink {
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 70px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.complaints {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  padding-bottom: 30px;
+  font-size: 18px;
+}
+
+.complaints > input {
+  width: 80%;
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+
+.prelimAnalysis {
+  display: flex;
+  flex-direction: column;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.prelimHeading {
+  font-size: 20px;
+}
+
+.prelimInputs {
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.prelimInputs > div > input {
+  border: none;
+  border-bottom: 1px solid darkgray;
+  width: 5ch;
+  text-align: right;
+}
+
+.diagnosis {
+  display: flex;
+  width: 100%;
+  font-size: 18px;
+}
+
+.diagnosis > input {
+  width: 90%;
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+
+.submitBtn {
+  width: 80px;
+  padding: 8px;
+  border-radius: 50px;
+  border: none;
+  background-color: var(--color-darker);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  transition: scale 0.3s, transform 0.3s;
+}
+
+.submitBtn:active {
+    transform: scale(0.95);
+    background-color: #5d2d61; 
+}
+
+.btnContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}

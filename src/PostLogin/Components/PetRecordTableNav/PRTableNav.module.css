@@ -1,0 +1,46 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-left: 6%;
+    padding-right: 6%;
+    max-width: 100%;
+  }
+  .Search {
+    background: white;
+    display: block;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 50px;
+    border: 1px solid #ccc; 
+    border-radius: 50px;
+    min-width: 400px;
+  }
+  .Search:focus {
+    outline: none;
+    border-color: var(--color-dark); 
+  }
+
+  .searchBar{
+    display: flex;
+  }
+
+  .searchIcon{
+    position: relative;
+    left: -40px;
+  }
+
+  .add{
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+
+
+  @media screen and (max-width : 600px) {
+    .Search{
+        min-width: 40%;
+    }
+    
+  }
+  

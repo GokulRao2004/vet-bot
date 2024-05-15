@@ -1,0 +1,284 @@
+@import "../vars.css";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: url("../../assets/Background/bg1.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: normal;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  font-size: 18px;
+  padding-left: 80px;
+  padding-right: 80px;
+  cursor: default;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.fields {
+  z-index: 0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #fff;
+}
+
+.fields > form{
+  width: 80%;
+  max-width: 350px;
+}
+
+.inputWrapper {
+  position: relative;
+  margin-top: 20px;
+  max-width: calc(100% - 30px);
+}
+
+.logIn{
+  display: flex;
+  width: 80%;
+  max-width: 350px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-darker);
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+}
+
+.signIn{
+  width: 100%;
+  font-size: 34px;
+}
+
+.userID {
+  background: none;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid #ccc; /* Default border color */
+  border-radius: 50px;
+}
+
+.userID:focus {
+  outline: none;
+  border-color: var(--color-dark); /* Border color when focused */
+}
+
+.label {
+  z-index: -1;
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 20px;
+  padding: 0 5px;
+  color: #999; /* Label color */
+  background-color: white;
+  transition: top 0.6s, left 0.6s, font-size 0.3s, background-color 0.4s;
+}
+
+.userID:focus + .label {
+  z-index: 2;
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  background-color: #fff;
+}
+
+.userID:focus + .label,
+.userID:not(:placeholder-shown) + .label {
+  z-index: 2;
+  color: var(--color-dark);
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  background-color: #fff;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 60%;
+  right: -10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.passwordToggle img {
+  width: 15px;
+  height: auto;
+}
+
+.password {
+  background: none;
+  display: block;
+  width: calc(100% - 30px);
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 40px;
+  border: 1px solid #ccc; /* Default border color */
+  border-radius: 50px;
+}
+
+.password:focus {
+  outline: none;
+  border-color: var(--color-dark); /* Border color when focused */
+}
+
+.password:focus + .label {
+  z-index: 2;
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  background-color: #fff;
+}
+
+.password:focus + .label,
+.password:not(:placeholder-shown) + .label {
+  z-index: 2;
+  color: var(--color-dark);
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  background-color: #fff;
+}
+
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-top: 20px;
+}
+
+.remMe{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 20px; 
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
+
+.remMe>input{
+  margin-right: 10px;
+}
+
+.loginBtn{
+  width: 100%;
+}
+
+.loginBtn>button{
+  width: 100%;
+  padding: 8px;
+  border-radius: 50px;
+  border: none;
+  background-color: var(--color-darker);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.error{
+  color: red;
+  padding-left: 10px;
+  padding-top: 3px;
+
+}
+
+.loadingCircle {
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid var(--color-dark); /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.loginBtn > .disabled{
+  color: #ccc; 
+  cursor: not-allowed; 
+  opacity: 0.7; 
+  box-shadow: none; 
+  border: 1px solid #999; 
+  filter: grayscale(100%);
+}
+.loginBtn > .enabled{
+  
+  cursor: pointer; 
+
+}
+
+@media screen and (max-aspect-ratio: 42/25) {
+  .container{
+    justify-content: center;
+    text-align: center;
+  }
+  .article{
+    display: none;
+  }
+
+  .fields{
+    width: 80%;
+    max-width: 600px;
+  }
+
+  
+
+    
+  }
+
+
+@media (max-width: 500px) {
+
+    .fields {
+      width: 100%;
+      max-width: 500px;
+    }
+
+  }  

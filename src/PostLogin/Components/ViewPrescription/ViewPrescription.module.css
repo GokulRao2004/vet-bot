@@ -1,0 +1,117 @@
+@import url("../../../vars.css");
+
+.accordian {
+  padding-bottom: 30px;
+}
+.accordianClosed {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+.accordianHeading {
+  margin-top: 30px;
+  background-color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-light);
+}
+
+.accordianOpen {
+    justify-content: space-between;
+  display: flex;
+  
+  background-color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 30px;
+}
+
+.accordianContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.accordianContainerLeft {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.accordianContainerRight {
+  flex-grow: 1;
+}
+
+
+.line {
+  height: 0.2px;
+  width: calc(100% - 20px);
+  background-color: darkgray;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.logo {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.logo > img {
+  height: 40px;
+}
+
+.tableContainer {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  flex-grow: 1;
+}
+
+.table {
+  border-radius: 10px;
+  width: 90%;
+  font-size: 18px;
+  width: 100%;
+  background-color: #fff;
+  border-collapse: collapse;
+}
+
+.td,
+.th {
+  border-radius: 10px;
+  min-width: 40px;
+  max-width: 300px;
+  white-space: nowrap;
+  text-align: left;
+  padding: 8px;
+  text-align: left;
+}
+
+.thead {
+  
+  text-align: left;
+  background-color: #fff;
+  color: var(--text-dark);
+  border-radius: 10px;
+}
+
+.th {
+  border-radius: 10px;
+  
+  text-align: left;
+  border-bottom: 1px solid black;
+  font-weight: normal;
+}

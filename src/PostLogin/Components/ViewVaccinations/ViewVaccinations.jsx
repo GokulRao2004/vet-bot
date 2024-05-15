@@ -1,0 +1,70 @@
+import React, { useMemo } from 'react'
+import mockDataPR from "../../../mockData/mockDataPR.json"
+import { useParams } from 'react-router-dom';
+import styles from "./ViewVaccinations.module.css";
+import { useTable } from 'react-table';
+
+
+export const ViewVaccinations = () => {
+  const ID = useParams()
+  const Data = mockDataPR.filter(item => item.id === parseInt(ID.id));
+
+  const COLUMNS = [
+    { accessor: "date", Header: 'Vaccination Date' },
+    { accessor: "vaccination", Header: 'Type of Vaccination' },
+    { accessor: "dueDate", Header: 'Due Date' }
+  ];
+
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => Data[0].vaccinationHistory, [Data]);
+
+  const petTable = useTable(
+    {
+      columns,
+      data,
+
+    },
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    rows
+  } = petTable;
+  return (
+    <div className={styles.container}>
+
+
+      <div className={styles.tableContainer}>
+        <table {...getTableProps()} className={styles.table}>
+          <thead className={styles.thead}>
+            {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()} className={styles.tr}>
+                {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps()} className={styles.th}>{column.render('Header')}</th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+
+          <tbody {...getTableBodyProps()} className={styles.tbody}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}className={styles.tr}>
+                  {row.cells.map((cell) => {
+                    return <td {...cell.getCellProps()} className={styles.td}>{cell.render('Cell')}</td>;
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+
+        </table>
+
+      </div>
+    </div>
+  )
+}

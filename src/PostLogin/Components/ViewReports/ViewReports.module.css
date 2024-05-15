@@ -1,0 +1,59 @@
+@import url("../../../vars.css");
+
+.accordian {
+  padding-bottom: 30px;
+}
+.accordianClosed {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+.accordianHeading {
+  margin-top: 30px;
+  background-color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-light);
+}
+
+.accordianOpen {
+  justify-content: space-between;
+  display: flex;
+
+  background-color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 30px;
+}
+
+.accordianContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.accordianContainerLeft {
+  display: flex;
+  flex-direction: row;
+}
+
+.accordianContainerRight {
+  flex-grow: 1;
+}
+ 
+.logo {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.logo > img {
+  height: 40px;
+}
