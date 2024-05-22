@@ -27,7 +27,7 @@ export const Dashboard = () => {
                         <Route path='/home' element={<Home/>} />
                         <Route path='/petrecords' element={<PetRecords/>} />
                         <Route path="/petrecords/:id" element={<ViewPR />} />
-                        <Route path='/prescriptions' element={<Prescriptions/>} />
+                        <Route path='/createprescriptions' element={<Prescriptions/>} />
                     </Route>
                 </Routes>
             </ThemeProvider>

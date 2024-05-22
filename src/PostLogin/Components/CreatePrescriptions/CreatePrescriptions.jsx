@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from './CreatePrescriptions.module.css'
 import { HorizontalLine } from '../HorizontalLine'
 import { getImageUrl } from '../../../utils'
 import { useTable } from 'react-table'
 import { Delete, DeleteOutlineTwoTone } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
+import { debounce } from 'lodash';
 
 
 export const CreatePrescriptions = () => {
     const date = new Date();
     const [petID, setPetID] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const isEditable = rowIndex => editableRow === rowIndex;
+
     const [newRowData, setNewRowData] = useState({
         Medicine: '',
         Dose: { text: '', dropdown: 'mg' },
@@ -18,10 +21,23 @@ export const CreatePrescriptions = () => {
         Frequency: ['0', '0', '0'],
         Duration: { text: '', dropdown: 'days' }
     });
+    const [data, setData] = useState([])
 
-    const [data, setData] = useState([
+    const [petInfo, setPetInfo] = useState({
+        "petName": "", "type": "", "DOB": "", "breed": "", "sex": "", "conditions": "", "lastVisit": "", "weight": "", "petID": ""
+    });
+    const [editableRow, setEditableRow] = useState(null);
 
-    ]);
+    const handleRowClick = (rowIndex) => {
+        setEditableRow(rowIndex);
+    };
+    
+
+
+
+
+
+
     const columns = React.useMemo(
         () => [
             {
@@ -30,7 +46,7 @@ export const CreatePrescriptions = () => {
             },
             {
                 Header: 'Dose',
-                accessor: 'Dose'
+                accessor: row => `${row.Dose.text} ${row.Dose.dropdown}`
             },
             {
                 Header: 'Route',
@@ -48,7 +64,7 @@ export const CreatePrescriptions = () => {
             },
             {
                 Header: 'Duration',
-                accessor: 'Duration'
+                accessor: row => `${row.Duration.text} ${row.Duration.dropdown}`
             },
             {
                 Header: 'Delete',
@@ -77,18 +93,17 @@ export const CreatePrescriptions = () => {
 
     const currentDate = `${day}/${month}/${year}`
     const handleDelete = (row) => {
+        setEditableRow(null);
         setData((prevData) => prevData.filter((item, index) => index !== row.index));
     };
-    const handleInputChange = (e, field, dropdown) => {
-
+    const handleAddInputChange = (e, field) => {
         setNewRowData((prevData) => ({
             ...prevData,
             [field]: e.target.value
         }));
-
     };
 
-    const handleFrequencyChange = (e, index) => {
+    const handleAddFrequencyChange = (e, index) => {
         const newFrequency = [...newRowData.Frequency];
         newFrequency[index] = e.target.value;
         setNewRowData((prevData) => ({
@@ -98,7 +113,7 @@ export const CreatePrescriptions = () => {
     };
 
 
-    const handleDoseChange = (e, field) => {
+    const handleAddDoseChange = (e, field) => {
         setNewRowData((prevData) => ({
             ...prevData,
             Dose: {
@@ -107,7 +122,7 @@ export const CreatePrescriptions = () => {
             }
         }));
     };
-    const handleDurationChange = (e, field) => {
+    const handleAddDurationChange = (e, field) => {
         setNewRowData((prevData) => ({
             ...prevData,
             Duration: {
@@ -118,27 +133,98 @@ export const CreatePrescriptions = () => {
     };
 
     const handleAddRow = () => {
-        const concatenatedDose = `${newRowData.Dose.text} ${newRowData.Dose.dropdown}`;
-        const concatenatedDuration = `${newRowData.Duration.text} ${newRowData.Duration.dropdown}`;
         const newData = {
             ...newRowData,
-            Dose: concatenatedDose,
-            Duration: concatenatedDuration
         };
         setData((prevData) => [...prevData, newData]);
         setNewRowData({
             Medicine: '',
-            Dose: { text: '0', dropdown: 'mg' },
+            Dose: { text: '', dropdown: 'mg' },
             Route: 'Oral',
             Frequency: ['0', '0', '0'],
-            Duration: { text: '0', dropdown: 'days' }
+            Duration: { text: '', dropdown: 'days' }
         });
     };
+
+    const fetchPetDetails = useCallback(
+        debounce((value) => {
+            console.log('API Call with PetID:', value);
+            setPetInfo(prevState => ({
+                ...prevState,
+                petName: "1002",
+                type: "cat",
+                breed: "Siamese",
+                DOB: "3/5/2019",
+                sex: "F",
+                conditions: "NA",
+                weight: "10",
+                lastVisit: "5/5/2023"
+            }));
+
+
+        }, 500),
+        []
+    );
+
+    const handlePetIDChange = (e) => {
+        const newPetID = e.target.value;
+        setPetID(newPetID);
+        if (newPetID.length === 4 && parseInt(newPetID) === 1002) {
+            fetchPetDetails(newPetID);
+        }
+        else {
+            setPetInfo({})
+        }
+    }
+
+
+
+
+    const handleDoneClick = () => {
+        setEditableRow(null); // Reset the editableRow state
+        console.log("Editable row reset.");
+    };
+
+    const handleInputChange = (e, field, rowIndex) => {
+        
+        const newData = [...data];
+        newData[rowIndex] = { ...newData[rowIndex], [field]: e.target.value };
+        setData(newData);
+    };
+
+    const handleDoseChange = (e, field, rowIndex) => {
+        const newData = [...data];
+        newData[rowIndex] = { 
+            ...newData[rowIndex],
+            Dose: { ...newData[rowIndex].Dose, [field]: e.target.value }
+        };
+        setData(newData);
+    };
+
+    const handleFrequencyChange = (e, freqIndex, rowIndex) => {
+        const newData = [...data];
+        newData[rowIndex] = { 
+            ...newData[rowIndex],
+            Frequency: newData[rowIndex].Frequency.map((f, j) => j === freqIndex ? e.target.value : f)
+        };
+        setData(newData);
+    };
+
+    const handleDurationChange = (e, field, rowIndex) => {
+        const newData = [...data];
+        newData[rowIndex] = { 
+            ...newData[rowIndex],
+            Duration: { ...newData[rowIndex].Duration, [field]: e.target.value }
+        };
+        setData(newData);
+    };
+
 
 
 
     return (
         <div className={styles.container}>
+
             <div className={styles.prescription}>
                 <div className={styles.doctorInfo}>
                     <div className={styles.docInfoLeft}>
@@ -168,9 +254,9 @@ export const CreatePrescriptions = () => {
                         <div className={styles.date}> Date: {currentDate}</div>
                     </div>
                     <div className={styles.inputFields}>
-                        <div className={styles.petID}>
+                        <div className={styles.petID} >
                             PetID :
-                            <input value={petID} onChange={e => setPetID(e.target.value)}></input>
+                            <input type='number' value={petID} onChange={handlePetIDChange}></input>
                         </div>
                         <div className={styles.phoneNumber}>
                             Phone Number:
@@ -180,19 +266,19 @@ export const CreatePrescriptions = () => {
                     <div className={styles.petInfo}>
                         <div className={styles.petInfoLeft}>
                             <div>
-                                <div>Pet Name:</div>
-                                <div>DOB:</div>
-                                <div>Sex:</div>
+                                <div>Pet Name: {petInfo.petName}</div>
+                                <div>DOB: {petInfo.DOB}</div>
+                                <div>Sex: {petInfo.sex}</div>
                             </div>
                             <div>
-                                <div>Type: </div>
-                                <div>Breed: </div>
-                                <div>Conditions</div>
+                                <div>Type: {petInfo.type}</div>
+                                <div>Breed: {petInfo.breed}</div>
+                                <div>Conditions {petInfo.conditions}</div>
                             </div>
                         </div>
                         <div className={styles.petInfoRight}>
-                            <div>Last Visit: </div>
-                            <div>Weight: </div>
+                            <div>Last Visit: {petInfo.lastVisit}</div>
+                            <div>Weight: {petInfo.weight}kg</div>
                         </div>
                     </div>
                     <div className={styles.prescriptionLink}>
@@ -235,31 +321,95 @@ export const CreatePrescriptions = () => {
                             ))}
                         </thead>
                         <tbody {...getTableBodyProps()} className={styles.tbody}>
-                            {rows.map(row => {
-                                prepareRow(row);
-                                return (
-                                    <tr {...row.getRowProps()}>
-                                        {row.cells.map(cell => {
-                                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                                        })}
-                                    </tr>
+                            
+                        {rows.map((row, rowIndex) => {
+                            console.log('row: ', row);
+                            
+                    prepareRow(row);
+                    const isEditable = editableRow === row;
+                    console.log('isEditable: ', isEditable);
+                    
 
-                                );
-                            })}
+                    return (
+                        <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)} onBlur={handleDoneClick}>
+                            {editableRow ? (
+                                <>
+                                    <td className={styles.td}>
+                                        {console.log(data[rowIndex])}
+                                        <input type="text" value={data[rowIndex].Medicine} onChange={(e) => { handleInputChange(e, 'Medicine', rowIndex)}} />
+                                    </td>
+                                    <td className={styles.td}>
+                                        <input type="number" value={data[rowIndex].Dose.text} onChange={(e) => handleDoseChange(e, 'text', rowIndex)} style={{ width: '8ch' }} />
+                                        <select value={data[rowIndex].Dose.dropdown} onChange={(e) => handleDoseChange(e, 'dropdown', rowIndex)} style={{ width: '8ch' }}>
+                                            <option value="mg">mg</option>
+                                            <option value="ml">ml</option>
+                                            <option value="sachet">sachet</option>
+                                            <option value="tablet">tablet</option>
+                                        </select>
+                                    </td>
+                                    <td className={styles.td}>
+                                        <input type="text" value={data[rowIndex].Route} onChange={(e) => handleInputChange(e, 'Route', rowIndex)} />
+                                    </td>
+                                    <td>
+                                        <select value={data[rowIndex].Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0, rowIndex)}>
+                                            <option value="0">0</option>
+                                            <option value="1/2">1/2</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                        -
+                                        <select value={data[rowIndex].Frequency[1]} onChange={(e) => handleFrequencyChange(e, 1, rowIndex)}>
+                                            <option value="0">0</option>
+                                            <option value="1/2">1/2</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                        -
+                                        <select value={data[rowIndex].Frequency[2]} onChange={(e) => handleFrequencyChange(e, 2, rowIndex)}>
+                                            <option value="0">0</option>
+                                            <option value="1/2">1/2</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </td>
+                                    <td className={styles.td}>
+                                        <input type="number" value={data[rowIndex].Duration.text} onChange={(e) => handleDurationChange(e, 'text', rowIndex)} style={{ width: "7ch" }} />
+                                        <select value={data[rowIndex].Duration.dropdown} onChange={(e) => handleDurationChange(e, 'dropdown', rowIndex)}>
+                                            <option value="days">Days</option>
+                                            <option value="weeks">Weeks</option>
+                                            <option value="months">Months</option>
+                                        </select>
+                                    </td>
+                                    <td className={styles.td}>
+                                        <button onClick={(e) => { e.stopPropagation(); handleDoneClick(); }}>Done</button>
+                                    </td>
+                                </>
+                            ) : (
+                                <>
+                                    {row.cells.map((cell) => (
+                                        <td key={cell.id} {...cell.getCellProps()}>
+                                            {cell.render('Cell')}
+                                        </td>
+                                    ))}
+                                </>
+                            )}
+                        </tr>
+                    );
+                })}
                             <tr className={styles.tr}>
-                                <td className={styles.td}><input type="text" value={newRowData.Medicine} onChange={(e) => handleInputChange(e, 'Medicine')} /></td>
+                                <td className={styles.td}><input type="text" value={newRowData.Medicine} onChange={(e) => handleAddInputChange(e, 'Medicine')} /></td>
                                 <td className={styles.td}>
-                                    <input type="number" value={newRowData.Dose.text} onChange={(e) => handleDoseChange(e, 'text')} style={{ width: '8ch' }} />
-                                    <select value={newRowData.Dose.dropdown} onChange={(e) => handleDoseChange(e, 'dropdown')} style={{ width: '8ch' }}>
+                                    <input type="number" value={newRowData.Dose.text} onChange={(e) => handleAddDoseChange(e, 'text')} style={{ width: '8ch' }} />
+                                    <select value={newRowData.Dose.dropdown} onChange={(e) => handleAddDoseChange(e, 'dropdown')} style={{ width: '8ch' }}>
                                         <option value="mg">mg</option>
                                         <option value="ml">ml</option>
                                         <option value="sachet">sachet</option>
                                         <option value="tablet">tablet</option>
                                     </select>
                                 </td>
-                                <td className={styles.td}><input type="text" value={newRowData.Route} onChange={(e) => handleInputChange(e, 'Route')} /></td>
+                                <td className={styles.td}><input type="text" value={newRowData.Route} onChange={(e) => handleAddInputChange(e, 'Route')} /></td>
                                 <td>
-                                    <select value={newRowData.Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0)} >
+                                    <select value={newRowData.Frequency[0]} onChange={(e) => handleAddFrequencyChange(e, 0)} >
                                         <option value={'0'} >0</option>
                                         <option value={'1/2'}>1/2</option>
                                         <option value={'1'}>1</option>
@@ -267,7 +417,7 @@ export const CreatePrescriptions = () => {
 
                                     </select>
                                     -
-                                    <select value={newRowData.Frequency[1]} onChange={(e) => handleFrequencyChange(e, 1)} >
+                                    <select value={newRowData.Frequency[1]} onChange={(e) => handleAddFrequencyChange(e, 1)} >
                                         <option value={'0'}>0</option>
                                         <option value={'1/2'}>1/2</option>
                                         <option value={'1'}>1</option>
@@ -275,7 +425,7 @@ export const CreatePrescriptions = () => {
 
                                     </select>
                                     -
-                                    <select value={newRowData.Frequency[2]} onChange={(e) => handleFrequencyChange(e, 2)} >
+                                    <select value={newRowData.Frequency[2]} onChange={(e) => handleAddFrequencyChange(e, 2)} >
                                         <option value={'0'}>0</option>
                                         <option value={'1/2'}>1/2</option>
                                         <option value={'1'}>1</option>
@@ -285,8 +435,8 @@ export const CreatePrescriptions = () => {
                                 </td>
 
                                 <td className={styles.td}>
-                                    <input type="number" value={newRowData.Duration.text} onChange={(e) => handleDurationChange(e, 'text')} style={{ width: "7ch" }} />
-                                    <select value={newRowData.Duration.dropdown} onChange={(e) => handleDurationChange(e, 'dropdown')} >
+                                    <input type="number" value={newRowData.Duration.text} onChange={(e) => handleAddDurationChange(e, 'text')} style={{ width: "7ch" }} />
+                                    <select value={newRowData.Duration.dropdown} onChange={(e) => handleAddDurationChange(e, 'dropdown')} >
                                         <option value="days">Days</option>
                                         <option value="weeks">Weeks</option>
                                         <option value="months">Months</option>
@@ -298,7 +448,7 @@ export const CreatePrescriptions = () => {
                     </table>
                 </div>
                 <div className={styles.btnContainer}>
-                    <button type='submit' className={styles.submitBtn} onClick={()=>{console.log('hello');}}>Submit</button>
+                    <button type='submit' className={styles.submitBtn} onClick={() => { console.log('hello'); }}>Submit</button>
                 </div>
             </div>
         </div>

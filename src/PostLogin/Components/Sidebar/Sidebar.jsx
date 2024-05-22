@@ -49,7 +49,7 @@ const navItems = [
         text:"Pet Records",
         icon: <MedicalInformationOutlined/>
     },{
-        text:"Prescriptions",
+        text:"Create Prescriptions",
         icon: <MedicationOutlined/>
     }
 ]
