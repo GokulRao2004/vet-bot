@@ -339,7 +339,7 @@ export const CreatePrescriptions = () => {
                     
 
                     return (
-                        <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)} onBlur={handleDoneClick}>
+                        <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)}>
                             {editableRow ? (
                                 <>
                                     <td className={styles.td}>
