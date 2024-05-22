@@ -69,7 +69,7 @@ export const ViewPR = () => {
     if (!pet) {
         return (
             <>
-                <button className={styles.backBtn} onClick={handleBack}>Back</button>
+                <button className={styles.backBtn} onClick={handleBack}> <ChevronLeft/> Back</button>
                 <h1 className={styles.notFound}>OOPS Pet Not Found!!!!</h1>
             </>
         );

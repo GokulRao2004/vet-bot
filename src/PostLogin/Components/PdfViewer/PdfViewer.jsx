@@ -3,6 +3,7 @@ import { Document, Page } from 'react-pdf';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './PdfViewer.module.css'
+import { ChevronLeft } from '@mui/icons-material';
 
 function PdfViewer() {
   const filename = useParams();
@@ -33,7 +34,7 @@ function PdfViewer() {
   return (
     <div className={styles.container}>
       <div>
-        <button onClick={() => { navigate(`/petrecords/${url.id}/reports`) }}>Back</button>
+        <button onClick={() => { navigate(`/petrecords/${url.id}/reports`) }} className={styles.backBtn}><ChevronLeft/>Back</button>
       </div>
       {pdfData && (
         <iframe
