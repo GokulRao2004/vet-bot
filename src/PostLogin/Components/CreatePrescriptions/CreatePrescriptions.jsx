@@ -6,6 +6,7 @@ import { useTable } from 'react-table'
 import { Delete, DeleteOutlineTwoTone } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { debounce } from 'lodash';
+import { useNavigate } from 'react-router-dom'
 
 
 export const CreatePrescriptions = () => {
@@ -13,6 +14,7 @@ export const CreatePrescriptions = () => {
     const [petID, setPetID] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const isEditable = rowIndex => editableRow === rowIndex;
+    const navigate = useNavigate();
 
     const [newRowData, setNewRowData] = useState({
         Medicine: '',
@@ -220,7 +222,13 @@ export const CreatePrescriptions = () => {
     };
 
 
-
+    const handleViewPrescriptions = (e) =>{
+        e.preventDefault();
+        if(!petID){
+            return
+        }
+        navigate(`/petrecords/${petID}/prescriptions`)
+    }
 
     return (
         <div className={styles.container}>
@@ -282,7 +290,7 @@ export const CreatePrescriptions = () => {
                         </div>
                     </div>
                     <div className={styles.prescriptionLink}>
-                        <a href="">View Prescriptions</a>
+                        <div onClick={handleViewPrescriptions}>View Prescriptions</div>
                     </div>
                 </div>
                 <HorizontalLine width='96%' color="#F0F0F0" />

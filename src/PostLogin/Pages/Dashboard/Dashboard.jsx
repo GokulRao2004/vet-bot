@@ -33,7 +33,11 @@ export const Dashboard = () => {
                         <Route path='/petrecords' element={<PetRecords/>} />
                         <Route path="/petrecords/:id" element={<ViewPR />} />
                         <Route path='/createprescriptions' element={<Prescriptions/>} />
-                        <Route path="/petrecords/:id/:fileName" element={<PdfViewerWrapper />} />
+                        <Route path="/petrecords/:id/reports/:fileName" element={<PdfViewerWrapper />} />
+                        <Route path="/petrecords/:id/prescriptions" element={<ViewPR/>} />
+                        <Route path="/petrecords/:id/reports" element={<ViewPR/>} />
+                        <Route path="/petrecords/:id/vaccinations" element={<ViewPR/>} />
+                        <Route path="/petrecords/:id/deworming" element={<ViewPR/>} />
                     </Route>
                 </Routes>
             </ThemeProvider>

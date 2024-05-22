@@ -62,7 +62,7 @@ export const ViewReports = () => {
                       <div key={i} className={styles.reports}>
                         {Object.entries(testItem).map(([testType, reportLink], j) => (
                           <div key={j}>
-                            <div className={styles.pdfOuterContainer} onClick={()=>{navigate(`/petrecords/${ID.id}/${reportLink}`);}}>
+                            <div className={styles.pdfOuterContainer} onClick={()=>{navigate(`/petrecords/${ID.id}/reports/${reportLink}`);}}>
                               <div className={styles.pdfContainer}></div>
                               <div className={styles.reportText} data-tooltip={testType}><div>{testType}</div></div>
                             </div>

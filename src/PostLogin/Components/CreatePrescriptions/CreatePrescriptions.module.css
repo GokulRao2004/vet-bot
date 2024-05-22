@@ -90,6 +90,9 @@
 }
 
 .prescriptionLink {
+  color: #5d2d61;
+  text-decoration: underline;
+  cursor: pointer;
   width: 100%;
   padding-left: 30px;
   padding-right: 70px;
