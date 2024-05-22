@@ -46,6 +46,8 @@
 }
 
 .accordianContainerRight {
+  display: flex;
+  justify-content: space-between;
   flex-grow: 1;
 }
  
@@ -56,4 +58,114 @@
 
 .logo > img {
   height: 40px;
+}
+
+.pdfOuterContainer{
+  cursor: pointer;
+}
+
+.pdfOuterContainer{
+  cursor: pointer;
+}
+
+.pdfContainer {
+  position: relative; /* Add relative positioning */
+  background-image: url('../../../../assets/Reports/placeholder.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100px;
+  width: 100px;
+  margin: 15px;
+  border-radius: 10px;
+  filter: grayscale(100%) brightness(0.5) contrast(0.8);
+  color: red;
+}
+
+.pdfContainer:active{
+  filter: grayscale(100%) brightness(.1) contrast(.9);
+}
+
+.pdfContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  /* backdrop-filter: blur(0.9px); */
+}
+
+.text{
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+
+
+.tests{
+  display: flex;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.testNames{
+  display: flex;
+}
+
+.testNames >div:not(:last-child)::after {
+  content: ",";
+  margin-right: 5px; /* Adjust as needed for spacing */
+}
+
+.reports{
+  display: flex;
+  gap: 30px;
+  
+}
+
+.reportText{
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 30px;
+  width: 100px;
+  background-color: #000000bf;
+  position: relative;
+  text-overflow: ellipsis;
+  color: #fff;
+  top: -45px;
+  left: 15px;
+  border-radius: 0 0 10px 10px;
+}
+
+.reportText>div{
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
+.reportText::after {
+  font-size: 14px;
+  content: attr(data-tooltip);
+  position: absolute;
+  background-color: #0000009a;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  top: calc(100% + 2px); /* Position tooltip below the text */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 9999; /* Ensure tooltip appears above all elements */
+  pointer-events: none; /* Allow pointer events to go through the tooltip */
+}
+
+.reportText:hover {
+  overflow: visible; /* Show full text on hover */
 }

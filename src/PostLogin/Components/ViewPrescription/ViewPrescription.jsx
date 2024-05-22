@@ -45,7 +45,7 @@ export const ViewPrescription = () => {
     rows
   } = petTable;
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="prescriptions">
       {Data[0].prescriptions ? <Accordion allowZeroExpanded allowMultipleExpanded className={styles.accordian}>
         {Data[0].prescriptions.map((item, index) => (
           <AccordionItem key={index} >

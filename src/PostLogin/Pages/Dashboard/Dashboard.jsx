@@ -3,17 +3,22 @@ import { CssBaseline,ThemeProvider } from '@mui/material'
 import {createTheme} from '@mui/material'
 import { useSelector } from 'react-redux'
 import {themeSettings} from "../../../theme"
-import { BrowserRouter , Navigate , Route , Routes } from "react-router-dom"
+import { BrowserRouter , Navigate , Route , Routes, useParams } from "react-router-dom"
 import Layout from '../../Components/Layout/Layout'
 import Home from '../Home/Home'
 import { PetRecords } from '../PetRecords/PetRecords'
 import { Prescriptions } from '../Prescriptions/Prescriptions'
 import { ViewPR } from '../../Components/ViewPetRecord/ViewPR'
+import PdfViewer from '../../Components/PdfViewer/PdfViewer'
 
 
 export const Dashboard = () => {
     const mode = useSelector(state => state.global.mode);
     const theme = useMemo(()=>createTheme(themeSettings(mode)),[mode])
+    const PdfViewerWrapper = () => {
+        const { fileName } = useParams();
+        return <PdfViewer fileName={fileName} />;
+    };
 
 
   return (
@@ -28,6 +33,7 @@ export const Dashboard = () => {
                         <Route path='/petrecords' element={<PetRecords/>} />
                         <Route path="/petrecords/:id" element={<ViewPR />} />
                         <Route path='/createprescriptions' element={<Prescriptions/>} />
+                        <Route path="/petrecords/:id/:fileName" element={<PdfViewerWrapper />} />
                     </Route>
                 </Routes>
             </ThemeProvider>
