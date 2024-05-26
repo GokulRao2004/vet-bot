@@ -30,7 +30,7 @@
   
   .thead{
     text-align: left;
-    
+    cursor: default;
     border-bottom: 1px solid #828282;
     background-color: var(--color-dark);
     color:#fff;
@@ -39,6 +39,10 @@
   .th{
     text-align: left;
    
+  }
+
+  .tbody{
+    cursor: pointer;
   }
 
   .tbody > .tr:hover{

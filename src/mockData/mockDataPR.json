@@ -20,10 +20,8 @@
       "address": "12, 5th cross, 10th Main Road",
       "email": "neil@example.com",
       "lastVisited" : "12/12/2022",
-      "followUp" : "12/12/2023",
-      "report" : [{
-
-      }]
+      "followUp" : "12/12/2023"
+      
       },
       {
         "id": 1002,
@@ -58,9 +56,7 @@
             "address": "45, Elm Street",
             "email": "alice@example.com",
             "lastVisited" : "12/12/2022",
-            "report" : [{
-              
-            }],
+             
             "tests":[{
               "date" : "12/02/2024",
               "name" : [{"Blood Tesdddddddddt":"1002.12.02.24.bloodtest" , "Urine Test":"1002.12.02.24.urinetest"}]
@@ -84,21 +80,19 @@
             "uniqueIdentifications": "Scar on Right Ear",
             "dateOfBirth": "5/15/2017",
             "vaccinationStatus": "Up to Date",
-            "prescriptions": {
+            "prescriptions": [{
               "complaints":"Not eating food, Lazy",
               "preliminaryAnalysis" :{"temperature":"90 F", "weight" : "30kg"},
               "diagnosis" : "tick fever with slight head trauma",
               "prescription" : [{"medicine" : "petjoint","dose" : "1tablet", "route" : " oral", "frequency":"1-1-1","duration":"10days"},{"medicine" : "boniheal","dose" : "5ml", "route" : "external", "frequency":"1-0-1","duration":"10 weeks"}] 
-            },      
+            }],      
             "dewormingHistory": null,
             "vaccinationHistory": null,
             "ownerFirstName": "Laura",
             "ownerLastName": "Johnson",
             "address": "789, Oak Avenue",
-            "email": "laura@example.com",
-            "report" : [{
-              
-            }]
+            "email": "laura@example.com"
+  
           },
           {
             "id": 1004,
@@ -111,21 +105,19 @@
             "vaccinationStatus": "Up to Date",
             "uniqueIdentifications": "White fur",
             "dateOfBirth": "2/14/2018",
-            "prescriptions": {
+            "prescriptions": [{
               "complaints":"Not eating food, Lazy",
               "preliminaryAnalysis" :{"temperature":"90 F", "weight" : "30kg"},
               "diagnosis" : "tick fever with slight head trauma",
               "prescription" : [{"medicine" : "petjoint","dose" : "1tablet", "route" : " oral", "frequency":"1-1-1","duration":"10days"},{"medicine" : "boniheal","dose" : "5ml", "route" : "external", "frequency":"1-0-1","duration":"10 weeks"}] 
-            },      
+            }],      
             "dewormingHistory": null,
             "vaccinationHistory": null,
             "ownerFirstName": "Michael",
             "ownerLastName": "Brown",
             "address": "34, Maple Street",
-            "email": "michael@example.com",
-            "report" : [{
-              
-            }]
+            "email": "michael@example.com"
+            
           },
           {
             "id": 1005,
@@ -138,21 +130,19 @@
             "uniqueIdentifications": "None",
             "dateOfBirth": "8/20/2016",
             "vaccinationStatus": "Up to Date",
-            "prescriptions": {
+            "prescriptions":[ {
               "complaints":"Not eating food, Lazy",
               "preliminaryAnalysis" :{"temperature":"90 F", "weight" : "30kg"},
               "diagnosis" : "tick fever with slight head trauma",
               "prescription" : [{"medicine" : "petjoint","dose" : "1tablet", "route" : " oral", "frequency":"1-1-1","duration":"10days"},{"medicine" : "boniheal","dose" : "5ml", "route" : "external", "frequency":"1-0-1","duration":"10 weeks"}] 
-            },
+            }],
             "dewormingHistory": null,
             "vaccinationHistory": null,
             "ownerFirstName": "Jennifer",
             "ownerLastName": "Wilson",
             "address": "56, Pine Street",
-            "email": "jennifer@example.com",
-            "report" : [{
-              
-            }]
+            "email": "jennifer@example.com"
+            
           },
           {
             "id": 1006,
@@ -171,10 +161,8 @@
             "ownerFirstName": "David",
             "ownerLastName": "Thompson",
             "address": "78, Cedar Avenue",
-            "email": "david@example.com",
-            "report" : [{
-              
-            }]
+            "email": "david@example.com"
+            
           },
           {
             "id": 1007,

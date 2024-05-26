@@ -14,9 +14,15 @@ import { useTable } from 'react-table';
 
 export const ViewReports = () => {
   const ID = useParams()
-  console.log('ID: ', ID);
   const Data = mockDataPR.filter(item => item.id === parseInt(ID.id));
+  console.log('Data: ', Data[0].tests);
+  
   const navigate = useNavigate();
+
+  if(!Data[0].tests){
+    return <div style={{display:"flex", width: "100%", justifyContent:"center", fontSize:"22px", padding:"10px"}}>
+    Oops no record found ! </div>
+  }
   return (
     <div className={styles.container} id='reports'>
       {Data[0].tests.map((test, i) => {

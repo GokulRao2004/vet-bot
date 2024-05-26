@@ -8,7 +8,10 @@ import { useTable } from 'react-table';
 export const ViewVaccinations = () => {
   const ID = useParams()
   const Data = mockDataPR.filter(item => item.id === parseInt(ID.id));
-
+  if(!Data[0].vaccinationHistory){
+    return <div style={{display:"flex", width: "100%", justifyContent:"center", fontSize:"22px", padding:"10px"}}>
+    Oops no record found ! </div>
+  }
   const COLUMNS = [
     { accessor: "date", Header: 'Vaccination Date' },
     { accessor: "vaccination", Header: 'Type of Vaccination' },

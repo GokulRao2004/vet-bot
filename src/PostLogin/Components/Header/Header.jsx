@@ -5,7 +5,7 @@ const Header = ({ title, subtitle }) => {
   const theme = useTheme();
  
   return (
-    <Box mb="30px">
+    <Box mb="30px" style={{cursor : "default"}}>
       <Typography
         variant="h2"
         fontFamily={'itim'}
