@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './CreatePR.module.css'
 import { setModalStatus } from '../../../redux/reducers/addPetRecordReducer';
 import { IconButton } from '@mui/material';
-import { Close } from '@mui/icons-material';
+import { ChevronLeft, Close } from '@mui/icons-material';
 import { addNewPet } from '../../../redux/reducers/petRecordReducer';
 
 export const CreatePR = () => {
@@ -20,6 +20,12 @@ export const CreatePR = () => {
     email: ""
   });
   const [pets, setPets] = useState([])
+  const [maxDate, setMaxDate] = useState('');
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setMaxDate(today);
+  }, []);
 
   const getNewPetTemplate = () => ({
     id: "",
@@ -49,8 +55,11 @@ export const CreatePR = () => {
     }
 
     if (requiredFieldsFilled) {
+
+      if (!pets[currentPage - 1]) {
+        setPets(prevPets => [...prevPets, getNewPetTemplate()]);
+      }
       setCurrentPage(currentPage + 1);
-      setPets(prevPets => [...prevPets, getNewPetTemplate()]);
     } else {
       alert("Please fill in all required fields before proceeding.");
     }
@@ -74,7 +83,7 @@ export const CreatePR = () => {
 
   const handleChangePetFields = (e, petIndex) => {
     const { name, value } = e.target;
-    const parsedValue = name === 'id' ? parseInt(value) : value; 
+    const parsedValue = name === 'id' ? parseInt(value) : value;
     setPets(prevPets => {
       const updatedPet = { ...prevPets[petIndex], [name]: parsedValue };
       const updatedPets = [...prevPets];
@@ -82,7 +91,7 @@ export const CreatePR = () => {
       return prevPets.map((pet, index) => (index === petIndex ? updatedPet : pet));
     });
   };
-  
+
 
 
 
@@ -100,6 +109,15 @@ export const CreatePR = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    let requiredFieldsFilled = false;
+
+    if (currentPage === 1) {
+      // Check if all required fields in parent details are filled
+      requiredFieldsFilled = formState.contact && formState.ownerFirstName && formState.ownerLastName && formState.address;
+    } else {
+      // Check if all required fields in pet details are filled
+      requiredFieldsFilled = pets[currentPage - 2].name && pets[currentPage - 2].type && pets[currentPage - 2].breed && pets[currentPage - 2].dateOfBirth && pets[currentPage - 2].sex;
+    }
     const ownerAndPetDetails = concatenateObjects();
     for (let i = 0; i < ownerAndPetDetails.length; i++) {
       dispatch(addNewPet(ownerAndPetDetails[i]));
@@ -127,7 +145,7 @@ export const CreatePR = () => {
             {currentPage === 1 && <div className={styles.fields}>
               {console.log(currentPage)}
               <div>
-                <h2 className={styles.formName}>Parent Details</h2>
+                <h2 className={styles.formName} style={{marginTop:"20px"}}>Parent Details</h2>
               </div>
               <div className={styles.row}>
                 <div className={styles.fName}>
@@ -224,6 +242,10 @@ export const CreatePR = () => {
             </div>
             }
             {(currentPage >= 2 && currentPage <= 4) && <div className={styles.fields}>
+              <div className={styles.btn}>
+                <button className={styles.backButton} onClick={handlePrev} style={{display : "flex" ,flexDirection: "row" , alignItems:"center" , justifyContent:'center'}}> 
+                  <ChevronLeft/> Back
+                </button></div>
               <div>
                 <h2 className={styles.formName}>Pet {currentPage - 1} Details</h2>
               </div>
@@ -304,6 +326,7 @@ export const CreatePR = () => {
                       name="dateOfBirth"
                       value={pets[currentPage - 2].dateOfBirth || ''}
                       onChange={(e) => handleChangePetFields(e, currentPage - 2)}
+                      max={maxDate}
                       required
                     />
                     <label htmlFor="dateOfBirth" className={styles.label}>
@@ -343,16 +366,13 @@ export const CreatePR = () => {
 
               </div>
               <div className={styles.rowBtnPage2}>
-
-                <button className={styles.button} onClick={handlePrev}>
-                  Previous
+                <button className={styles.button} onClick={handleNext}>
+                  Add More
                 </button>
                 <button className={styles.button} onClick={handleSubmit}>
                   Submit
                 </button>
-                <button className={styles.button} onClick={handleNext}>
-                  Add More
-                </button>
+
 
               </div>
             </div>
