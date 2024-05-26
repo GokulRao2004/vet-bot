@@ -1,8 +1,6 @@
 @import url("../../../vars.css");
 
-.accordian {
-  padding-bottom: 30px;
-}
+
 .accordianClosed {
   display: flex;
   justify-content: space-between;
@@ -24,6 +22,7 @@
   display: flex;
   flex-direction: column;
   background-color: var(--background-light);
+  padding-bottom: 30px;
 }
 
 .accordianOpen {
@@ -36,10 +35,6 @@
   padding-left: 30px;
 }
 
-.accordianContainer {
-  display: flex;
-  justify-content: space-evenly;
-}
 .accordianContainerLeft {
   display: flex;
   flex-direction: row;

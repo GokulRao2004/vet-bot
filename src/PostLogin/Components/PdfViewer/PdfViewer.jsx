@@ -36,13 +36,13 @@ function PdfViewer() {
       <div>
         <button onClick={() => { navigate(`/petrecords/${url.id}/reports`) }} className={styles.backBtn}><ChevronLeft/>Back</button>
       </div>
-      {pdfData && (
+      {pdfData ? (
         <iframe
           title="PDF Viewer"
           src={pdfData}
           style={{ width: '100%', height: '100%' }}
         ></iframe>
-      )}
+      ) : (<div className={styles.error}>Oops No Report Found ! ! !</div>)}
     </div>
   );
 }
