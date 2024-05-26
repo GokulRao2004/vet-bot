@@ -28,6 +28,7 @@
   background-color: #fff;
   color: var(--color-dark);
   padding-bottom: 40px;
+  overflow: scroll;
 }
 .modalClose {
   width: 55%;
@@ -36,6 +37,7 @@
 .modalOpen {
   max-height: calc(100vh - 135px);
   width: 75%;
+
 }
 
 .header {
@@ -48,17 +50,21 @@
   background-color: var(--color-header);
   color: white;
   border-radius: 20px 20px 0 0;
+  position: sticky;
+  top: 0;
 }
 
 .heading {
   display: flex;
   justify-content: center;
   width: 98%;
+  
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  
 }
 
 .formName {
@@ -70,6 +76,7 @@
 }
 .fields {
   display: flex;
+  
   flex-direction: column;
   gap: 15px;
   padding-left: 5%;
