@@ -1,0 +1,51 @@
+.container{
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+    overflow: scroll;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 30px;
+}
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 20px;
+    width: 90%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border: none;
+  }
+  
+  .td,
+  .th {
+    min-width: 100px;
+    max-width: 300px;
+    white-space: nowrap;
+    text-align: left;
+    padding: 8px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: left;
+  }
+  
+  .thead {
+    text-align: left;
+    background-color: var(--color-dark);
+    color: #fff;
+  }
+  
+  .th {
+    text-align: left;
+  }
+  
+  .tbody > .tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .td:first-child,
+  .th:first-child {
+    padding-left: 20px;
+  }

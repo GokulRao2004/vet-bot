@@ -1,0 +1,47 @@
+@import url('../../../vars.css');
+
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.statBox {
+  width: 43%;
+  min-width: 350px;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding-left: 40px;
+}
+.statBox:nth-child(1),
+.statBox:nth-child(4) {
+  background: linear-gradient(80deg, #fff, #d0ffd0);
+}
+
+.statBox:nth-child(2),
+.statBox:nth-child(3) {
+  background: linear-gradient(80deg, #fff, #f2e9ff);
+}
+
+.heading {
+  color: var(--color-darker);
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.number{
+    color: var(--color-darker);
+    font-size: 30px;
+}
+
+.change{
+    font-size: 18px;
+}

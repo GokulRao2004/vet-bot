@@ -1,0 +1,25 @@
+{
+    "Total Patients": {
+      "total": 1500,
+      "duration" : "",
+      "change": "+50"
+    },
+    "Total Surgeries": {
+      "total": 100,
+      "duration" : "",
+      "change":  "+5"
+      
+    },
+    "Total Reminders Sent": {
+
+        "total": 300,
+        "duration" : "week",
+        "change": "+20"
+      
+    },
+    "Total Prescriptions": {
+      "total": 200,
+      "duration" : "week",
+      "change": "-10"
+    }
+  }

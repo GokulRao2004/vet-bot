@@ -51,6 +51,7 @@
   color: white;
   border-radius: 20px 20px 0 0;
   position: sticky;
+  z-index: 20;
   top: 0;
 }
 
