@@ -1,0 +1,15 @@
+[
+    {"hour": "09:00", "visitors": 15},
+    {"hour": "10:00", "visitors": 20},
+    {"hour": "11:00", "visitors": 25},
+    {"hour": "12:00", "visitors": 22},
+    {"hour": "13:00", "visitors": 18},
+    {"hour": "14:00", "visitors": 20},
+    {"hour": "15:00", "visitors": 25},
+    {"hour": "16:00", "visitors": 30},
+    {"hour": "17:00", "visitors": 28},
+    {"hour": "18:00", "visitors": 22},
+    {"hour": "19:00", "visitors": 18},
+    {"hour": "20:00", "visitors": 15},
+    {"hour": "21:00", "visitors": 10}
+]

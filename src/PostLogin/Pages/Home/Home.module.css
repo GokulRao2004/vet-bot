@@ -1,26 +1,64 @@
-@import url('../../../vars.css');
+@import url("../../../vars.css");
 
-.container{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 30px;
-    margin-bottom: 30px;
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
-.subContainer{
-    display: flex;
-    flex-direction: column;
-    width: 96%;
-    background-color: #fff;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
 }
 
-.subContainer > h2{
-    font-weight: normal;
-    color: var(--text-dark);
-    padding-left: 30px;
-    padding-top: 14px;
+.subContainer > h2 {
+  font-weight: normal;
+  color: var(--text-dark);
+  padding-left: 30px;
+  padding-top: 14px;
+}
+
+.statsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.graph,
+.graph1 {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  padding-top: 20px;
+}
+.graph {
+  width: calc(4 / 7 * 100%);
+}
+
+.backgroundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 15px;
+  height: 530px;
+}
+
+.heading {
+  width: 100%;
+  font-weight: normal;
+  color: var(--text-dark);
+  padding-left: 30px;
+}
+
+.graph1 {
+  width: calc(3 / 7 * 100%);
 }
