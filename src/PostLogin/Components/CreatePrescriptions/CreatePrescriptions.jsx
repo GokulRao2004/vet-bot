@@ -33,7 +33,7 @@ export const CreatePrescriptions = () => {
     const handleRowClick = (rowIndex) => {
         setEditableRow(rowIndex);
     };
-    
+
 
 
 
@@ -70,7 +70,7 @@ export const CreatePrescriptions = () => {
             },
             {
                 Header: "Time",
-                accessor:"Time"
+                accessor: "Time"
             },
             {
                 Header: 'Delete',
@@ -149,7 +149,7 @@ export const CreatePrescriptions = () => {
             Route: 'Oral',
             Frequency: ['0', '0', '0'],
             Duration: { text: '', dropdown: 'days' },
-            Time : ''
+            Time: ''
         });
     };
 
@@ -193,7 +193,7 @@ export const CreatePrescriptions = () => {
     };
 
     const handleInputChange = (e, field, rowIndex) => {
-        
+
         const newData = [...data];
         newData[rowIndex] = { ...newData[rowIndex], [field]: e.target.value };
         setData(newData);
@@ -201,7 +201,7 @@ export const CreatePrescriptions = () => {
 
     const handleDoseChange = (e, field, rowIndex) => {
         const newData = [...data];
-        newData[rowIndex] = { 
+        newData[rowIndex] = {
             ...newData[rowIndex],
             Dose: { ...newData[rowIndex].Dose, [field]: e.target.value }
         };
@@ -210,7 +210,7 @@ export const CreatePrescriptions = () => {
 
     const handleFrequencyChange = (e, freqIndex, rowIndex) => {
         const newData = [...data];
-        newData[rowIndex] = { 
+        newData[rowIndex] = {
             ...newData[rowIndex],
             Frequency: newData[rowIndex].Frequency.map((f, j) => j === freqIndex ? e.target.value : f)
         };
@@ -219,7 +219,7 @@ export const CreatePrescriptions = () => {
 
     const handleDurationChange = (e, field, rowIndex) => {
         const newData = [...data];
-        newData[rowIndex] = { 
+        newData[rowIndex] = {
             ...newData[rowIndex],
             Duration: { ...newData[rowIndex].Duration, [field]: e.target.value }
         };
@@ -227,9 +227,9 @@ export const CreatePrescriptions = () => {
     };
 
 
-    const handleViewPrescriptions = (e) =>{
+    const handleViewPrescriptions = (e) => {
         e.preventDefault();
-        if(!petID){
+        if (!petID) {
             return
         }
         navigate(`/petrecords/${petID}/prescriptions`)
@@ -333,81 +333,90 @@ export const CreatePrescriptions = () => {
                             ))}
                         </thead>
                         <tbody {...getTableBodyProps()} className={styles.tbody}>
-                            
-                        {rows.map((row, rowIndex) => {
-                            console.log('row: ', row);
-                            
-                    prepareRow(row);
-                    const isEditable = editableRow === row;
-                    console.log('isEditable: ', isEditable);
-                    
 
-                    return (
-                        <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)}>
-                            {editableRow ? (
-                                <>
-                                    <td className={styles.td}>
-                                        {console.log(data[rowIndex])}
-                                        <input type="text" value={data[rowIndex].Medicine} onChange={(e) => { handleInputChange(e, 'Medicine', rowIndex)}} />
-                                    </td>
-                                    <td className={styles.td}>
-                                        <input type="number" value={data[rowIndex].Dose.text} onChange={(e) => handleDoseChange(e, 'text', rowIndex)} style={{ width: '8ch' }} />
-                                        <select value={data[rowIndex].Dose.dropdown} onChange={(e) => handleDoseChange(e, 'dropdown', rowIndex)} style={{ width: '8ch' }}>
-                                            <option value="mg">mg</option>
-                                            <option value="ml">ml</option>
-                                            <option value="sachet">sachet</option>
-                                            <option value="tablet">tablet</option>
-                                        </select>
-                                    </td>
-                                    <td className={styles.td}>
-                                        <input type="text" value={data[rowIndex].Route} onChange={(e) => handleInputChange(e, 'Route', rowIndex)} />
-                                    </td>
-                                    <td>
-                                        <select value={data[rowIndex].Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0, rowIndex)}>
-                                            <option value="0">0</option>
-                                            <option value="1/2">1/2</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
-                                        -
-                                        <select value={data[rowIndex].Frequency[1]} onChange={(e) => handleFrequencyChange(e, 1, rowIndex)}>
-                                            <option value="0">0</option>
-                                            <option value="1/2">1/2</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
-                                        -
-                                        <select value={data[rowIndex].Frequency[2]} onChange={(e) => handleFrequencyChange(e, 2, rowIndex)}>
-                                            <option value="0">0</option>
-                                            <option value="1/2">1/2</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
-                                    </td>
-                                    <td className={styles.td}>
-                                        <input type="number" value={data[rowIndex].Duration.text} onChange={(e) => handleDurationChange(e, 'text', rowIndex)} style={{ width: "7ch" }} />
-                                        <select value={data[rowIndex].Duration.dropdown} onChange={(e) => handleDurationChange(e, 'dropdown', rowIndex)}>
-                                            <option value="days">Days</option>
-                                            <option value="weeks">Weeks</option>
-                                            <option value="months">Months</option>
-                                        </select>
-                                    </td>
-                                    <td className={styles.td}>
-                                        <button onClick={(e) => { e.stopPropagation(); handleDoneClick(); }}>Done</button>
-                                    </td>
-                                </>
-                            ) : (
-                                <>
-                                    {row.cells.map((cell) => (
-                                        <td key={cell.id} {...cell.getCellProps()}>
-                                            {cell.render('Cell')}
-                                        </td>
-                                    ))}
-                                </>
-                            )}
-                        </tr>
-                    );
-                })}
+                            {rows.map((row, rowIndex) => {
+                                console.log('row: ', row);
+
+                                prepareRow(row);
+                                const isEditable = editableRow === row;
+                                console.log('isEditable: ', isEditable);
+
+
+                                return (
+                                    <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)}>
+                                        {editableRow ? (
+                                            <>
+                                                <td className={styles.td}>
+                                                    {console.log(data[rowIndex])}
+                                                    <input type="text" value={data[rowIndex].Medicine} onChange={(e) => { handleInputChange(e, 'Medicine', rowIndex) }} />
+                                                </td>
+                                                <td className={styles.td}>
+                                                    <input type="number" value={data[rowIndex].Dose.text} onChange={(e) => handleDoseChange(e, 'text', rowIndex)} style={{ width: '8ch' }} />
+                                                    <select value={data[rowIndex].Dose.dropdown} onChange={(e) => handleDoseChange(e, 'dropdown', rowIndex)} style={{ width: '8ch' }}>
+                                                        <option value="mg">mg</option>
+                                                        <option value="ml">ml</option>
+                                                        <option value="sachet">sachet</option>
+                                                        <option value="tablet">tablet</option>
+                                                    </select>
+                                                </td>
+                                                <td className={styles.td}>
+                                                    <select value={data[rowIndex].Route} onChange={(e) => handleInputChange(e, 'Route', rowIndex)}>
+                                                        <option value="oral">Oral</option>
+                                                        <option value="external">External</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select value={data[rowIndex].Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0, rowIndex)}>
+                                                        <option value="0">0</option>
+                                                        <option value="1/2">1/2</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                    -
+                                                    <select value={data[rowIndex].Frequency[1]} onChange={(e) => handleFrequencyChange(e, 1, rowIndex)}>
+                                                        <option value="0">0</option>
+                                                        <option value="1/2">1/2</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                    -
+                                                    <select value={data[rowIndex].Frequency[2]} onChange={(e) => handleFrequencyChange(e, 2, rowIndex)}>
+                                                        <option value="0">0</option>
+                                                        <option value="1/2">1/2</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                </td>
+                                                <td className={styles.td}>
+                                                    <input type="number" value={data[rowIndex].Duration.text} onChange={(e) => handleDurationChange(e, 'text', rowIndex)} style={{ width: "7ch" }} />
+                                                    <select value={data[rowIndex].Duration.dropdown} onChange={(e) => handleDurationChange(e, 'dropdown', rowIndex)}>
+                                                        <option value="days">Days</option>
+                                                        <option value="weeks">Weeks</option>
+                                                        <option value="months">Months</option>
+                                                    </select>
+                                                </td>
+                                                <td className={styles.td}>
+                                                    <select value={data[rowIndex].Time} onChange={(e) => handleTimeChange(e, 'dropdown', rowIndex)}>
+                                                        <option value="B/F">B/F</option>
+                                                        <option value="A/F">A/F</option>
+                                                    </select>
+                                                </td>
+                                                <td className={styles.td}>
+                                                    <button onClick={(e) => { e.stopPropagation(); handleDoneClick(); }}>Done</button>
+                                                </td>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {row.cells.map((cell) => (
+                                                    <td key={cell.id} {...cell.getCellProps()}>
+                                                        {cell.render('Cell')}
+                                                    </td>
+                                                ))}
+                                            </>
+                                        )}
+                                    </tr>
+                                );
+                            })}
                             <tr className={styles.tr}>
                                 <td className={styles.td}><input type="text" value={newRowData.Medicine} onChange={(e) => handleAddInputChange(e, 'Medicine')} /></td>
                                 <td className={styles.td}>
@@ -419,7 +428,12 @@ export const CreatePrescriptions = () => {
                                         <option value="tablet">tablet</option>
                                     </select>
                                 </td>
-                                <td className={styles.td}><input type="text" value={newRowData.Route} onChange={(e) => handleAddInputChange(e, 'Route')} /></td>
+                                <td className={styles.td}>
+                                    <select value={newRowData.Route} onChange={(e) => handleAddInputChange(e, 'Route')}>
+                                        <option value="oral">Oral</option>
+                                        <option value="external">External</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <select value={newRowData.Frequency[0]} onChange={(e) => handleAddFrequencyChange(e, 0)} >
                                         <option value={'0'} >0</option>
@@ -454,7 +468,12 @@ export const CreatePrescriptions = () => {
                                         <option value="months">Months</option>
                                     </select>
                                 </td>
-                                <td></td>
+                                <td className={styles.td}>
+                                    <select value={newRowData.Time} onChange={(e) => handleAddTimeChange(e, 'dropdown')} >
+                                        <option value="B/F">B/F</option>
+                                        <option value="A/F">A/F</option>
+                                    </select>
+                                </td>
                                 <td className={styles.td}><button onClick={handleAddRow}>Add</button></td>
                             </tr>
                         </tbody>
