@@ -10,6 +10,7 @@ import { PetRecords } from '../PetRecords/PetRecords'
 import { Prescriptions } from '../Prescriptions/Prescriptions'
 import { ViewPR } from '../../Components/ViewPetRecord/ViewPR'
 import PdfViewer from '../../Components/PdfViewer/PdfViewer'
+import { AddVaccination } from '../AddVaccination/AddVaccination'
 
 
 export const Dashboard = () => {
@@ -38,6 +39,7 @@ export const Dashboard = () => {
                         <Route path="/petrecords/:id/reports" element={<ViewPR/>} />
                         <Route path="/petrecords/:id/vaccinations" element={<ViewPR/>} />
                         <Route path="/petrecords/:id/deworming" element={<ViewPR/>} />
+                        <Route path="/addvaccination" element={<AddVaccination/>} />
                     </Route>
                 </Routes>
             </ThemeProvider>

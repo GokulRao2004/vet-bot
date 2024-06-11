@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {getImageUrl} from '../../../utils'
 import {
     Box,
-    Divider,
     Drawer,
     IconButton,
     List,
@@ -15,23 +14,14 @@ import {
 } from '@mui/material';
 
 import {
-    SettingsOutlined,
     ChevronLeft,
     ChevronRightOutlined,
     HomeOutlined,
-    ShoppingCartOutlined,
-    Groups2Outlined,
-    ReceiptLongOutlined,
-    PublicOutlined,
-    PointOfSaleOutlined,
-    TodayOutlined,
-    CalendarMonthOutlined,
-    AdminPanelSettingsOutlined,
-    TrendingUpOutlined,
-    PieChartOutlined,
     MedicalInformationOutlined,
-    MedicationOutlined
+    MedicationOutlined,
+    VaccinesOutlined
 } from "@mui/icons-material";
+
 import FlexBetween from '../FlexBetween';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -51,6 +41,10 @@ const navItems = [
     },{
         text:"Create Prescriptions",
         icon: <MedicationOutlined/>
+    },
+    {
+        text:"Add Vaccination",
+        icon:<VaccinesOutlined/>,
     }
 ]
 

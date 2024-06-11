@@ -69,6 +69,10 @@ export const CreatePrescriptions = () => {
                 accessor: row => `${row.Duration.text} ${row.Duration.dropdown}`
             },
             {
+                Header: "Time",
+                accessor:"Time"
+            },
+            {
                 Header: 'Delete',
                 Cell: ({ row }) => (
                     <IconButton onClick={() => handleDelete(row)} sx={{ color: '#66316A' }}>
@@ -144,7 +148,8 @@ export const CreatePrescriptions = () => {
             Dose: { text: '', dropdown: 'mg' },
             Route: 'Oral',
             Frequency: ['0', '0', '0'],
-            Duration: { text: '', dropdown: 'days' }
+            Duration: { text: '', dropdown: 'days' },
+            Time : ''
         });
     };
 
@@ -153,7 +158,7 @@ export const CreatePrescriptions = () => {
             console.log('API Call with PetID:', value);
             setPetInfo(prevState => ({
                 ...prevState,
-                petName: "1002",
+                petName: "Whiskers",
                 type: "cat",
                 breed: "Siamese",
                 DOB: "3/5/2019",
@@ -232,7 +237,6 @@ export const CreatePrescriptions = () => {
 
     return (
         <div className={styles.container}>
-
             <div className={styles.prescription}>
                 <div className={styles.doctorInfo}>
                     <div className={styles.docInfoLeft}>
@@ -450,6 +454,7 @@ export const CreatePrescriptions = () => {
                                         <option value="months">Months</option>
                                     </select>
                                 </td>
+                                <td></td>
                                 <td className={styles.td}><button onClick={handleAddRow}>Add</button></td>
                             </tr>
                         </tbody>
