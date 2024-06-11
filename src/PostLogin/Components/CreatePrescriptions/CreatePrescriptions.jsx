@@ -13,7 +13,6 @@ export const CreatePrescriptions = () => {
     const date = new Date();
     const [petID, setPetID] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const isEditable = rowIndex => editableRow === rowIndex;
     const navigate = useNavigate();
 
     const [newRowData, setNewRowData] = useState({
@@ -33,12 +32,6 @@ export const CreatePrescriptions = () => {
     const handleRowClick = (rowIndex) => {
         setEditableRow(rowIndex);
     };
-
-
-
-
-
-
 
     const columns = React.useMemo(
         () => [
@@ -335,8 +328,7 @@ export const CreatePrescriptions = () => {
                         <tbody {...getTableBodyProps()} className={styles.tbody}>
 
                             {rows.map((row, rowIndex) => {
-                                console.log('row: ', row);
-
+                    
                                 prepareRow(row);
                                 const isEditable = editableRow === row;
                                 console.log('isEditable: ', isEditable);
@@ -344,10 +336,10 @@ export const CreatePrescriptions = () => {
 
                                 return (
                                     <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)}>
-                                        {editableRow ? (
+                                        {isEditable ? (
                                             <>
                                                 <td className={styles.td}>
-                                                    {console.log(data[rowIndex])}
+                                                    
                                                     <input type="text" value={data[rowIndex].Medicine} onChange={(e) => { handleInputChange(e, 'Medicine', rowIndex) }} />
                                                 </td>
                                                 <td className={styles.td}>
