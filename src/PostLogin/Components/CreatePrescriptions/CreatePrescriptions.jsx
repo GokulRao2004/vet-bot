@@ -330,12 +330,14 @@ export const CreatePrescriptions = () => {
                             {rows.map((row, rowIndex) => {
                     
                                 prepareRow(row);
-                                const isEditable = editableRow === row;
+                                const isEditable = editableRow === rowIndex;
+                                console.log('editableRow: ', editableRow);
+                                console.log('rowIndex: ', row);
                                 console.log('isEditable: ', isEditable);
 
 
                                 return (
-                                    <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(row)}>
+                                    <tr key={rowIndex} {...row.getRowProps()} onClick={() => handleRowClick(rowIndex)}>
                                         {isEditable ? (
                                             <>
                                                 <td className={styles.td}>
