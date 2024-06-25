@@ -1,4 +1,4 @@
-import styles from './AddVaccineHistory.module.css'
+import styles from './AddDewormingHistory.module.css'
 import React, { useCallback, useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import { useTable } from 'react-table'
@@ -6,7 +6,7 @@ import { IconButton } from '@mui/material'
 import { DeleteOutlineTwoTone } from '@mui/icons-material'
 
 
-export const AddVaccineHistory = () => {
+export const AddDewormingHistory = () => {
 
   const [petID, setPetID] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -27,7 +27,7 @@ export const AddVaccineHistory = () => {
 
   const [newRowData, setNewRowData] = useState({
     date: '',
-    vaccineType: '',
+    dewormingType: '',
     dueDate: ''
   });
 
@@ -41,8 +41,8 @@ export const AddVaccineHistory = () => {
         accessor: 'date'
       },
       {
-        Header: 'Vaccine Type',
-        accessor: 'vaccineType'
+        Header: 'Deworming Type',
+        accessor: 'dewormingType'
       },
       {
         Header: 'Due Date',
@@ -87,7 +87,7 @@ export const AddVaccineHistory = () => {
     setData((prevData) => [...prevData, newData]);
     setNewRowData({
       date: '',
-      vaccineType: '',
+      dewormingType: '',
       dueDate: ''
     });
   };
@@ -158,7 +158,7 @@ export const AddVaccineHistory = () => {
                         <input type="date" value={data[rowIndex].date} onChange={(e) => handleInputChange(e, 'date', rowIndex)} />
                       </td>
                       <td className={styles.td}>
-                        <input type="text" value={data[rowIndex].vaccineType} onChange={(e) => handleInputChange(e, 'vaccineType', rowIndex)} />
+                        <input type="text" value={data[rowIndex].dewormingType} onChange={(e) => handleInputChange(e, 'dewormingType', rowIndex)} />
                       </td>
                       <td className={styles.td}>
                         <input type="date" value={data[rowIndex].dueDate} onChange={(e) => handleInputChange(e, 'dueDate', rowIndex)} />
@@ -184,7 +184,7 @@ export const AddVaccineHistory = () => {
                 <input type="date" value={newRowData.date} onChange={(e) => handleAddInputChange(e, 'date')} />
               </td>
               <td className={styles.td}>
-                <input type="text" value={newRowData.vaccineType} onChange={(e) => handleAddInputChange(e, 'vaccineType')} />
+                <input type="text" value={newRowData.dewormingType} onChange={(e) => handleAddInputChange(e, 'dewormingType')} />
               </td>
               <td className={styles.td}>
                 <input type="date" value={newRowData.dueDate} onChange={(e) => handleAddInputChange(e, 'dueDate')} />

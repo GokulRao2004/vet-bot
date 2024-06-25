@@ -45,6 +45,10 @@ const navItems = [
     {
         text:"Add Vaccination",
         icon:<VaccinesOutlined/>,
+    },
+    {
+        text:"Add Deworming",
+        icon:<MedicationOutlined/>,
     }
 ]
 

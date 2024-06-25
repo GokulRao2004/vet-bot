@@ -20,7 +20,8 @@ export const CreatePrescriptions = () => {
         Dose: { text: '', dropdown: 'mg' },
         Route: 'Oral',
         Frequency: ['0', '0', '0'],
-        Duration: { text: '', dropdown: 'days' }
+        Duration: { text: '', dropdown: 'days' },
+        Time:"B/F"
     });
     const [data, setData] = useState([])
 
@@ -142,7 +143,7 @@ export const CreatePrescriptions = () => {
             Route: 'Oral',
             Frequency: ['0', '0', '0'],
             Duration: { text: '', dropdown: 'days' },
-            Time: ''
+            Time: 'B/F'
         });
     };
 
@@ -227,6 +228,23 @@ export const CreatePrescriptions = () => {
         }
         navigate(`/petrecords/${petID}/prescriptions`)
     }
+
+    const handleTimeChange = (e, rowIndex) => {
+        const newData = [...data];
+        newData[rowIndex] = {
+            ...newData[rowIndex],
+            Time: e.target.value
+        };
+        setData(newData);
+    };
+    
+    const handleAddTimeChange = (e) => {
+        setNewRowData((prevData) => ({
+            ...prevData,
+            Time: e.target.value
+        }));
+    };
+    
 
     return (
         <div className={styles.container}>
@@ -353,13 +371,13 @@ export const CreatePrescriptions = () => {
                                                         <option value="tablet">tablet</option>
                                                     </select>
                                                 </td>
-                                                <td className={styles.td}>
+                                                <td className={styles.td} style={{}}>
                                                     <select value={data[rowIndex].Route} onChange={(e) => handleInputChange(e, 'Route', rowIndex)}>
-                                                        <option value="oral">Oral</option>
-                                                        <option value="external">External</option>
+                                                        <option value="Oral">Oral</option>
+                                                        <option value="External">External</option>
                                                     </select>
                                                 </td>
-                                                <td>
+                                                <td className={styles.td}>
                                                     <select value={data[rowIndex].Frequency[0]} onChange={(e) => handleFrequencyChange(e, 0, rowIndex)}>
                                                         <option value="0">0</option>
                                                         <option value="1/2">1/2</option>
@@ -390,7 +408,7 @@ export const CreatePrescriptions = () => {
                                                     </select>
                                                 </td>
                                                 <td className={styles.td}>
-                                                    <select value={data[rowIndex].Time} onChange={(e) => handleTimeChange(e, 'dropdown', rowIndex)}>
+                                                    <select value={data[rowIndex].Time} onChange={(e) => handleTimeChange(e, rowIndex)}>
                                                         <option value="B/F">B/F</option>
                                                         <option value="A/F">A/F</option>
                                                     </select>
@@ -424,11 +442,11 @@ export const CreatePrescriptions = () => {
                                 </td>
                                 <td className={styles.td}>
                                     <select value={newRowData.Route} onChange={(e) => handleAddInputChange(e, 'Route')}>
-                                        <option value="oral">Oral</option>
-                                        <option value="external">External</option>
+                                        <option value="Oral">Oral</option>
+                                        <option value="External">External</option>
                                     </select>
                                 </td>
-                                <td>
+                                <td className={styles.td}>
                                     <select value={newRowData.Frequency[0]} onChange={(e) => handleAddFrequencyChange(e, 0)} >
                                         <option value={'0'} >0</option>
                                         <option value={'1/2'}>1/2</option>
@@ -463,7 +481,7 @@ export const CreatePrescriptions = () => {
                                     </select>
                                 </td>
                                 <td className={styles.td}>
-                                    <select value={newRowData.Time} onChange={(e) => handleAddTimeChange(e, 'dropdown')} >
+                                    <select value={newRowData.Time} onChange={handleAddTimeChange} >
                                         <option value="B/F">B/F</option>
                                         <option value="A/F">A/F</option>
                                     </select>

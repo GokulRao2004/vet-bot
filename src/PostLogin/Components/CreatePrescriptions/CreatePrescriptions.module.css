@@ -1,6 +1,7 @@
 @import url("../../../vars.css");
 
 .container {
+  
   display: flex;
   justify-content: center;
   width: 100%;
@@ -8,6 +9,7 @@
 }
 
 .prescription {
+  
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -20,6 +22,7 @@
   flex-direction: row;
   padding: 15px 50px;
   justify-content: space-between;
+  overflow: scroll;
 }
 
 .darkHeading {
@@ -180,10 +183,14 @@
     padding-top: 20px;
 }
 
+.medicines{
+  overflow: scroll;
+  padding-left: 10px;
+}
 .table{
+  overflow: hidden;
   border-radius: 10px;
   border-collapse: separate;
- overflow: hidden; 
   font-size: 20px;
   width: 90%;
   margin: 20px;
@@ -191,15 +198,18 @@
   margin-right: auto;
   border-collapse:collapse;
   background-color: #fff;
+  padding-left: 10px;
+
 }
 
 .td, .th {
-  min-width: 50px;
+  min-width: 100px;
   max-width: 300px;
   white-space: nowrap;
   text-align: center;
   padding: 8px;
-  padding-top: 14px;padding-bottom: 14px;
+  padding-top: 14px;
+  padding-bottom: 14px;
   text-align: left;
 }
 
