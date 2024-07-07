@@ -12,7 +12,7 @@ import { ViewPR } from '../../Components/ViewPetRecord/ViewPR'
 import PdfViewer from '../../Components/PdfViewer/PdfViewer'
 import { AddVaccination } from '../AddVaccination/AddVaccination'
 import { AddDeworming } from '../AddDeworming/AddDeworming'
-
+import { Whatsapp } from '../Whatsapp/Whatsapp'
 
 
 export const Dashboard = () => {
@@ -43,6 +43,8 @@ export const Dashboard = () => {
                         <Route path="/petrecords/:id/deworming" element={<ViewPR/>} />
                         <Route path="/addvaccination" element={<AddVaccination/>} />
                         <Route path="/adddeworming" element={<AddDeworming/>} />
+                        <Route path="/whatsapp" element={<Whatsapp/>} />
+                        <Route path="/whatsapp/:userName" element={<Whatsapp/>} />
                     </Route>
                 </Routes>
             </ThemeProvider>

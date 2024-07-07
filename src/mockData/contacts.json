@@ -1,0 +1,90 @@
+[
+    {
+        "Name": "Gokul",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.12 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "NotSent"
+    },
+    {
+        "Name": "Aarav",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.13 PM",
+        "MsgType" : "Received",
+        "MsgStatus" : "Unread"
+    },
+    {
+        "Name": "Riya",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.14 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "NotReached"
+    },
+    {
+        "Name": "Neha",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.15 PM",
+        "MsgType" : "Received",
+        "MsgStatus" : "Read"
+    },
+    {
+        "Name": "Ankit",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.16 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "Opened"
+    },
+    {
+        "Name": "Sara",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.17 PM",
+        "MsgType" : "Received",
+        "MsgStatus" : "Unread"
+    },
+    {
+        "Name": "Mohan",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.18 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "Unopened"
+    },
+    {
+        "Name": "Priya",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.19 PM",
+        "MsgType" : "Received",
+        "MsgStatus" : "Read"
+    },
+    {
+        "Name": "Raj",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.20 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "Opened"
+    },
+    {
+        "Name": "Sneha",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.21 PM",
+        "MsgType" : "Received",
+        "MsgStatus" : "Unread"
+    },
+    {
+        "Name": "Vikram",
+        "Message": "Hello there",
+        "Profile": "img",
+        "Time": "12.22 PM",
+        "MsgType" : "Sent",
+        "MsgStatus" : "NotSent"
+    }
+]

@@ -1,0 +1,125 @@
+a{
+    font-style: none;
+    text-decoration: none;
+    color: inherit
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  /* background-image: url("../../../../assets/Background/wa1.jpg"); */
+  /* background-repeat: none;
+    background-size: contain;
+    background-origin: padding-box; */
+  background: #f8f8f8;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.info {
+  display: flex;
+  justify-content: start;
+
+  align-items: center;
+  font-size: 20px;
+  gap: 20px;
+}
+
+.profilePic {
+  display: flex;
+  height: 60px;
+  align-items: center;
+}
+.profilePic > img {
+  border-radius: 100%;
+  height: 45px;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 20px);
+  min-width: 240px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+.searchIcon {
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.searchIcon:hover {
+  color: #555;
+}
+
+.contactList {
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: left;
+}
+
+.contact {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+.contact:hover {
+  background-color: #eee;
+}
+
+.msgBody {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.msg{
+    display: flex;
+    gap: 10px;
+}
+
+.timeAndUnread{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.unreadIndicator {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(10, 207, 10);
+  border-radius: 50%;
+}
+
+.unread{
+    color: rgb(10, 207, 10);
+}

@@ -9,7 +9,7 @@ function PdfViewer() {
   const [pdfData, setPdfData] = useState(null);
   const navigate = useNavigate();
   const url = useParams();
-  console.log('url: ', url.id);
+  
 
 
   useEffect(() => {

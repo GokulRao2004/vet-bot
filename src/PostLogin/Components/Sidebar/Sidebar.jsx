@@ -19,7 +19,8 @@ import {
     HomeOutlined,
     MedicalInformationOutlined,
     MedicationOutlined,
-    VaccinesOutlined
+    VaccinesOutlined,
+    WhatsApp
 } from "@mui/icons-material";
 
 import FlexBetween from '../FlexBetween';
@@ -49,6 +50,10 @@ const navItems = [
     {
         text:"Add Deworming",
         icon:<MedicationOutlined/>,
+    },
+    {
+        text:"Whatsapp",
+        icon:<WhatsApp/>,
     }
 ]
 
