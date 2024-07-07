@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "type": "sent",
+    "content": "Hey, how's it going?",
+    "time": "10:00 AM"
+  },
+  {
+    "id": 2,
+    "type": "received",
+    "content": "Good! How about you?",
+    "time": "10:05 AM"
+  },
+  {
+    "id": 3,
+    "type": "sent",
+    "content": "I'm doing well, thanks!",
+    "time": "10:10 AM"
+  }
+]

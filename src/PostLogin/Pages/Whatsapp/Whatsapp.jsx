@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Contacts } from '../../Components/Contacts/Contacts';
+import { Chats } from '../../Components/Chats/Chats';
 
 export const Whatsapp = () => {
     const url = useParams();
@@ -9,7 +10,7 @@ export const Whatsapp = () => {
 
   return (
     <div>
-      {name ? <div>"hello"</div> : <Contacts/>}
+      {name ? <Chats name={name}/> : <Contacts/>}
     </div>
   )
 }
