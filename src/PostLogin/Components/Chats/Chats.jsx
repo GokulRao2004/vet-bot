@@ -3,10 +3,12 @@ import styles from './Chats.module.css'
 import { ArrowBackRounded, AttachFile, Attachment, Send } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { getImageUrl } from '../../../utils'
+import { useSelector } from 'react-redux'
 
 export const Chats = ({ name }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
+    const isSidebarOpen = useSelector(state => state.global.isSidebarOpen);
 
     const handleSendMessage = () => {
         if (message.trim() !== '') {
@@ -43,7 +45,7 @@ export const Chats = ({ name }) => {
             <div className={styles.messages}>
 
             </div>
-            <div className={styles.chatBar}>
+            <div className={isSidebarOpen ? styles.chatBarOpen : styles.chatBarClose}>
                 <label htmlFor="file-input" className={styles.fileAttachLabel} style={{margin:0, padding:0}}>
                     <AttachFile/>
                 </label>

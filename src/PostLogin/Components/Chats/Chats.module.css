@@ -24,8 +24,8 @@
     height: 24px;
 }
 
-.chatBar {
-  position: fixed;
+.chatBarOpen , .chatBarClose {
+  position: absolute;
   bottom: 0;
   display: flex;
   flex-direction: row;
@@ -35,6 +35,10 @@
   background-color: #ffffff;
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chatBarOpen{
+  width: calc(100% - 250px );
 }
 
 .chatInput {
