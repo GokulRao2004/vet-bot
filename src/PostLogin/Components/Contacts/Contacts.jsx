@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import data from "../../../mockData/contacts.json"
 import { getImageUrl } from '../../../utils';
 import styles from './Contacts.module.css'
-import { FaSearch } from 'react-icons/fa';
-import { Done, DoneAll, SettingsOutlined, SmsFailedOutlined } from '@mui/icons-material';
+
+import { Done, DoneAll, Search, SettingsOutlined, SmsFailedOutlined } from '@mui/icons-material';
 
 export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
@@ -30,12 +30,12 @@ export const Contacts = () => {
                 </div>
                 <div className={styles.searchBar}>
                     <input type="text" className={styles.searchInput} placeholder="Search...." />
-                    <FaSearch className={styles.searchIcon} />
+                    <Search className={styles.searchIcon}/>
                 </div>
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
-                    <a href={`./whatsapp/${contact.Name}`}>
+                    <a  key={index} href={`./whatsapp/${contact.Name}`}>
                     <div key={index} className={styles.contact}>
                         <div className={styles.profilePic}>
                             <img src={getImageUrl(`${contact.Profile}.jpeg`)} alt={contact.Name} />

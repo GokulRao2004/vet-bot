@@ -16,5 +16,167 @@
     "type": "sent",
     "content": "I'm doing well, thanks!",
     "time": "10:10 AM"
+  },
+  {
+    "id": 4,
+    "type": "received",
+    "content": "That's great to hear!",
+    "time": "10:15 AM"
+  },
+  {
+    "id": 5,
+    "type": "sent",
+    "content": "What are your plans for today?",
+    "time": "10:20 AM"
+  },
+  {
+    "id": 6,
+    "type": "received",
+    "content": "Just chilling at home. How about you?",
+    "time": "10:25 AM"
+  },
+  {
+    "id": 7,
+    "type": "sent",
+    "content": "I have a meeting in the afternoon.",
+    "time": "10:30 AM"
+  },
+  {
+    "id": 8,
+    "type": "received",
+    "content": "Good luck with your meeting!",
+    "time": "10:35 AM"
+  },
+  {
+    "id": 9,
+    "type": "sent",
+    "content": "Thanks! I'm preparing for it now.",
+    "time": "10:40 AM"
+  },
+  {
+    "id": 10,
+    "type": "received",
+    "content": "You got this!",
+    "time": "10:45 AM"
+  },
+  {
+    "id": 11,
+    "type": "sent",
+    "content": "Appreciate the encouragement!",
+    "time": "10:50 AM"
+  },
+  {
+    "id": 12,
+    "type": "received",
+    "content": "Anytime!",
+    "time": "10:55 AM"
+  },
+  {
+    "id": 13,
+    "type": "sent",
+    "content": "What's the weather like there?",
+    "time": "11:00 AM"
+  },
+  {
+    "id": 14,
+    "type": "received",
+    "content": "It's sunny today!",
+    "time": "11:05 AM"
+  },
+  {
+    "id": 15,
+    "type": "sent",
+    "content": "Nice! It's cloudy here.",
+    "time": "11:10 AM"
+  },
+  {
+    "id": 16,
+    "type": "received",
+    "content": "Sounds cozy.",
+    "time": "11:15 AM"
+  },
+  {
+    "id": 17,
+    "type": "sent",
+    "content": "Yeah, perfect for a cup of coffee.",
+    "time": "11:20 AM"
+  },
+  {
+    "id": 18,
+    "type": "received",
+    "content": "Absolutely!",
+    "time": "11:25 AM"
+  },
+  {
+    "id": 19,
+    "type": "sent",
+    "content": "Do you have any plans for the weekend?",
+    "time": "11:30 AM"
+  },
+  {
+    "id": 20,
+    "type": "received",
+    "content": "Not yet. Maybe catch up on some reading.",
+    "time": "11:35 AM"
+  },
+  {
+    "id": 21,
+    "type": "sent",
+    "content": "That sounds relaxing.",
+    "time": "11:40 AM"
+  },
+  {
+    "id": 22,
+    "type": "received",
+    "content": "Indeed.",
+    "time": "11:45 AM"
+  },
+  {
+    "id": 23,
+    "type": "sent",
+    "content": "Have you seen any good movies lately?",
+    "time": "11:50 AM"
+  },
+  {
+    "id": 24,
+    "type": "received",
+    "content": "Yes! I watched a great one last night.",
+    "time": "11:55 AM"
+  },
+  {
+    "id": 25,
+    "type": "sent",
+    "content": "What was it about?",
+    "time": "12:00 PM"
+  },
+  {
+    "id": 26,
+    "type": "received",
+    "content": "It was a thriller. Kept me on the edge of my seat!",
+    "time": "12:05 PM"
+  },
+  {
+    "id": 27,
+    "type": "sent",
+    "content": "Those are the best!",
+    "time": "12:10 PM"
+  },
+  {
+    "id": 28,
+    "type": "received",
+    "content": "Absolutely!",
+    "time": "12:15 PM"
+  },
+  {
+    "id": 29,
+    "type": "sent",
+    "content": "I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.I'll have to check it out.",
+    "time": "12:20 PM"
+  },
+  {
+    "id": 30,
+    "type": "received",
+    "content": "Let me know what you think!",
+    "time": "12:25 PM"
   }
 ]

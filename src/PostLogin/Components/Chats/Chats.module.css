@@ -82,3 +82,124 @@
   margin-right: 10px;
 }
 
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height:calc(100vh - 190px);
+  overflow-y: auto; 
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.message {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 70%;
+}
+
+.message-content {
+  margin-bottom: 5px;
+}
+
+.message-time {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #DCF8C6; /* light green */
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #E0E0E0; /* light grey */
+}
+
+
+/* New styles for the image preview overlay */
+.imagePreviewOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.imagePreviewContainer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 600px;
+}
+
+.slider{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.imagePreview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100px;
+  max-height: 60vh;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.imagePreviewButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.closePreviewButton,
+.sendPreviewButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.closePreviewButton {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.sendPreviewButton {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+/* Styles for the sent image in the chat window */
+.message img {
+  min-width: 200px; 
+  max-width: 300px; 
+  min-height: 140px;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px; 
+}
+
+.imageSlider{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+
+}
