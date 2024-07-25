@@ -121,10 +121,10 @@
 
 
 /* New styles for the image preview overlay */
-.imagePreviewOverlay {
+.imagePreviewOverlayOpen , .imagePreviewOverlayClosed {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
@@ -132,6 +132,10 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+}
+
+.imagePreviewOverlayOpen{
+  width: calc(100% - 250px)
 }
 
 .imagePreviewContainer {
@@ -149,6 +153,7 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
+  align-items: center;
 }
 
 .imagePreview {
@@ -201,5 +206,7 @@
   align-items: center;
   width: 100%;
   text-align: center;
-
+}
+.slick-next::before, .slick-prev::before {
+  content: none;
 }

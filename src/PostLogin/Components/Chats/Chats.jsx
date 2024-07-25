@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Chats.module.css';
-import { ArrowBackRounded, AttachFile, Send } from '@mui/icons-material';
+import { ArrowBack, ArrowBackIos, ArrowBackRounded, ArrowForward, ArrowForwardIos, AttachFile, Send } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getImageUrl } from '../../../utils';
 import { useSelector } from 'react-redux';
@@ -53,9 +53,59 @@ export const Chats = ({ name }) => {
     }
   };
 
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ 
+          ...style, 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          background: "gray", 
+          borderRadius: "50%", 
+          height: "50px", 
+          width: "50px" 
+        }}
+        onClick={onClick}
+      >
+        <ArrowForward style={{ color: "white" }} />
+      </div>
+    );
+  }
+  
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ 
+          ...style, 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          background: "gray", 
+          borderRadius: "50%", 
+          height: "50px", 
+          width: "50px",
+          zIndex: 2
+        }}
+        onClick={onClick}
+      >
+        <ArrowBack style={{ color: "white", display: "flex", justifyContent: "center"}} />
+      </div>
+    );
+  }
   const sliderSettings = {
+    infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
+    swipeToSlide: true,
+    adaptiveHeight: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    arrows: true
   };
 
   const handleKeyDown = (e) => {
@@ -139,7 +189,7 @@ export const Chats = ({ name }) => {
         </button>
       </div>
       {imagePreviews.length > 0 && (
-        <div className={styles.imagePreviewOverlay}>
+        <div className={isSidebarOpen ? styles.imagePreviewOverlayOpen : styles.imagePreviewOverlayClosed}>
           <div className={styles.imagePreviewContainer}>
             <Slider {...sliderSettings} className={styles.imageSlider}>
               {imagePreviews.map((preview, index) => (

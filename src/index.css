@@ -1,15 +1,18 @@
-*{
+* {
   margin: 0;
-  font-family: 'Itim';
+  font-family: "Itim";
 }
-
 
 *::-webkit-scrollbar {
   display: none;
 }
 
-
 * {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  display: none;
 }
