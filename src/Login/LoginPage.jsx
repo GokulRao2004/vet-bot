@@ -8,7 +8,7 @@ import crypto from 'crypto'
 
 
 export const LoginPage = () => {
-  const secreatKey = "Buppi"
+  const secretKey = "Buppi"
   const abtText = " Say hello to streamlined practice management, enhanced patient care, and simplified client interactions. With cutting-edge AI technology, Vet-Bot offers seamless appointment scheduling, medical record management, and instant diagnostic support. Elevate your practice with personalized treatment recommendations and revolutionize veterinary care with Vet-Bot.";
 
   //Redux Variables
@@ -21,22 +21,23 @@ export const LoginPage = () => {
   const isNewUser = useSelector(state => state.login.newUser);
 
   //useState Variables
-  const [credentials, setCredentials] = useState({ phone: '', password: '' , createPassword: '' , confirmPassword: ''});
-  const [userData,setUserData] = useState({phone:'', password:''})
+  const [credentials, setCredentials] = useState({ phone: '', password: '' });
+  const [newPassword , setNewPassword] = useState({createPassword: '', confirmPassword: ''})
+  const [userData, setUserData] = useState({ phone: '', password: '' })
   const [showPassword, setShowPassword] = useState(false);
   const [showCreatePassword, setShowCreatePassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [phoneNumberError, setPhoneNumberError] = useState('');
-  const [isPasswordMatch,setIsPasswordMatch] = useState(true);
-  const [noData,setNoData] = useState('');
+  const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+  const [noData, setNoData] = useState('');
   const [otp, setOtp] = useState('');
-  const [otpLengthError,setOtpLengthError] = useState('');
-  const [otpError,setOtpError] = useState('');
+  const [otpLengthError, setOtpLengthError] = useState('');
+  const [otpError, setOtpError] = useState('');
   const [otpExists, setOtpExists] = useState('');
   const initialRender = useRef(true);
   const otplength = useRef(otp.length);
-  const [loginDisabled,setloginDisabled] = useState(false)
+  const [loginDisabled, setloginDisabled] = useState(false)
 
   //Functions
 
@@ -49,18 +50,23 @@ export const LoginPage = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };  
-  
+  };
+
   const toggleCreatePasswordVisibility = () => {
     setShowCreatePassword(!showCreatePassword);
-  };  
-  
+  };
+
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
+  };
+
+  const handleChangeNewPassword = (e) => {
+    const { name, value } = e.target;
+    setNewPassword({ ...newPassword, [name]: value });
   };
 
   const handleChangePassword = (e) => {
@@ -100,73 +106,73 @@ export const LoginPage = () => {
     }
   };
 
-  const checkOTP =  () =>{
-    if(otp.length !== 6){
+  const checkOTP = () => {
+    if (otp.length !== 6) {
       setOtpLengthError("Please enter full 6 digits");
     }
-    else{
+    else {
       setOtpLengthError('');
     }
-    
 
-   
+
+
   }
 
   const handleOTPChange = (event) => {
     const { value } = event.target;
     if (/^\d{0,6}$/.test(value)) {
-        setOtp(value);
+      setOtp(value);
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     if (otp.length === 6) {
-        sendOtpToBackend(otp);
+      sendOtpToBackend(otp);
     }
-}, [otp]);
+  }, [otp]);
 
 
-  const sendOtpToBackend = async() => {
-    if(otp.length === 6){
-        try{
-          const response = await axios.post('http://localhost:3000/checkOTP', {OTP: otp});
-          console.log(response.data)
-          if(response.data.OTPexists){
-            console.log('in IF')
-            setOtpExists(response.data.OTPexists)
-            setOtpError('')
-          }
-          else{
-            setOtpExists(false)
-            setOtpError('OTP wrong')
-          }
-          console.log(otpExists)
-          
+  const sendOtpToBackend = async () => {
+    if (otp.length === 6) {
+      try {
+        const response = await axios.post('http://localhost:3000/checkOTP', { OTP: otp });
+        console.log(response.data)
+        if (response.data.OTPexists) {
+          console.log('in IF')
+          setOtpExists(response.data.OTPexists)
+          setOtpError('')
         }
-        catch(e){
-          setOtpError(e)
+        else {
+          setOtpExists(false)
+          setOtpError('OTP wrong')
         }
-      
+        console.log(otpExists)
+
+      }
+      catch (e) {
+        setOtpError(e)
+      }
+
     }
-    else{
+    else {
       setOtpError('')
     }
   }
   //useEffect Functions
-  useEffect(()=>{
+  useEffect(() => {
 
-  if(!passExists){ 
-    if(credentials.createPassword === credentials.confirmPassword){
-    setIsPasswordMatch(true)
-    setUserData({...userData, password:credentials.createPassword})
-    }
-    else{
-      setIsPasswordMatch(false)
+    if (!passExists) {
+      if (newPassword.createPassword === newPassword.confirmPassword) {
+        setIsPasswordMatch(true)
+        setCredentials({ ...credentials, password: newPassword.createPassword })
+      }
+      else {
+        setIsPasswordMatch(false)
+      }
+
     }
 
-}
- 
-  },[credentials.createPassword,credentials.confirmPassword])
+  }, [newPassword.createPassword, newPassword.confirmPassword])
 
 
 
@@ -181,9 +187,26 @@ useEffect(() => {
     } else {
       initialRender.current = false;
     }
-  }, [phoneExists,phoneNumberError,isLoading]);
+  }, [phoneExists, phoneNumberError, isLoading]);
 
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    dispatch(loginRequest());
+    try {
+      const response = await axios.post('http://localhost:3000/login', credentials);
+      console.log('response: ', response);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        dispatch(loginSuccess(response.data.user));
+      } else {
+        dispatch(loginFailure('Invalid credentials'));
+      }
+    } catch (err) {
+      dispatch(loginFailure('An error occurred'));
+    }window.location.reload();
+  };
   return (
     <div className={styles.container}>
       <div className={styles.article}>
@@ -198,7 +221,7 @@ useEffect(() => {
         <div className={styles.logIn}>
           <h1 className={styles.signIn}>Log In</h1>
         </div>
-        <button onClick={handleOTPChange}>click</button>
+
         <form>
           <div className={styles.inputWrapper}>
             <input
@@ -215,13 +238,13 @@ useEffect(() => {
               Phone Number
             </label>
           </div>
-          {phoneCheckError && <div className={styles.error}>Network issue please try again after sometime.</div> }
+          {phoneCheckError && <div className={styles.error}>Network issue please try again after sometime.</div>}
           {phoneNumberError && <div className={styles.error}>{phoneNumberError}</div>}
-          {noData && <div className={styles.error}>Phone number does not exists please check the phone number you have entered or contact your veterinarian. </div> }
+          {noData && <div className={styles.error}>Phone number does not exists please check the phone number you have entered or contact your veterinarian. </div>}
           {phoneExists && !passExists ? (
             <>
               <div className={styles.inputWrapper}>
-              <input
+                <input
                   type='text'
                   className={styles.password}
                   placeholder=''
@@ -234,26 +257,26 @@ useEffect(() => {
                   Enter the 6-digit OTP
                 </label>
               </div>
-              {otpError && !otpLengthError && <div className={styles.error}>{otpError}</div>  }
-              {otpLengthError && <div className={styles.error}>{otpLengthError}</div>  }
+              {otpError && !otpLengthError && <div className={styles.error}>{otpError}</div>}
+              {otpLengthError && <div className={styles.error}>{otpLengthError}</div>}
               <div className={styles.inputWrapper}>
                 <input
                   type={showCreatePassword ? 'text' : 'password'}
                   className={styles.password}
                   placeholder=''
                   name="createPassword"
-                  value={credentials.createPassword}
-                  onChange={handleChangePassword}
+                  value={newPassword.createPassword}
+                  onChange={handleChangeNewPassword}
                 />
                 <label htmlFor="createPassword" className={styles.label}>
                   Create Password
                 </label>
                 <button className={styles.passwordToggle}
-                type="button"
-                onClick={toggleCreatePasswordVisibility}
-              >
-                <img src={showCreatePassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showCreatePassword ? 'Hide Password' : 'Show Password'} />
-              </button>
+                  type="button"
+                  onClick={toggleCreatePasswordVisibility}
+                >
+                  <img src={showCreatePassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showCreatePassword ? 'Hide Password' : 'Show Password'} />
+                </button>
               </div>
               <div className={styles.inputWrapper}>
                 <input
@@ -261,18 +284,18 @@ useEffect(() => {
                   className={styles.password}
                   placeholder=''
                   name="confirmPassword"
-                  value={credentials.confirmPassword}
-                  onChange={handleChangePassword}
+                  value={newPassword.confirmPassword}
+                  onChange={handleChangeNewPassword}
                 />
                 <label htmlFor="confirmPassword" className={styles.label}>
-                  Confirm Password 
+                  Confirm Password
                 </label>
                 <button className={styles.passwordToggle}
-                type="button"
-                onClick={toggleConfirmPasswordVisibility}
-              >
-                <img src={showConfirmPassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showConfirmPassword ? 'Hide Password' : 'Show Password'} />
-              </button>
+                  type="button"
+                  onClick={toggleConfirmPasswordVisibility}
+                >
+                  <img src={showConfirmPassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showConfirmPassword ? 'Hide Password' : 'Show Password'} />
+                </button>
               </div>
             </>
           ) : (
@@ -298,17 +321,17 @@ useEffect(() => {
           )}
 
           {!passExists && !isPasswordMatch ?
-          (<>
+            (<>
 
-            <div className={styles.error}>Passwords do not match</div>
+              <div className={styles.error}>Passwords do not match</div>
 
-          </>)
-          :
-          (<>
+            </>)
+            :
+            (<>
 
 
 
-          </>)}
+            </>)}
 
           <div className={styles.buttons}>
             <div className={styles.remMe}>
@@ -316,8 +339,8 @@ useEffect(() => {
               <p>Remember Me</p>
             </div>
             <div className={styles.loginBtn}>
-              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled}>
-              {isLoading ? (
+              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled} onClick={handleSubmit}>
+                {isLoading ? (
                   <div className={styles.loadingCircle}>
 
                   </div>
