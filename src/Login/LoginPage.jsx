@@ -5,7 +5,7 @@ import { getImageUrl } from '../utils';
 import { loginRequest, loginSuccess, loginFailure, logout, checkPhoneNumber, checkPhoneNumberFailure, checkPhoneNumberSuccess, checkPasswordExists } from '../redux/reducers/loginReducer';
 import axios from 'axios';
 import crypto from 'crypto'
-
+import endpoints from '../APIendpoints';
 
 export const LoginPage = () => {
   const secretKey = "Buppi"
@@ -89,7 +89,7 @@ export const LoginPage = () => {
       dispatch(checkPhoneNumber(credentials.username));
 
       try {
-        const response = await axios.post('http://localhost:3000/checkPhoneNumber', { phoneNumber: credentials.phone });
+        const response = await axios.post(endpoints.checkPhoneNumber, { phoneNumber: credentials.phone });
         if (response.data.exists) {
           dispatch(checkPhoneNumberSuccess(true));
           if (response.data.pass) {
@@ -135,7 +135,7 @@ export const LoginPage = () => {
   const sendOtpToBackend = async () => {
     if (otp.length === 6) {
       try {
-        const response = await axios.post('http://localhost:3000/checkOTP', { OTP: otp });
+        const response = await axios.post(endpoints.checkOTP, { OTP: otp });
         console.log(response.data)
         if (response.data.OTPexists) {
           console.log('in IF')
@@ -195,7 +195,7 @@ export const LoginPage = () => {
     
     dispatch(loginRequest());
     try {
-      const response = await axios.post('http://localhost:3000/login', credentials);
+      const response = await axios.post(endpoints.login, credentials);
       console.log('response: ', response);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
