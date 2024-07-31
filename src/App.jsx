@@ -14,7 +14,6 @@ import { Prescriptions } from './PostLogin/Pages/Prescriptions/Prescriptions';
 import { AddVaccination } from './PostLogin/Pages/AddVaccination/AddVaccination';
 import { AddDeworming } from './PostLogin/Pages/AddDeworming/AddDeworming';
 import { Whatsapp } from './PostLogin/Pages/Whatsapp/Whatsapp';
-import { ReactTestCode } from "./ReactTestCode.jsx"
 import {LoginPage} from "./Login/LoginPage.jsx"
 const PdfViewerWrapper = () => {
   const { fileName } = useParams();
@@ -40,11 +39,10 @@ const App = () => {
             dispatch(loginSuccess(response.data.user));
           } else {
             dispatch(logout());
-            localStorage.removeItem('token');
           }
         } catch (error) {
           dispatch(logout());
-          localStorage.removeItem('token');
+          
         }
       } else {
         dispatch(logout());

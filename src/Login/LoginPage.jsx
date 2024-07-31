@@ -10,21 +10,21 @@ import endpoints from '../APIendpoints';
 
 export const LoginPage = () => {
   const secretKey = import.meta.env.VITE_SECRET_KEY;
-  console.log('secretKey: ', secretKey);
+  
   const abtText = " Say hello to streamlined practice management, enhanced patient care, and simplified client interactions. With cutting-edge AI technology, Vet-Bot offers seamless appointment scheduling, medical record management, and instant diagnostic support. Elevate your practice with personalized treatment recommendations and revolutionize veterinary care with Vet-Bot.";
 
   //Redux Variables
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.login.isLoading);
   const error = useSelector(state => state.login.error);
-  console.log('error: ', error);
+  
 
   //useState Variables
   const [credentials, setCredentials] = useState({ phone: '', password: '' });
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
-  const initialRender = useRef(true);
+  
   const [loginDisabled, setloginDisabled] = useState(false)
 
   //Functions
@@ -74,7 +74,7 @@ export const LoginPage = () => {
     dispatch(loginRequest());
     try {
       const response = await axios.post(endpoints.login, credentials);
-      console.log('response: ', response);
+   
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(response.data.user));
@@ -83,7 +83,6 @@ export const LoginPage = () => {
         dispatch(loginFailure('Invalid credentials'));
       }
     } catch (err) {
-      console.log('err: ', err.response.status);
       if (err.response.status == 401) { dispatch(loginFailure('Invalid credentials')); }
       else { dispatch(loginFailure('An error occurred! Please try again after sometime')); }
     }
