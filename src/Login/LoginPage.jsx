@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './LoginPage.module.css';
 import { getImageUrl } from '../utils';
-import { loginRequest, loginSuccess, loginFailure, logout, checkPhoneNumber, checkPhoneNumberFailure, checkPhoneNumberSuccess, checkPasswordExists } from '../redux/reducers/loginReducer';
+import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reducers/loginReducer';
 import axios from 'axios';
 import crypto from 'crypto'
 import endpoints from '../APIendpoints';
@@ -15,30 +15,16 @@ export const LoginPage = () => {
 
   //Redux Variables
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.login.isLoading) || useSelector(state => state.login.isWaitingForPhoneToLoad);
+  const isLoading = useSelector(state => state.login.isLoading);
   const error = useSelector(state => state.login.error);
-  const phoneExists = useSelector(state => state.login.isPhoneNumberExists);
-  const passExists = useSelector(state => state.login.isPasswordExists);
-  const phoneCheckError = useSelector(state => state.login.errorPhoneNumberCheck);
-  const isNewUser = useSelector(state => state.login.newUser);
+  console.log('error: ', error);
 
   //useState Variables
   const [credentials, setCredentials] = useState({ phone: '', password: '' });
-  const [newPassword , setNewPassword] = useState({createPassword: '', confirmPassword: ''})
-  const [userData, setUserData] = useState({ phone: '', password: '' })
-  const [showPassword, setShowPassword] = useState(false);
-  const [showCreatePassword, setShowCreatePassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
   const [phoneNumberError, setPhoneNumberError] = useState('');
-  const [isPasswordMatch, setIsPasswordMatch] = useState(true);
-  const [noData, setNoData] = useState('');
-  const [otp, setOtp] = useState('');
-  const [otpLengthError, setOtpLengthError] = useState('');
-  const [otpError, setOtpError] = useState('');
-  const [otpExists, setOtpExists] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const initialRender = useRef(true);
-  const otplength = useRef(otp.length);
   const [loginDisabled, setloginDisabled] = useState(false)
 
   //Functions
@@ -54,22 +40,13 @@ export const LoginPage = () => {
     setShowPassword(!showPassword);
   };
 
-  const toggleCreatePasswordVisibility = () => {
-    setShowCreatePassword(!showCreatePassword);
-  };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
 
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
 
-  const handleChangeNewPassword = (e) => {
-    const { name, value } = e.target;
-    setNewPassword({ ...newPassword, [name]: value });
-  };
+
 
   const handleChangePassword = (e) => {
     const { name, value } = e.target;
@@ -88,113 +65,12 @@ export const LoginPage = () => {
       setPhoneNumberError('Please enter a valid 10-digit phone number.');
     } else {
       setPhoneNumberError('');
-      dispatch(checkPhoneNumber(credentials.username));
-
-      try {
-        const response = await axios.post(endpoints.checkPhoneNumber, { phoneNumber: credentials.phone });
-        if (response.data.exists) {
-          dispatch(checkPhoneNumberSuccess(true));
-          if (response.data.pass) {
-            dispatch(checkPasswordExists(true));
-          } else {
-            dispatch(checkPasswordExists(false));
-          }
-        } else {
-          dispatch(checkPhoneNumberSuccess(false));
-        }
-      } catch (error) {
-        dispatch(checkPhoneNumberFailure(error.message));
-      }
     }
   };
-
-  const checkOTP = () => {
-    if (otp.length !== 6) {
-      setOtpLengthError("Please enter full 6 digits");
-    }
-    else {
-      setOtpLengthError('');
-    }
-
-
-
-  }
-
-  const handleOTPChange = (event) => {
-    const { value } = event.target;
-    if (/^\d{0,6}$/.test(value)) {
-      setOtp(value);
-    }
-  };
-
-  useEffect(() => {
-    if (otp.length === 6) {
-      sendOtpToBackend(otp);
-    }
-  }, [otp]);
-
-
-  const sendOtpToBackend = async () => {
-    if (otp.length === 6) {
-      try {
-        const response = await axios.post(endpoints.checkOTP, { OTP: otp });
-        console.log(response.data)
-        if (response.data.OTPexists) {
-          console.log('in IF')
-          setOtpExists(response.data.OTPexists)
-          setOtpError('')
-        }
-        else {
-          setOtpExists(false)
-          setOtpError('OTP wrong')
-        }
-        console.log(otpExists)
-
-      }
-      catch (e) {
-        setOtpError(e)
-      }
-
-    }
-    else {
-      setOtpError('')
-    }
-  }
-  //useEffect Functions
-  useEffect(() => {
-
-    if (!passExists) {
-      if (newPassword.createPassword === newPassword.confirmPassword) {
-        setIsPasswordMatch(true)
-        setCredentials({ ...credentials, password: newPassword.createPassword })
-      }
-      else {
-        setIsPasswordMatch(false)
-      }
-
-    }
-
-  }, [newPassword.createPassword, newPassword.confirmPassword])
-
-
-
-  useEffect(() => {
-
-    if (!initialRender.current) {
-      if (!phoneNumberError && !phoneExists && !isLoading && !phoneCheckError) {
-        setNoData(true);
-      } else {
-        setNoData(false);
-      }
-    } else {
-      initialRender.current = false;
-    }
-  }, [phoneExists, phoneNumberError, isLoading]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     dispatch(loginRequest());
     try {
       const response = await axios.post(endpoints.login, credentials);
@@ -202,12 +78,16 @@ export const LoginPage = () => {
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(response.data.user));
+        window.location.reload();
       } else {
         dispatch(loginFailure('Invalid credentials'));
       }
     } catch (err) {
-      dispatch(loginFailure('An error occurred'));
-    }window.location.reload();
+      console.log('err: ', err.response.status);
+      if (err.response.status == 401) { dispatch(loginFailure('Invalid credentials')); }
+      else { dispatch(loginFailure('An error occurred! Please try again after sometime')); }
+    }
+
   };
   return (
     <div className={styles.container}>
@@ -240,100 +120,32 @@ export const LoginPage = () => {
               Phone Number
             </label>
           </div>
-          {phoneCheckError && <div className={styles.error}>Network issue please try again after sometime.</div>}
           {phoneNumberError && <div className={styles.error}>{phoneNumberError}</div>}
-          {noData && <div className={styles.error}>Phone number does not exists please check the phone number you have entered or contact your veterinarian. </div>}
-          {phoneExists && !passExists ? (
-            <>
-              <div className={styles.inputWrapper}>
-                <input
-                  type='text'
-                  className={styles.password}
-                  placeholder=''
-                  name="OTP"
-                  value={otp}
-                  onChange={handleOTPChange}
-                  onBlur={checkOTP}
-                />
-                <label htmlFor="OTP" className={styles.label}>
-                  Enter the 6-digit OTP
-                </label>
-              </div>
-              {otpError && !otpLengthError && <div className={styles.error}>{otpError}</div>}
-              {otpLengthError && <div className={styles.error}>{otpLengthError}</div>}
-              <div className={styles.inputWrapper}>
-                <input
-                  type={showCreatePassword ? 'text' : 'password'}
-                  className={styles.password}
-                  placeholder=''
-                  name="createPassword"
-                  value={newPassword.createPassword}
-                  onChange={handleChangeNewPassword}
-                />
-                <label htmlFor="createPassword" className={styles.label}>
-                  Create Password
-                </label>
-                <button className={styles.passwordToggle}
-                  type="button"
-                  onClick={toggleCreatePasswordVisibility}
-                >
-                  <img src={showCreatePassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showCreatePassword ? 'Hide Password' : 'Show Password'} />
-                </button>
-              </div>
-              <div className={styles.inputWrapper}>
-                <input
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  className={styles.password}
-                  placeholder=''
-                  name="confirmPassword"
-                  value={newPassword.confirmPassword}
-                  onChange={handleChangeNewPassword}
-                />
-                <label htmlFor="confirmPassword" className={styles.label}>
-                  Confirm Password
-                </label>
-                <button className={styles.passwordToggle}
-                  type="button"
-                  onClick={toggleConfirmPasswordVisibility}
-                >
-                  <img src={showConfirmPassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showConfirmPassword ? 'Hide Password' : 'Show Password'} />
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className={styles.inputWrapper}>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className={styles.password}
-                placeholder=''
-                name="password"
-                value={credentials.password}
-                onChange={handleChangePassword}
-              />
-              <label htmlFor="password" className={styles.label}>
-                Password
-              </label>
-              <button className={styles.passwordToggle}
-                type="button"
-                onClick={togglePasswordVisibility}
-              >
-                <img src={showPassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showPassword ? 'Hide Password' : 'Show Password'} />
-              </button>
-            </div>
-          )}
-
-          {!passExists && !isPasswordMatch ?
-            (<>
-
-              <div className={styles.error}>Passwords do not match</div>
-
-            </>)
-            :
-            (<>
 
 
 
-            </>)}
+          <div className={styles.inputWrapper}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className={styles.password}
+              placeholder=''
+              name="password"
+              value={credentials.password}
+              onChange={handleChangePassword}
+            />
+            <label htmlFor="password" className={styles.label}>
+              Password
+            </label>
+            <button className={styles.passwordToggle}
+              type="button"
+              onClick={togglePasswordVisibility}
+            >
+              <img src={showPassword ? getImageUrl('Password/view.png') : getImageUrl('Password/hide.png')} alt={showPassword ? 'Hide Password' : 'Show Password'} />
+            </button>
+          </div>
+          {error && <div className={styles.error}>{error}</div>}
+
+
 
           <div className={styles.buttons}>
             <div className={styles.remMe}>

@@ -5,11 +5,6 @@ const initialState = {
     user: null,
     error: null,
     isLoading : false,
-    newUser:false,
-    isPhoneNumberExists: false, 
-    isWaitingForPhoneToLoad: false, 
-    errorPhoneNumberCheck: null,
-    isPasswordExists: false
 }
 
 const loginSlice = createSlice({
@@ -39,33 +34,10 @@ const loginSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         },
-        checkPhoneNumber: (state,action) => {
-            state.isWaitingForPhoneToLoad = true;
-            state.errorPhoneNumberCheck = null;
-            state.newUser = false;
-            // Resets
-
-
-        },
-        checkPhoneNumberSuccess: (state,action) => {
-            state.isWaitingForPhoneToLoad = false;
-            state.isPhoneNumberExists = action.payload;
-            state.errorPhoneNumberCheck = null;
-            state.isPasswordExists = false;
-        },
-        checkPasswordExists: (state,action) =>{
-            state.isPasswordExists = action.payload;
-            state.newUser = !action.payload;
-        },
-        checkPhoneNumberFailure: (state,action) => {
-            state.isWaitingForPhoneToLoad = false;
-            state.isPhoneNumberExists = false;
-            state.isPasswordExists = false;
-            state.errorPhoneNumberCheck = action.payload;
-        }
+       
     }
 })
 
-export const { loginRequest, loginSuccess, loginFailure, logout , checkPhoneNumber,checkPhoneNumberFailure,checkPhoneNumberSuccess, checkPasswordExists} = loginSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout } = loginSlice.actions;
 
 export default loginSlice.reducer
