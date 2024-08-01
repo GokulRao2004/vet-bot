@@ -1,9 +1,8 @@
 {
-    "apiBaseUrl": "http://localhost:3000",
+    "apiBaseUrl": "http://sumukhaai.com",
     "endpoints": {
-      "login": "/login",
-      "checkPhoneNumber": "/checkPhoneNumber",
-      "checkOTP":"/checkOTP"
+      "login": "/auth/login",
+      "verifyToken": "/verifyToken"
       
     }
   }

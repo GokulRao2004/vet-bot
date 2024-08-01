@@ -5,7 +5,7 @@ import axios from 'axios';
 import { loginSuccess, logout } from './redux/reducers/loginReducer';
 import { CssBaseline, ThemeProvider, CircularProgress, Box } from '@mui/material';
 import { createTheme } from '@mui/material';
-import { themeSettings } from './theme';  // Adjust the import path as needed
+import { themeSettings } from './theme';  
 import Layout from './PostLogin/Components/Layout/Layout';
 import Home from './PostLogin/Pages/Home/Home';
 import { PetRecords } from './PostLogin/Pages/PetRecords/PetRecords';
@@ -15,6 +15,9 @@ import { AddVaccination } from './PostLogin/Pages/AddVaccination/AddVaccination'
 import { AddDeworming } from './PostLogin/Pages/AddDeworming/AddDeworming';
 import { Whatsapp } from './PostLogin/Pages/Whatsapp/Whatsapp';
 import {LoginPage} from "./Login/LoginPage.jsx"
+import endpoints from './APIendpoints.jsx';
+import crypto from 'crypto'
+
 const PdfViewerWrapper = () => {
   const { fileName } = useParams();
   return <PdfViewer fileName={fileName} />;
@@ -27,12 +30,22 @@ const App = () => {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+
+  const generateSignature = (data) => {
+    const hmac = crypto.createHmac('sha256', secretKey);
+    hmac.update(data);
+    return hmac.digest('hex');
+  };
+
+
+
+
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get('http://localhost:3000/verifyToken', {
+          const response = await axios.get(endpoints.verifyToken, {
             headers: { Authorization: `Bearer ${token}` }
           });
           if (response.data.valid) {
