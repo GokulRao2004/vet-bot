@@ -4,9 +4,11 @@ import styles from './LoginPage.module.css';
 import { getImageUrl } from '../utils';
 import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reducers/loginReducer';
 import axios from 'axios';
-import crypto from 'crypto'
+import CryptoJS, { HmacSHA256 } from 'crypto-js'
 import endpoints from '../APIendpoints';
-
+import SHA256 from 'crypto-js/sha256';
+import Hex from 'crypto-js/enc-hex';
+import utf8 from "utf8"
 
 export const LoginPage = () => {
   const secretKey = import.meta.env.VITE_SECRET_KEY;
@@ -29,17 +31,44 @@ export const LoginPage = () => {
 
   //Functions
 
-  const generateSignature = (data) => {
-    const hmac = crypto.createHmac('sha256', secretKey);
-    hmac.update(data);
-    return hmac.digest('hex');
-  };
 
   
+  const getSignature = (data) => {
+    const secretKey = "blah";
+    
+    
+    // Converting data object to JSON string
+    
+    
+    
+    // Logging the encoded secret and data for comparison
+    console.log("encoded secret ***********", utf8.encode(secretKey));
+    console.log("encoded data ***********", (data).toString(CryptoJS.enc.Utf8));
+    
+    const ed = utf8.encode(data).toString(CryptoJS.enc.Utf8);
+    const es = utf8.encode(secretKey);
+    // Generating the signature
+    const signature = CryptoJS.HmacSHA256(ed, secretKey).toString(Hex);
+    
+    return signature;
+  };
+  
+  
+  // Generate the signature and output it
+
+  
+  // Example data
+
+
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+
+  
+
 
 
 
@@ -72,13 +101,14 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = JSON.stringify(credentials);
-    
+    const sig = getSignature(data)
+    console.log('sig: ', sig);
     dispatch(loginRequest());
     try {
       const response = await axios.post(endpoints.login, data,{
         headers : {
-          "Content-Type" : "application/json"
-          // 'Signature' : generateSignature(data)
+          "Content-Type" : "application/json",
+          'Signature' : getSignature(data)
           
         }
       }

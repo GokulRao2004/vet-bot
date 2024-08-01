@@ -1,5 +1,5 @@
 {
-    "apiBaseUrl": "https://sumukhaai.com",
+    "apiBaseUrl": "https://localhost:3000",
     "endpoints": {
       "login": "/auth/login",
       "verifyToken": "/verifyToken"
