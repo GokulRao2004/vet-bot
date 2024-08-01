@@ -1,8 +1,8 @@
 {
-    "apiBaseUrl": "http://sumukhaai.com",
+    "apiBaseUrl": "http://sumukhai.com",
     "endpoints": {
       "login": "/auth/login",
       "verifyToken": "/verifyToken"
-      
+  
     }
   }

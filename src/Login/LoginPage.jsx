@@ -35,6 +35,7 @@ export const LoginPage = () => {
     return hmac.digest('hex');
   };
 
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -70,11 +71,20 @@ export const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const data = JSON.stringify(credentials);
+    
     dispatch(loginRequest());
     try {
-      const response = await axios.post(endpoints.login, credentials);
-      console.log('credentials: ', credentials);
+      const response = await axios.post(endpoints.login, data,{
+        headers : {
+          "Content-Type" : "application/json"
+          // 'Signature' : generateSignature(data)
+          
+        }
+      }
+        
+      );
+      
    
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
@@ -84,9 +94,12 @@ export const LoginPage = () => {
         dispatch(loginFailure('Invalid credentials'));
       }
     } catch (err) {
-      if (err.response.status == 401) { dispatch(loginFailure('Invalid credentials')); }
+      console.log('err: ', err);
+      if (err.response == 401) { dispatch(loginFailure('Invalid credentials')); }
       else { dispatch(loginFailure('An error occurred! Please try again after sometime')); }
     }
+
+
 
   };
   return (
@@ -162,6 +175,7 @@ export const LoginPage = () => {
                   'Login'
                 )}
               </button>
+              
             </div>
           </div>
         </form>

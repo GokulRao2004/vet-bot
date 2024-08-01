@@ -5,7 +5,7 @@ import axios from 'axios';
 import { loginSuccess, logout } from './redux/reducers/loginReducer';
 import { CssBaseline, ThemeProvider, CircularProgress, Box } from '@mui/material';
 import { createTheme } from '@mui/material';
-import { themeSettings } from './theme';  
+import { themeSettings } from './theme';
 import Layout from './PostLogin/Components/Layout/Layout';
 import Home from './PostLogin/Pages/Home/Home';
 import { PetRecords } from './PostLogin/Pages/PetRecords/PetRecords';
@@ -14,7 +14,7 @@ import { Prescriptions } from './PostLogin/Pages/Prescriptions/Prescriptions';
 import { AddVaccination } from './PostLogin/Pages/AddVaccination/AddVaccination';
 import { AddDeworming } from './PostLogin/Pages/AddDeworming/AddDeworming';
 import { Whatsapp } from './PostLogin/Pages/Whatsapp/Whatsapp';
-import {LoginPage} from "./Login/LoginPage.jsx"
+import { LoginPage } from "./Login/LoginPage.jsx"
 import endpoints from './APIendpoints.jsx';
 import crypto from 'crypto'
 
@@ -46,7 +46,10 @@ const App = () => {
       if (token) {
         try {
           const response = await axios.get(endpoints.verifyToken, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Signature: generateSignature(token)
+            }
           });
           if (response.data.valid) {
             dispatch(loginSuccess(response.data.user));
@@ -55,7 +58,7 @@ const App = () => {
           }
         } catch (error) {
           dispatch(logout());
-          
+
         }
       } else {
         dispatch(logout());
