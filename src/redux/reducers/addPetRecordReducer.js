@@ -11,7 +11,6 @@ const addPetRecordSlice = createSlice({
         setModalStatus: (state) => {
             state.isOpen = (!state.isOpen)
         },
-        
     }
     })
 

@@ -6,7 +6,6 @@ import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reduc
 import axios from 'axios';
 import CryptoJS, { HmacSHA256 } from 'crypto-js'
 import endpoints from '../APIendpoints';
-import SHA256 from 'crypto-js/sha256';
 import Hex from 'crypto-js/enc-hex';
 import utf8 from "utf8"
 
@@ -19,7 +18,6 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.login.isLoading);
   const error = useSelector(state => state.login.error);
-  
 
   //useState Variables
   const [credentials, setCredentials] = useState({ phone: '', password: '' });
@@ -53,11 +51,7 @@ export const LoginPage = () => {
     return signature;
   };
   
-  
-  // Generate the signature and output it
 
-  
-  // Example data
 
 
 
@@ -109,7 +103,7 @@ export const LoginPage = () => {
         headers : {
           "Content-Type" : "application/json",
           'Signature' : getSignature(data)
-          
+
         }
       }
         
@@ -128,10 +122,15 @@ export const LoginPage = () => {
       if (err.response == 401) { dispatch(loginFailure('Invalid credentials')); }
       else { dispatch(loginFailure('An error occurred! Please try again after sometime')); }
     }
-
-
-
   };
+
+  const handleFalseSubmit = () =>{
+    const data = {phone:1234567890, password:"password"}
+    dispatch(loginSuccess(data))
+    
+  }
+
+
   return (
     <div className={styles.container}>
       <div className={styles.article}>
@@ -196,7 +195,7 @@ export const LoginPage = () => {
               <p>Remember Me</p>
             </div>
             <div className={styles.loginBtn}>
-              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled} onClick={handleSubmit}>
+              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled} onClick={handleFalseSubmit}>
                 {isLoading ? (
                   <div className={styles.loadingCircle}>
 

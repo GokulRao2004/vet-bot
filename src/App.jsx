@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { loginSuccess, logout } from './redux/reducers/loginReducer';
+import { loginSuccess, logout, whatsappLogin } from './redux/reducers/loginReducer';
 import { CssBaseline, ThemeProvider, CircularProgress, Box } from '@mui/material';
 import { createTheme } from '@mui/material';
 import { themeSettings } from './theme';
@@ -29,7 +29,7 @@ const App = () => {
   const mode = useSelector(state => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const [checkingAuth, setCheckingAuth] = useState(true);
-
+  
 
   const generateSignature = (data) => {
     const hmac = crypto.createHmac('sha256', secretKey);
@@ -40,32 +40,41 @@ const App = () => {
 
 
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await axios.get(endpoints.verifyToken, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Signature: generateSignature(token)
-            }
-          });
-          if (response.data.valid) {
-            dispatch(loginSuccess(response.data.user));
-          } else {
-            dispatch(logout());
-          }
-        } catch (error) {
-          dispatch(logout());
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const token = localStorage.getItem('token');
+  //     if (token) {
+  //       try {
+  //         const response = await axios.get(endpoints.verifyToken, {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             Signature: generateSignature(token)
+  //           }
+  //         });
+  //         if (response.data.valid) {
+  //           dispatch(loginSuccess(response.data.user));
+  //         } else {
+  //           dispatch(logout());
+  //         }
+  //       } catch (error) {
+  //         dispatch(logout());
 
-        }
-      } else {
-        dispatch(logout());
-      }
+  //       }
+  //     } else {
+  //       dispatch(logout());
+  //     }
+  //     setCheckingAuth(false);
+  //   };
+
+  //   checkAuth();
+  // }, [dispatch]);  
+  
+  useEffect(() => {
+    const checkAuth = () => {
+      const data = {phone:1234567890, password:"password"}
+      dispatch(loginSuccess(data));
       setCheckingAuth(false);
     };
-
     checkAuth();
   }, [dispatch]);
 
