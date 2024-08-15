@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import loginReducer from './reducers/loginReducer'
 import globalReducer from './reducers/globalReducer'
 import petRecordReducer from './reducers/petRecordReducer';
-import storage from 'redux-persist/lib/storage'; 
+import storageSession from 'redux-persist/lib/storage/session'; 
 import persistReducer from 'redux-persist/es/persistReducer';
 import persistStore from 'redux-persist/es/persistStore';
 import addPetRecordReducer from './reducers/addPetRecordReducer';
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage : storageSession,
   };
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

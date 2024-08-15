@@ -8,7 +8,7 @@ import CryptoJS, { HmacSHA256 } from 'crypto-js'
 import endpoints from '../APIendpoints';
 import Hex from 'crypto-js/enc-hex';
 import utf8 from "utf8"
-
+import {setIsSidebarOpen} from '../redux/reducers/globalReducer'
 export const LoginPage = () => {
   const secretKey = import.meta.env.VITE_SECRET_KEY;
   
@@ -29,48 +29,13 @@ export const LoginPage = () => {
 
   //Functions
 
-
-  
-  const getSignature = (data) => {
-    const secretKey = "blah";
-    
-    
-    // Converting data object to JSON string
-    
-    
-    
-    // Logging the encoded secret and data for comparison
-    console.log("encoded secret ***********", utf8.encode(secretKey));
-    console.log("encoded data ***********", (data).toString(CryptoJS.enc.Utf8));
-    
-    const ed = utf8.encode(data).toString(CryptoJS.enc.Utf8);
-    const es = utf8.encode(secretKey);
-    // Generating the signature
-    const signature = CryptoJS.HmacSHA256(ed, secretKey).toString(Hex);
-    
-    return signature;
-  };
-  
-
-
-
-
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-
-  
-
-
-
-
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
-
-
 
   const handleChangePassword = (e) => {
     const { name, value } = e.target;
@@ -95,18 +60,13 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = JSON.stringify(credentials);
-    const sig = getSignature(data)
-    console.log('sig: ', sig);
     dispatch(loginRequest());
     try {
       const response = await axios.post(endpoints.login, data,{
         headers : {
-          "Content-Type" : "application/json",
-          'Signature' : getSignature(data)
-
+          "Content-Type" : "application/json"
         }
       }
-        
       );
       
    
@@ -124,18 +84,21 @@ export const LoginPage = () => {
     }
   };
 
-  const handleFalseSubmit = () =>{
+  const handleFalseSubmit =()=>{
     const data = {phone:1234567890, password:"password"}
     dispatch(loginSuccess(data))
-    
   }
 
+  const dispatchSidebar =() =>{
+    dispatch(setIsSidebarOpen())
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.article}>
         <img className={styles.logo} src={getImageUrl('LOGO/logo1.png')} alt="Logo" />
         <div className={styles.articleBody}>
+          <button onClick={dispatchSidebar}>clcicl</button>
           <h1>Welcome to Vet-Bot – Your Veterinary Practice's Ultimate Ally!</h1>
           {abtText}
         </div>
@@ -195,7 +158,7 @@ export const LoginPage = () => {
               <p>Remember Me</p>
             </div>
             <div className={styles.loginBtn}>
-              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled} onClick={handleFalseSubmit}>
+              <button disabled={loginDisabled} className={loginDisabled ? styles.disabled : styles.enabled} onClick={handleSubmit}>
                 {isLoading ? (
                   <div className={styles.loadingCircle}>
 

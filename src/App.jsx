@@ -40,43 +40,42 @@ const App = () => {
 
 
 
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       try {
-  //         const response = await axios.get(endpoints.verifyToken, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //             Signature: generateSignature(token)
-  //           }
-  //         });
-  //         if (response.data.valid) {
-  //           dispatch(loginSuccess(response.data.user));
-  //         } else {
-  //           dispatch(logout());
-  //         }
-  //       } catch (error) {
-  //         dispatch(logout());
-
-  //       }
-  //     } else {
-  //       dispatch(logout());
-  //     }
-  //     setCheckingAuth(false);
-  //   };
-
-  //   checkAuth();
-  // }, [dispatch]);  
-  
   useEffect(() => {
-    const checkAuth = () => {
-      const data = {phone:1234567890, password:"password"}
-      dispatch(loginSuccess(data));
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await axios.get(endpoints.verifyToken, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          if (response.data.valid) {
+            dispatch(loginSuccess(response.data.user));
+          } else {
+            dispatch(logout());
+          }
+        } catch (error) {
+          dispatch(logout());
+
+        }
+      } else {
+        dispatch(logout());
+      }
       setCheckingAuth(false);
     };
+
     checkAuth();
-  }, [dispatch]);
+  }, [dispatch]);  
+  
+  // useEffect(() => {
+  //   const checkAuth = () => {
+  //     const data = {phone:1234567890, password:"password"}
+  //     dispatch(loginSuccess(data));
+  //     setCheckingAuth(false);
+  //   };
+  //   checkAuth();
+  // }, [dispatch]);
 
   if (checkingAuth) {
     return (
