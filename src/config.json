@@ -1,9 +1,10 @@
 {
     "apiBaseUrl1": "https://sumukhaai.com",
     "apiBaseUrl2" : "https://localhost:3000",
+    "backend_path": "/auth",
     "endpoints": {
-      "login": "/auth/login",
-      "verifyToken": "/verif_token",
+      "login": "${backend_path}/login",
+      "verifyToken": "${backend_path}/verify_token",
       "whatsappLogin" : "/whatsappLogin"
     }
   }
