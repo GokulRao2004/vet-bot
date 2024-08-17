@@ -45,10 +45,8 @@ const App = () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get(endpoints.verifyToken, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+          const response = await axios.post(endpoints.verifyToken, {
+            token 
           });
           if (response.status == 200) {
             
