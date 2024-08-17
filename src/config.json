@@ -3,7 +3,7 @@
     "apiBaseUrl2" : "https://localhost:3000",
     "endpoints": {
       "login": "/auth/login",
-      "verifyToken": "/verify/token",
+      "verifyToken": "/verif_token",
       "whatsappLogin" : "/whatsappLogin"
     }
   }
