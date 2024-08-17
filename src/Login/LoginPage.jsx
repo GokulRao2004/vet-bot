@@ -70,8 +70,8 @@ export const LoginPage = () => {
       );
       
    
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
+      if (response.status == 200) {
+        localStorage.setItem('token', response.token);
         dispatch(loginSuccess(response.data.user));
         window.location.reload();
       } else {

@@ -50,14 +50,13 @@ const App = () => {
               Authorization: `Bearer ${token}`
             }
           });
-          if (response.data.valid) {
-            dispatch(loginSuccess(response.data.user));
+          if (response.status == 200) {
+            
           } else {
             dispatch(logout());
           }
         } catch (error) {
           dispatch(logout());
-
         }
       } else {
         dispatch(logout());
