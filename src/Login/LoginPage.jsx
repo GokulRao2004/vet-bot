@@ -69,6 +69,7 @@ export const LoginPage = () => {
       }
       );
       if (response.status == 200) {
+        console.log('response: ', response);
         localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(response.data.user));
         window.location.reload();
