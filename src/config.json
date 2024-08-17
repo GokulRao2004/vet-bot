@@ -4,7 +4,7 @@
     "backend_path": "/auth",
     "endpoints": {
       "login": "/login",
-      "verifyToken": "${backend_path}/verify_token",
+      "verifyToken": "/verify_token",
       "whatsappLogin" : "/whatsappLogin"
     }
   }

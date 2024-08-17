@@ -89,16 +89,13 @@ export const LoginPage = () => {
     dispatch(loginSuccess(data))
   }
 
-  const dispatchSidebar =() =>{
-    dispatch(setIsSidebarOpen())
-  }
+
 
   return (
     <div className={styles.container}>
       <div className={styles.article}>
         <img className={styles.logo} src={getImageUrl('LOGO/logo1.png')} alt="Logo" />
         <div className={styles.articleBody}>
-          <button onClick={dispatchSidebar}>clcicl</button>
           <h1>Welcome to Vet-Bot – Your Veterinary Practice's Ultimate Ally!</h1>
           {abtText}
         </div>
