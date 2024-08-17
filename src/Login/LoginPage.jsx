@@ -68,10 +68,8 @@ export const LoginPage = () => {
         }
       }
       );
-      
-   
       if (response.status == 200) {
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(response.data.user));
         window.location.reload();
       } else {
