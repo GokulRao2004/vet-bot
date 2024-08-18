@@ -29,7 +29,7 @@ export const LoginPage = () => {
   const [loginDisabled, setloginDisabled] = useState(false)
 
   //Functions
-  const ENV = process.env.ENV;
+
   
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
