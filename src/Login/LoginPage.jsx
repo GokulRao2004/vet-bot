@@ -9,6 +9,7 @@ import endpoints from '../APIendpoints';
 import Hex from 'crypto-js/enc-hex';
 import utf8 from "utf8"
 import {setIsSidebarOpen} from '../redux/reducers/globalReducer'
+import { useNavigate } from 'react-router-dom';
 export const LoginPage = () => {
   const secretKey = import.meta.env.VITE_SECRET_KEY;
   
@@ -18,7 +19,7 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.login.isLoading);
   const error = useSelector(state => state.login.error);
-
+  const navigate = useNavigate()
   //useState Variables
   const [credentials, setCredentials] = useState({ phone: '', password: '' });
   const [phoneNumberError, setPhoneNumberError] = useState('');
@@ -28,7 +29,8 @@ export const LoginPage = () => {
   const [loginDisabled, setloginDisabled] = useState(false)
 
   //Functions
-
+  const ENV = process.env.ENV;
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -71,7 +73,7 @@ export const LoginPage = () => {
       if (response.status == 200) {
         localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(response.data.user));
-        window.location.reload();
+        navigate("/");
       } else {
         dispatch(loginFailure('Invalid credentials'));
       }
@@ -82,9 +84,8 @@ export const LoginPage = () => {
     }
   };
 
-  const handleFalseSubmit =()=>{
-    const data = {phone:1234567890, password:"password"}
-    dispatch(loginSuccess(data))
+  const click =()=>{
+    console.log('ENV: ', ENV);
   }
 
 
@@ -92,6 +93,7 @@ export const LoginPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.article}>
+        <button onClick={click}>click</button>
         <img className={styles.logo} src={getImageUrl('LOGO/logo1.png')} alt="Logo" />
         <div className={styles.articleBody}>
           <h1>Welcome to Vet-Bot – Your Veterinary Practice's Ultimate Ally!</h1>

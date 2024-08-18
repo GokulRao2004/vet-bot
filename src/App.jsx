@@ -48,8 +48,8 @@ const App = () => {
           const response = await axios.post(endpoints.verifyToken, {
             token 
           });
-          if (response.status == 200) {
-            
+          if (response.data.valid) {
+            dispatch(loginSuccess())
           } else {
             dispatch(logout());
           }
