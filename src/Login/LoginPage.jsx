@@ -4,11 +4,7 @@ import styles from './LoginPage.module.css';
 import { getImageUrl } from '../utils';
 import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reducers/loginReducer';
 import axios from 'axios';
-import CryptoJS, { HmacSHA256 } from 'crypto-js'
 import endpoints from '../APIendpoints';
-import Hex from 'crypto-js/enc-hex';
-import utf8 from "utf8"
-import {setIsSidebarOpen} from '../redux/reducers/globalReducer'
 import { useNavigate } from 'react-router-dom';
 export const LoginPage = () => {
   const secretKey = import.meta.env.VITE_SECRET_KEY;

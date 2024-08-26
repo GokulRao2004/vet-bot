@@ -5,7 +5,7 @@ const backend_path = config.backend_path;
 const endpoints = {
   login: `${apiBaseUrl}${backend_path}${config.endpoints.login}`,
   verifyToken: `${apiBaseUrl}${backend_path}${config.endpoints.verifyToken}`,
-  whatsappLogin : `${apiBaseUrl}${config.endpoints.whatsappLogin}`
+  embeddedSignup: `${apiBaseUrl}${config.endpoints.embeddedSignup}`
 };
 
 export default endpoints;

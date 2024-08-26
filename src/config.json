@@ -5,6 +5,6 @@
     "endpoints": {
       "login": "/login",
       "verifyToken": "/verify_token",
-      "whatsappLogin" : "/whatsappLogin"
+      "embeddedSignup":"/embedded_signup"
     }
   }

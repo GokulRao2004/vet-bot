@@ -10,16 +10,16 @@ a{
   /* background-repeat: none;
     background-size: contain;
     background-origin: padding-box; */
-  background: #f8f8f8;
+  background: #e3e3e3;
 }
 
 .userInfo {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 10px;
+  padding: 10px;
   padding-right: 10px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .info {

@@ -9,7 +9,6 @@ export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-        // Set the entries from the imported JSON data
         setContacts(data);
     }, []);
 
@@ -25,20 +24,20 @@ export const Contacts = () => {
                         <div>User Name</div>
                     </div>
 
-                    <SettingsOutlined sx={{ color: "#555", fontSize: "28px" }} />
+                    {/* <SettingsOutlined sx={{ color: "#555", fontSize: "28px" }} /> */}
 
                 </div>
-                <div className={styles.searchBar}>
+                {/* <div className={styles.searchBar}>
                     <input type="text" className={styles.searchInput} placeholder="Search...." />
                     <Search className={styles.searchIcon}/>
-                </div>
+                </div> */}
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
                     <a  key={index} href={`./whatsapp/${contact.Name}`}>
                     <div key={index} className={styles.contact}>
                         <div className={styles.profilePic}>
-                            <img src={getImageUrl(`${contact.Profile}.jpeg`)} alt={contact.Name} />
+                            <img src={getImageUrl(`img.jpeg`)} alt={contact.Name} />
                         </div>
                         <div className={styles.msgBody}>
                             <div className={styles.nameMsg}>

@@ -37,76 +37,75 @@ export const Chats = ({ name }) => {
     }
   };
 
-  const handleSendImages = () => {
-    if (imageFiles.length > 0) {
-      imageFiles.forEach((file, index) => {
-        const newMessage = {
-          id: messages.length + 1 + index,
-          type: 'sent',
-          content: `<img src="${imagePreviews[index]}" alt="image" />`,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        };
-        messages.push(newMessage);
-      });
-      setImagePreviews([]);
-      setImageFiles([]);
-    }
-  };
-
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ 
-          ...style, 
-          display: "flex", 
-          justifyContent: "center", 
-          alignItems: "center", 
-          background: "gray", 
-          borderRadius: "50%", 
-          height: "50px", 
-          width: "50px" 
-        }}
-        onClick={onClick}
-      >
-        <ArrowForward style={{ color: "white" }} />
-      </div>
-    );
-  }
+  // const handleSendImages = () => {
+  //   if (imageFiles.length > 0) {
+  //     imageFiles.forEach((file, index) => {
+  //       const newMessage = {
+  //         id: messages.length + 1 + index,
+  //         type: 'sent',
+  //         content: `<img src="${imagePreviews[index]}" alt="image" />`,
+  //         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  //       };
+  //       messages.push(newMessage);
+  //     });
+  //     setImagePreviews([]);
+  //     setImageFiles([]);
+  //   }
+  // };
+  // function SampleNextArrow(props) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ 
+  //         ...style, 
+  //         display: "flex", 
+  //         justifyContent: "center", 
+  //         alignItems: "center", 
+  //         background: "gray", 
+  //         borderRadius: "50%", 
+  //         height: "50px", 
+  //         width: "50px" 
+  //       }}
+  //       onClick={onClick}
+  //     >
+  //       <ArrowForward style={{ color: "white" }} />
+  //     </div>
+  //   );
+  // }
   
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ 
-          ...style, 
-          display: "flex", 
-          justifyContent: "center", 
-          alignItems: "center", 
-          background: "gray", 
-          borderRadius: "50%", 
-          height: "50px", 
-          width: "50px",
-          zIndex: 2
-        }}
-        onClick={onClick}
-      >
-        <ArrowBack style={{ color: "white", display: "flex", justifyContent: "center"}} />
-      </div>
-    );
-  }
-  const sliderSettings = {
-    infinite: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-    adaptiveHeight: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    arrows: true
-  };
+  // function SamplePrevArrow(props) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ 
+  //         ...style, 
+  //         display: "flex", 
+  //         justifyContent: "center", 
+  //         alignItems: "center", 
+  //         background: "gray", 
+  //         borderRadius: "50%", 
+  //         height: "50px", 
+  //         width: "50px",
+  //         zIndex: 2
+  //       }}
+  //       onClick={onClick}
+  //     >
+  //       <ArrowBack style={{ color: "white", display: "flex", justifyContent: "center"}} />
+  //     </div>
+  //   );
+  // }
+  // const sliderSettings = {
+  //   infinite: false,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   swipeToSlide: true,
+  //   adaptiveHeight: true,
+  //   nextArrow: <SampleNextArrow />,
+  //   prevArrow: <SamplePrevArrow />,
+  //   arrows: true
+  // };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -165,7 +164,7 @@ export const Chats = ({ name }) => {
         ))}
       </div>
       <div className={isSidebarOpen ? styles.chatBarOpen : styles.chatBarClose}>
-        <label htmlFor="file-input" className={styles.fileAttachLabel} style={{ margin: 0, padding: 0 }}>
+        {/* <label htmlFor="file-input" className={styles.fileAttachLabel} style={{ margin: 0, padding: 0 }}>
           <AttachFile />
         </label>
         <input
@@ -175,7 +174,7 @@ export const Chats = ({ name }) => {
           accept="image/*"
           multiple
           onChange={handleFileAttach}
-        />
+        /> */}
         <input
           type="text"
           className={styles.chatInput}
@@ -188,7 +187,7 @@ export const Chats = ({ name }) => {
           <Send />
         </button>
       </div>
-      {imagePreviews.length > 0 && (
+      {/* {imagePreviews.length > 0 && (
         <div className={isSidebarOpen ? styles.imagePreviewOverlayOpen : styles.imagePreviewOverlayClosed}>
           <div className={styles.imagePreviewContainer}>
             <Slider {...sliderSettings} className={styles.imageSlider}>
@@ -198,13 +197,13 @@ export const Chats = ({ name }) => {
                 </div>
               ))}
             </Slider>
-            <div className={styles.imagePreviewButtons}>
+             <div className={styles.imagePreviewButtons}>
               <button onClick={handleClosePreview} className={styles.closePreviewButton}>Cancel</button>
               <button onClick={handleSendImages} className={styles.sendPreviewButton}>Send</button>
-            </div>
+            </div> 
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

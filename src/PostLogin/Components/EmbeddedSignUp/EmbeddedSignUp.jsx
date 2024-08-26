@@ -2,16 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { whatsappLogin } from '../../../redux/reducers/loginReducer'
 import styles from "./EmbeddedSignup.module.css"
+import endpoints from '../../../APIendpoints';
 export const EmbeddedSignUp = () => {
   const dispatch = useDispatch()
-
+  const [code,setCode] = useState()
   const handleSignup = () => {
     dispatch(whatsappLogin())
   }
 
-  const sendCodeToBackend = (code) =>{
-    
-  } 
+  const sendCodeToBackend = async (code) => {
+    try {
+      const response = await axios.post(endpoints.embeddedSignup, {
+        code: code
+      });
+
+      if (response.status === 200 && response.data.success) {
+        dispatch(whatsappLogin());
+      } else {
+        console.error('Error: Backend did not return success');
+      }
+    } catch (error) {
+      console.error('Error sending code to backend:', error);
+    }
+  };
+
 
   const sessionInfoListener = (event) => {
     console.log("IN session info");
@@ -78,7 +92,8 @@ const handleClick = () => {
         console.log(response);
         console.log("authResponse");
         if (response.authResponse) {
-            setcode(response.authResponse.code);
+            setCode(response.authResponse.code);
+            sendCodeToBackend(code);
             console.log("accessToken");
             console.log(accessToken);
             console.log("accessToken");
