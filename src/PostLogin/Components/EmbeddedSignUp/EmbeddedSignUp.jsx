@@ -71,8 +71,8 @@ useEffect(() => {
         FB.init({
             appId: 383782301101923,
             autoLogAppEvents: true,
-            xfbml: true,
-            version: 'v18.0'
+            xfbml: false,
+            version: 'v20.0'
         });
     };
     (function (d, s, id) {
