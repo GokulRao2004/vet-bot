@@ -34,12 +34,6 @@ export const EmbeddedSignUp = () => {
     try {
         console.log(event)
         console.log("before parsing")
-        console.log('dat: ');
-        const dat = FB.xfbml.parse(event.data);
-        console.log( dat);
-        console.log('dat: ');
-
-
         const data = JSON.parse(event.data);
         console.log('event.data: ', event.data);
         console.log('event.data: ', event.data);
