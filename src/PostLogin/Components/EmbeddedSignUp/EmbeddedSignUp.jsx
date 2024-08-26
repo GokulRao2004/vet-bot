@@ -34,7 +34,7 @@ export const EmbeddedSignUp = () => {
     try {
         console.log(event)
         console.log("before parsing")
-        const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data());
         console.log("after parsing")
         console.log(data)
         if (data.type === 'WA_EMBEDDED_SIGNUP') {
