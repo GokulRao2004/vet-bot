@@ -5,14 +5,27 @@ import styles from './Contacts.module.css';
 import { Done, DoneAll, Search, SettingsOutlined, SmsFailedOutlined, Add } from '@mui/icons-material';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
+import axios from "axios";
+import endpoints from "../../../APIendpoints.jsx"
 
 export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [newContact, setNewContact] = useState({ Name: '', Message: '' });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
+    const user_id = useSelector((state) => state.login.user)
+
+    const fetchContacts = async () => {
+        try {
+            const response = await axios.get(endpoints.contacts,{params:{user_id: 1234}});
+            setContacts(response.data); // Update state with the fetched data
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
-        setContacts(data);
+        fetchContacts();
     }, []);
 
     const openModal = () => {

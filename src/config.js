@@ -4,7 +4,8 @@ const config = {
   endpoints: {
     login: "/login",
     verifyToken: "/verify_token",
-    embeddedSignup: "/embedded_signup"
+    embeddedSignup: "/embedded_signup",
+    contacts: "/contacts"
   }
 };
 

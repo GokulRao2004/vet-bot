@@ -39,7 +39,6 @@ const App = () => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
       const user_id = getUserIdFromJWT(token);
-      console.log('user_id: ', user_id);
       if (token) {
         try {
           if (!isLoggedIn) {
