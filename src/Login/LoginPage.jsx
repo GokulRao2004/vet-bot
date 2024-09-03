@@ -7,8 +7,6 @@ import axios from 'axios';
 import endpoints from '../APIendpoints';
 import { useNavigate } from 'react-router-dom';
 export const LoginPage = () => {
-  const secretKey = import.meta.env.VITE_SECRET_KEY;
-  
   const abtText = " Say hello to streamlined practice management, enhanced patient care, and simplified client interactions. With cutting-edge AI technology, Vet-Bot offers seamless appointment scheduling, medical record management, and instant diagnostic support. Elevate your practice with personalized treatment recommendations and revolutionize veterinary care with Vet-Bot.";
 
   //Redux Variables

@@ -26,6 +26,7 @@ export const Dashboard = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Navigate to="/home" replace />} />

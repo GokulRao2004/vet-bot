@@ -5,8 +5,10 @@ import { ClinicStats } from '../../Components/clinicStats/clinicStats'
 import { Surgeries } from '../../Components/Surgeries/Surgeries'
 import { StatsGraph } from '../../Components/StatsGraph/StatsGraph'
 import { StatsPie } from '../../Components/StatsPie/StatsPie'
-
+import config from "../../../config"
 const Home = () => {
+  const api = config.apiBaseUrl;
+  console.log('api: ', api);
   return (
     <div>
       <Header title="Welcome Dr.Udayaravi Bhat!" />
