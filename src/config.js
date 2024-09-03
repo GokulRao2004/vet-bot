@@ -5,7 +5,9 @@ const config = {
     login: "/login",
     verifyToken: "/verify_token",
     embeddedSignup: "/embedded_signup",
-    contacts: "/contacts"
+    contacts: "/contacts",
+    chats: "/chats",
+    template: "/template"
   }
 };
 

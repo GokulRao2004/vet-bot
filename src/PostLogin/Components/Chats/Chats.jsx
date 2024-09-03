@@ -8,22 +8,39 @@ import text from '../../../mockData/chats.json';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import axios from "axios";
+import endpoints from "../../../APIendpoints.jsx";
 
-export const Chats = ({ name }) => {
+export const Chats = ({ name, phone }) => {
   const navigate = useNavigate();
-  const messages = text;
+  const [messages, setMessages] = useState();
   const [message, setMessage] = useState('');
   const [imagePreviews, setImagePreviews] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
   const messageContainerRef = useRef(null);
-
+  const [isTemplate, setIsTemplate] = useState();
+  console.log('isTemplate: ', isTemplate);
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
   }, [message, imagePreviews]);
 
+  const fetchMessages = async () => {
+    const response = await axios.get(endpoints.chats, { params: { phone } })
+    console.log('response: ', response.data);
+    if (response.status == 200) {
+      setMessages(response.data.chats)
+      setIsTemplate(response.data.isTemplate)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchMessages()
+  }, [isTemplate])
+  
   const handleSendMessage = () => {
     if (message.trim() !== '') {
       const newMessage = {
@@ -73,7 +90,7 @@ export const Chats = ({ name }) => {
   //     </div>
   //   );
   // }
-  
+
   // function SamplePrevArrow(props) {
   //   const { className, style, onClick } = props;
   //   return (
@@ -111,6 +128,19 @@ export const Chats = ({ name }) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleSendMessage();
+    }
+  };
+
+  const handleTemplateMessage = async () => {
+    try {
+      const response = await axios.post(endpoints.template, { params: { phone } }); // Adjust endpoint as necessary
+      if (response.status === 200) {
+      
+        setIsTemplate(false); 
+        }
+      }
+     catch (error) {
+      console.log('Error fetching template message:', error);
     }
   };
 
@@ -156,12 +186,18 @@ export const Chats = ({ name }) => {
         <div>{name}</div>
       </div>
       <div ref={messageContainerRef} className={styles.messages}>
-        {messages.map((message) => (
+        {messages ? (messages.map((message) => (
           <div key={message.id} className={`${styles.message} ${styles[message.type]}`}>
             <div className={styles['message-content']} dangerouslySetInnerHTML={{ __html: message.content }}></div>
             <div className={styles['message-time']}>{message.time}</div>
           </div>
-        ))}
+        ))) : (<div style={{ fontSize: "30px", width: "100%", textAlign: "center", paddingTop: "20px" }}>Start Messaging Now</div>)}
+
+        {isTemplate && (
+          <button className={styles.templateButton} onClick={handleTemplateMessage}>
+            Send Template Message
+          </button>
+        )}
       </div>
       <div className={isSidebarOpen ? styles.chatBarOpen : styles.chatBarClose}>
         {/* <label htmlFor="file-input" className={styles.fileAttachLabel} style={{ margin: 0, padding: 0 }}>
@@ -175,6 +211,7 @@ export const Chats = ({ name }) => {
           multiple
           onChange={handleFileAttach}
         /> */}
+
         <input
           type="text"
           className={styles.chatInput}

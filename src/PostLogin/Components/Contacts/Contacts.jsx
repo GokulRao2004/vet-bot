@@ -19,6 +19,7 @@ export const Contacts = () => {
         try {
             const response = await axios.get(endpoints.contacts,{params:{user_id: 1234}});
             setContacts(response.data); // Update state with the fetched data
+            console.log('response.data: ', response.data);
         } catch (err) {
             console.error(err);
         }
@@ -67,7 +68,7 @@ export const Contacts = () => {
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
-                    <a key={index} href={`./whatsapp/${contact.Name}`}>
+                    <a key={index} href={`./whatsapp/${contact.Name}/${contact.Phone}`}>
                         <div className={styles.contact}>
                             <div className={styles.profilePic}>
                                 <img src={getImageUrl(`img.jpeg`)} alt={contact.Name} />
@@ -101,7 +102,7 @@ export const Contacts = () => {
             </button>
 
             {/* Modal for adding new contact */}
-            <div classname={styles.modalContainer}>
+            <div className={styles.modalContainer}>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}

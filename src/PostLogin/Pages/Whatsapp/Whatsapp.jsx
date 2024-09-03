@@ -8,14 +8,16 @@ import { EmbeddedSignUp } from '../../Components/EmbeddedSignUp/EmbeddedSignUp';
 
 export const Whatsapp = () => {
   const url = useParams();
+  console.log('url: ', url);
   const name = url.userName;
+  const phone = url.phone;
   const isLoggedIntoWhatsapp = useSelector(state => state.login.isLoggedIntoWhatsapp)
   console.log('isLoggedIntoWhatsapp: ', isLoggedIntoWhatsapp);
 
   return (
     <>
       {isLoggedIntoWhatsapp ? (<div>
-        {name ? <Chats name={name} /> : <Contacts />}
+        {name ? <Chats name={name} phone={phone} /> : <Contacts />}
       </div>) : <EmbeddedSignUp />}
     </>
   )
