@@ -69,6 +69,7 @@ export const LoginPage = () => {
         dispatch(loginSuccess(response.data.user));
         navigate("/");
       } else {
+        console.log(response.status)
         dispatch(loginFailure('Invalid credentials'));
       }
     } catch (err) {
@@ -78,16 +79,11 @@ export const LoginPage = () => {
     }
   };
 
-  const click =()=>{
-    console.log('ENV: ', ENV);
-  }
-
 
 
   return (
     <div className={styles.container}>
       <div className={styles.article}>
-        <button onClick={click}>click</button>
         <img className={styles.logo} src={getImageUrl('LOGO/logo1.png')} alt="Logo" />
         <div className={styles.articleBody}>
           <h1>Welcome to Vet-Bot – Your Veterinary Practice's Ultimate Ally!</h1>

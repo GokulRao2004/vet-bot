@@ -14,9 +14,9 @@ import { Prescriptions } from './PostLogin/Pages/Prescriptions/Prescriptions';
 import { AddVaccination } from './PostLogin/Pages/AddVaccination/AddVaccination';
 import { AddDeworming } from './PostLogin/Pages/AddDeworming/AddDeworming';
 import { Whatsapp } from './PostLogin/Pages/Whatsapp/Whatsapp';
-import { LoginPage } from "./Login/LoginPage.jsx"
+import { LoginPage } from "./Login/LoginPage.jsx";
 import endpoints from './APIendpoints.jsx';
-import crypto from 'crypto'
+import { jwtDecode } from "jwt-decode";
 
 const PdfViewerWrapper = () => {
   const { fileName } = useParams();
@@ -29,13 +29,8 @@ const App = () => {
   const mode = useSelector(state => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  
 
-  const generateSignature = (data) => {
-    const hmac = crypto.createHmac('sha256', secretKey);
-    hmac.update(data);
-    return hmac.digest('hex');
-  };
+
 
 
 
@@ -43,15 +38,19 @@ const App = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
+      const user_id = getUserIdFromJWT(token);
+      console.log('user_id: ', user_id);
       if (token) {
         try {
-          const response = await axios.post(endpoints.verifyToken, {
-            token 
-          });
-          if (response.data.valid) {
-            dispatch(loginSuccess())
-          } else {
-            dispatch(logout());
+          if (!isLoggedIn) {
+            const response = await axios.post(endpoints.verifyToken, {
+              token
+            });
+            if (response.data.valid) {
+              dispatch(loginSuccess(user_id));
+            } else {
+              dispatch(logout());
+            }
           }
         } catch (error) {
           dispatch(logout());
@@ -63,8 +62,8 @@ const App = () => {
     };
 
     checkAuth();
-  }, [dispatch]);  
-  
+  }, [dispatch]);
+
   // useEffect(() => {
   //   const checkAuth = () => {
   //     const data = {phone:1234567890, password:"password"}
@@ -80,6 +79,23 @@ const App = () => {
         <CircularProgress />
       </Box>
     );
+  }
+
+
+  function getUserIdFromJWT(token) {
+    try {
+      // Decode the JWT token to get the payload
+      const decodedToken = jwtDecode(token);
+
+
+      // Extract the user ID from the payload
+      const userId = decodedToken.user_id; // Adjust this based on your JWT structure
+
+      return userId;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
   }
 
   return (
