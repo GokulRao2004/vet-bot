@@ -37,11 +37,14 @@ const loginSlice = createSlice({
         },
         whatsappLogin : (state) => {
             state.isLoggedIntoWhatsapp = true
+        },
+        addUserId : (state,action) => {
+            state.user = action.payload
         }
        
     }
 })
 
-export const { loginRequest, loginSuccess, loginFailure, logout, whatsappLogin} = loginSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout, whatsappLogin,addUserId} = loginSlice.actions;
 
 export default loginSlice.reducer

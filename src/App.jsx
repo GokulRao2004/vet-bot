@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { loginSuccess, logout, whatsappLogin } from './redux/reducers/loginReducer';
+import { addUserId, loginSuccess, logout, whatsappLogin } from './redux/reducers/loginReducer';
 import { CssBaseline, ThemeProvider, CircularProgress, Box } from '@mui/material';
 import { createTheme } from '@mui/material';
 import { themeSettings } from './theme';
@@ -40,6 +40,7 @@ const App = () => {
       const token = localStorage.getItem('token');
       const user_id = getUserIdFromJWT(token);
       if (token) {
+        dispatch(addUserId(user_id))
         try {
           if (!isLoggedIn) {
             const response = await axios.post(endpoints.verifyToken, {

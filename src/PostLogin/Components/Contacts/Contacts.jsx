@@ -12,7 +12,7 @@ export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
-    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: user_id });
+    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: 1234 });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
 
     const fetchContacts = async () => {
@@ -44,13 +44,14 @@ export const Contacts = () => {
               }
         setNewContact(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: value,
+            user_id:"123"
         }));
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-       
+       console.log(newContact)
         try {
             // Make the POST request
             const response = await axios.post(endpoints.addContact, newContact);
@@ -85,27 +86,27 @@ export const Contacts = () => {
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
-                    <a key={index} href={`./whatsapp/${contact.Name}/${contact.Phone}`}>
+                    <a key={index} href={`./whatsapp/${contact.name}/${contact.phone}`}>
                         <div className={styles.contact}>
                             <div className={styles.profilePic}>
-                                <img src={getImageUrl(`img.jpeg`)} alt={contact.Name} />
+                                <img src={getImageUrl(`img.jpeg`)} alt={contact.name} />
                             </div>
                             <div className={styles.msgBody}>
                                 <div className={styles.nameMsg}>
-                                    <h3>{contact.Name}</h3>
+                                    <h3>{contact.name}</h3>
                                     <div className={styles.msg}>
                                         {contact.MsgType === "Sent" && (
-                                            (contact.MsgStatus === "NotSent" && <SmsFailedOutlined sx={{ color: "red", fontSize: "20px" }} />) ||
-                                            (contact.MsgStatus === "Opened" && <DoneAll sx={{ color: "blue", fontSize: "20px" }} />) ||
-                                            (contact.MsgStatus === "Unopened" && <DoneAll sx={{ color: "#555", fontSize: "20px" }} />) ||
-                                            (contact.MsgStatus === "NotReached" && <Done sx={{ color: "#555", fontSize: "20px" }} />)
+                                            (contact.msgStatus === "NotSent" && <SmsFailedOutlined sx={{ color: "red", fontSize: "20px" }} />) ||
+                                            (contact.msgStatus === "Opened" && <DoneAll sx={{ color: "blue", fontSize: "20px" }} />) ||
+                                            (contact.msgStatus === "Unopened" && <DoneAll sx={{ color: "#555", fontSize: "20px" }} />) ||
+                                            (contact.msgStatus === "NotReached" && <Done sx={{ color: "#555", fontSize: "20px" }} />)
                                         )}
-                                        <p>{contact.Message}</p>
+                                        <p>{contact.message}</p>
                                     </div>
                                 </div>
                                 <div className={styles.timeAndUnread}>
-                                    <p className={contact.MsgStatus === "Unread" ? styles.unread : styles.read}>{contact.Time}</p>
-                                    {contact.MsgStatus === 'Unread' && <div className={styles.unreadIndicator}></div>}
+                                    <p className={contact.msgStatus === "Unread" ? styles.unread : styles.read}>{contact.time}</p>
+                                    {contact.msgStatus === 'Unread' && <div className={styles.unreadIndicator}></div>}
                                 </div>
                             </div>
                         </div>
