@@ -9,6 +9,7 @@ const endpoints = {
   contacts: `${apiBaseUrl}${config.endpoints.contacts}`,
   chats: `${apiBaseUrl}${config.endpoints.chats}`,
   template: `${apiBaseUrl}${config.endpoints.template}`,
+  addContact: `${apiBaseUrl}${config.endpoints.addContact}`,
    
 };
 

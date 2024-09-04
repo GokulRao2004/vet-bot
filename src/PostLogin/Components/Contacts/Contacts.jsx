@@ -11,13 +11,13 @@ import endpoints from "../../../APIendpoints.jsx"
 export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [newContact, setNewContact] = useState({ Name: '', Message: '' });
+    const [newContact, setNewContact] = useState({ Name: '', Phone: '' });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
     const user_id = useSelector((state) => state.login.user)
 
     const fetchContacts = async () => {
         try {
-            const response = await axios.get(endpoints.contacts,{params:{user_id: 1234}});
+            const response = await axios.get(endpoints.contacts, { params: { user_id: 1234 } });
             setContacts(response.data); // Update state with the fetched data
             console.log('response.data: ', response.data);
         } catch (err) {
@@ -39,19 +39,36 @@ export const Contacts = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        if (name == "phone") {
+            value = e.target.value.replace(/[^0-9]/g, '');
+              }
         setNewContact(prevState => ({
             ...prevState,
             [name]: value
         }));
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        // Add the new contact to the list
-        setContacts([...contacts, { ...newContact, Time: 'Now' }]);
-        // Reset the form and close the modal
-        setNewContact({ Name: '', Message: '' });
-        closeModal();
+       
+        try {
+            // Make the POST request
+            const response = await axios.post(endpoints.addContact, newContact);
+    
+            // Check if the response is successful (status code 200-299)
+            if (response.status >= 200 && response.status < 300) {
+                // Update the contacts state
+                setContacts([...contacts, { ...newContact, Time: 'Now' }]);
+    
+                // Reset the form and close the modal
+                setNewContact({ Name: '', Message: '' });
+                closeModal();
+            } else {
+                console.error('Failed to add contact. Status:', response.status);
+            }
+        } catch (error) {
+            console.error('An error occurred while adding the contact:', error);
+        }
     };
 
     return (
@@ -110,7 +127,7 @@ export const Contacts = () => {
                     className={isSidebarOpen ? styles.modalSideBarOpen : styles.modalSideBarClose}
                     overlayClassName={styles.overlay}
                 >
-                    <h2>Add New Contact</h2>
+                    <h2 className={styles.heading}>Add New Contact</h2>
                     <form onSubmit={handleFormSubmit}>
                         <div className={styles.formGroup}>
                             <label htmlFor="name">Name:</label>
@@ -127,16 +144,20 @@ export const Contacts = () => {
                             <label htmlFor="message">Phone Number:</label>
                             <input
                                 type="text"
-                                id="message"
-                                name="Message"
-                                value={newContact.Message}
+                                pattern="\d*"
+                                inputmode="numeric"
+                                id="phone"
+                                name="Phone"
+                                value={newContact.Phone}
                                 onChange={handleInputChange}
+                                maxLength={10}
+                                minLength={10}
                                 required
                             />
                         </div>
                         <div className={styles.formActions}>
-                            <button type="submit">Add Contact</button>
-                            <button type="button" onClick={closeModal}>Cancel</button>
+                            <button className={styles.delButton} type="button" onClick={closeModal}>Cancel</button>
+                            <button className={styles.adButton}>Add Contact</button>
                         </div>
                     </form>
                 </Modal>

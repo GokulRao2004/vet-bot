@@ -7,7 +7,8 @@ const config = {
     embeddedSignup: "/embedded_signup",
     contacts: "/contacts",
     chats: "/chats",
-    template: "/template"
+    template: "/template",
+    addContact :"/add_contact"
   }
 };
 
