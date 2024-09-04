@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
 import endpoints from "../../../APIendpoints.jsx";
 
-export const Chats = ({ name, phone }) => {
+export const Chats = ({ name, contact_id }) => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState();
   const [message, setMessage] = useState('');
@@ -28,7 +28,7 @@ export const Chats = ({ name, phone }) => {
   }, [message, imagePreviews]);
 
   const fetchMessages = async () => {
-    const response = await axios.get(endpoints.chats, { params: { phone } })
+    const response = await axios.get(endpoints.chats, { params: { contact_id } })
     console.log('response: ', response.data);
     if (response.status == 200) {
       setMessages(response.data.chats)

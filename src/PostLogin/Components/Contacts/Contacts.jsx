@@ -12,7 +12,7 @@ export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
-    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: 1234 });
+    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: user_id });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
 
     const fetchContacts = async () => {
@@ -85,7 +85,7 @@ export const Contacts = () => {
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
-                    <a key={index} href={`./whatsapp/${contact.name}/${contact.phone}`}>
+                    <a key={index} href={`./whatsapp/${contact.name}/${contact.id}`}>
                         <div className={styles.contact}>
                             <div className={styles.profilePic}>
                                 <img src={getImageUrl(`img.jpeg`)} alt={contact.name} />
