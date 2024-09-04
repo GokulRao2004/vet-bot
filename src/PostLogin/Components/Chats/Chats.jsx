@@ -47,7 +47,7 @@ export const Chats = ({ name, contact_id }) => {
     if (message.trim() !== '') {
       const newMessage = {
         user_id: user_id,
-        type: 'sent',
+        type: 'text',
         messaging_product: "whatsapp",
         recipient_type: "individual",
         to: contact_id,
