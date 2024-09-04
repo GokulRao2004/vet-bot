@@ -12,7 +12,7 @@ export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
-    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id });
+    const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: user_id });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
 
     const fetchContacts = async () => {
@@ -61,7 +61,7 @@ export const Contacts = () => {
                 setContacts([...contacts, { ...newContact, Time: 'Now' }]);
     
                 // Reset the form and close the modal
-                setNewContact({ name: '', phone: '', user_id: '1234' });
+                setNewContact({ name: '', phone: '', user_id : user_id });
                 closeModal();
             } else {
                 console.error('Failed to add contact. Status:', response.status);
