@@ -38,7 +38,7 @@ export const Contacts = () => {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        var { name, value } = e.target;
         if (name == "phone") {
             value = e.target.value.replace(/[^0-9]/g, '');
               }
