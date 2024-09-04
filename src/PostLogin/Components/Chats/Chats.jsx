@@ -70,7 +70,7 @@ export const Chats = ({ name, contact_id }) => {
         console.error('Error sending message:', error);
       }
     }
-    }
+    
   };
 
   //   {
