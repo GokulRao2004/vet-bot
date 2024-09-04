@@ -8,7 +8,8 @@ const config = {
     contacts: "/contacts",
     chats: "/chats",
     template: "/template",
-    addContact :"/contact"
+    addContact :"/contact",
+    textMessage : "/text_message"
   }
 };
 

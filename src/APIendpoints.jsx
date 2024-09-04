@@ -10,6 +10,7 @@ const endpoints = {
   chats: `${apiBaseUrl}${backend_path}${config.endpoints.chats}`,
   template: `${apiBaseUrl}${backend_path}${config.endpoints.template}`,
   addContact: `${apiBaseUrl}${backend_path}${config.endpoints.addContact}`,
+  textMessage: `${apiBaseUrl}${backend_path}${config.endpoints.textMessage}`,
    
 };
 

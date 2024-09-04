@@ -20,6 +20,8 @@ export const Chats = ({ name, contact_id }) => {
   const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
   const messageContainerRef = useRef(null);
   const [isTemplate, setIsTemplate] = useState();
+  const user_id = useSelector((state) => state.login.user)
+  console.log('user_id: ', user_id);
   console.log('isTemplate: ', isTemplate);
   useEffect(() => {
     if (messageContainerRef.current) {
@@ -32,7 +34,7 @@ export const Chats = ({ name, contact_id }) => {
     console.log('response: ', response.data);
     if (response.status == 200) {
       setMessages(response.data.chats)
-      setIsTemplate(response.data.isTemplate)
+      setIsTemplate(response.data.is_template)
     }
 
   }
@@ -40,19 +42,48 @@ export const Chats = ({ name, contact_id }) => {
   useEffect(() => {
     fetchMessages()
   }, [isTemplate])
-  
-  const handleSendMessage = () => {
+
+  const handleSendMessage = async () => {
     if (message.trim() !== '') {
       const newMessage = {
-        id: messages.length + 1,
+        user_id: user_id,
         type: 'sent',
-        content: message,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        messaging_product: "whatsapp",
+        recipient_type: "individual",
+        to: contact_id,
+        text: {
+          preview_url: false,
+          body: message
+        }
       };
-      messages.push(newMessage);
-      setMessage('');
+      try {
+        // Send the message to the backend
+        const response = await axios.post(endpoints.textMessage, newMessage);
+  
+        // Handle response if necessary
+        console.log('Message sent successfully:', response.data);
+  
+        // Clear the input field after sending
+        setMessage('');
+      } catch (error) {
+        // Handle any errors that occur during the request
+        console.error('Error sending message:', error);
+      }
+    }
     }
   };
+
+  //   {
+  //     "user_id": "8e79227f0cb44413a67cc026396d8978",
+  //     "messaging_product": "whatsapp",    
+  //     "recipient_type": "individual",
+  //     "to": "9108444564",
+  //     "type": "text",
+  //     "text": {
+  //         "preview_url": false,
+  //         "body": "message from auth svc API"
+  //     }
+  // }
 
   // const handleSendImages = () => {
   //   if (imageFiles.length > 0) {
@@ -135,11 +166,11 @@ export const Chats = ({ name, contact_id }) => {
     try {
       const response = await axios.post(endpoints.template, { params: { phone } }); // Adjust endpoint as necessary
       if (response.status === 200) {
-      
-        setIsTemplate(false); 
-        }
+
+        setIsTemplate(false);
       }
-     catch (error) {
+    }
+    catch (error) {
       console.log('Error fetching template message:', error);
     }
   };
