@@ -11,7 +11,7 @@ import endpoints from "../../../APIendpoints.jsx"
 export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [newContact, setNewContact] = useState({ Name: '', Phone: '' });
+    const [newContact, setNewContact] = useState({ name: '', phone: '' });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
     const user_id = useSelector((state) => state.login.user)
 
@@ -61,7 +61,7 @@ export const Contacts = () => {
                 setContacts([...contacts, { ...newContact, Time: 'Now' }]);
     
                 // Reset the form and close the modal
-                setNewContact({ Name: '', Message: '' });
+                setNewContact({ name: '', phone: '' });
                 closeModal();
             } else {
                 console.error('Failed to add contact. Status:', response.status);
@@ -134,8 +134,8 @@ export const Contacts = () => {
                             <input
                                 type="text"
                                 id="name"
-                                name="Name"
-                                value={newContact.Name}
+                                name="name"
+                                value={newContact.name}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -147,8 +147,8 @@ export const Contacts = () => {
                                 pattern="\d*"
                                 inputmode="numeric"
                                 id="phone"
-                                name="Phone"
-                                value={newContact.Phone}
+                                name="phone"
+                                value={newContact.phone}
                                 onChange={handleInputChange}
                                 maxLength={10}
                                 minLength={10}
