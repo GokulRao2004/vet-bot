@@ -44,8 +44,7 @@ export const Contacts = () => {
               }
         setNewContact(prevState => ({
             ...prevState,
-            [name]: value,
-            user_id:"123"
+            [name]: value
         }));
     };
 
