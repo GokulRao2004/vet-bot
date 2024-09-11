@@ -6,6 +6,7 @@ import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reduc
 import axios from 'axios';
 import endpoints from '../APIendpoints';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 export const LoginPage = () => {
   const abtText = " Say hello to streamlined practice management, enhanced patient care, and simplified client interactions. With cutting-edge AI technology, Vet-Bot offers seamless appointment scheduling, medical record management, and instant diagnostic support. Elevate your practice with personalized treatment recommendations and revolutionize veterinary care with Vet-Bot.";
 
@@ -24,7 +25,21 @@ export const LoginPage = () => {
 
   //Functions
 
-  
+  function getUserIdFromJWT(token) {
+    try {
+      // Decode the JWT token to get the payload
+      const decodedToken = jwtDecode(token);
+
+
+      // Extract the user ID from the payload
+      const userId = decodedToken.user_id; // Adjust this based on your JWT structure
+
+      return userId;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
+  }
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -66,7 +81,7 @@ export const LoginPage = () => {
       );
       if (response.status == 200) {
         localStorage.setItem('token', response.data.token);
-        dispatch(loginSuccess(response.data.user));
+        dispatch(loginSuccess(getUserIdFromJWT(response.data.token)));
         navigate("/");
       } else {
         console.log(response.status)

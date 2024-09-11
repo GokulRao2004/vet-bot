@@ -19,6 +19,7 @@ const loginSlice = createSlice({
         },
         loginSuccess : (state,action) => {
             state.isLoggedIn = true;
+            state.isLoggedIntoWhatsapp = true
             state.user = action.payload;
             state.isLoading = false;
             state.error = null;
@@ -40,6 +41,7 @@ const loginSlice = createSlice({
         },
         addUserId : (state,action) => {
             state.user = action.payload
+            state.isLoggedIntoWhatsapp = true
         }
        
     }

@@ -38,6 +38,17 @@ export const Chats = ({ name, contact_id }) => {
     }
 
   }
+//Convert GMT to IST format
+  const convertToIST = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const options = {
+      timeZone: "Asia/Kolkata", 
+      hour12: true, 
+      hour: "numeric", 
+      minute: "numeric", 
+    };
+    return date.toLocaleString("en-IN", options);
+  };
 
   useEffect(() => {
     fetchMessages()
@@ -56,6 +67,14 @@ export const Chats = ({ name, contact_id }) => {
           body: message
         }
       };
+
+      const latestMessage = {
+        type: "sent",
+        content: message,
+        time : new Date().toISOString()
+      }
+      
+      setMessages(prevMessages => [...prevMessages, latestMessage]);
       try {
         // Send the message to the backend
         const response = await axios.post(endpoints.textMessage, newMessage);
@@ -65,6 +84,7 @@ export const Chats = ({ name, contact_id }) => {
   
         // Clear the input field after sending
         setMessage('');
+        
       } catch (error) {
         // Handle any errors that occur during the request
         console.error('Error sending message:', error);
@@ -220,7 +240,7 @@ export const Chats = ({ name, contact_id }) => {
         {messages ? (messages.map((message) => (
           <div key={message.id} className={`${styles.message} ${styles[message.type]}`}>
             <div className={styles['message-content']} dangerouslySetInnerHTML={{ __html: message.content }}></div>
-            <div className={styles['message-time']}>{message.time}</div>
+            <div className={styles['message-time']}>{convertToIST(message.time)}</div>
           </div>
         ))) : (<div style={{ fontSize: "30px", width: "100%", textAlign: "center", paddingTop: "20px" }}>Start Messaging Now</div>)}
 

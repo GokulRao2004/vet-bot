@@ -79,7 +79,7 @@ export const Contacts = () => {
                         <div className={styles.profilePic}>
                             <img src={getImageUrl("img.jpeg")} alt="profile" />
                         </div>
-                        <div>User Name</div>
+                        <div>{user_id}</div>
                     </div>
                 </div>
             </div>
