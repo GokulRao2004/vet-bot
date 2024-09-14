@@ -136,7 +136,7 @@ const handleClick = () => {
                 margin: '10px'}} onClick={handleClick}>
                 Embedded Signup
             </button>
-            <button onClick={handleSignup}>CLICK</button>
+            {/* <button onClick={handleSignup}>CLICK</button> */}
     </div>
   )
 }
