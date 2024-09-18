@@ -236,3 +236,11 @@ a{
 .adButton:hover {
   background-color: rgba(0, 128, 0, 0.1); /* Light green background on hover */
 }
+
+
+.refreshIcon{
+  padding: 0;
+  /* margin-top: 2px; */
+  padding-top: 3px;
+  padding-right: 20px;
+}

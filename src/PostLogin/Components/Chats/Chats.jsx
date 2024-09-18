@@ -10,6 +10,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
 import endpoints from "../../../APIendpoints.jsx";
+import { IconButton, Tooltip } from '@mui/material';
+import RefreshIcon from '@mui/icons-material/Refresh';
+
 
 export const Chats = ({ name, contact_id }) => {
   const navigate = useNavigate();
@@ -21,6 +24,8 @@ export const Chats = ({ name, contact_id }) => {
   const messageContainerRef = useRef(null);
   const [isTemplate, setIsTemplate] = useState();
   const user_id = useSelector((state) => state.login.user)
+
+
   console.log('user_id: ', user_id);
   console.log('isTemplate: ', isTemplate);
   useEffect(() => {
@@ -38,14 +43,14 @@ export const Chats = ({ name, contact_id }) => {
     }
 
   }
-//Convert GMT to IST format
+  //Convert GMT to IST format
   const convertToIST = (dateTimeString) => {
     const date = new Date(dateTimeString);
     const options = {
-      timeZone: "Asia/Kolkata", 
-      hour12: true, 
-      hour: "numeric", 
-      minute: "numeric", 
+      timeZone: "Asia/Kolkata",
+      hour12: true,
+      hour: "numeric",
+      minute: "numeric",
     };
     return date.toLocaleString("en-IN", options);
   };
@@ -71,26 +76,26 @@ export const Chats = ({ name, contact_id }) => {
       const latestMessage = {
         type: "sent",
         content: message,
-        time : new Date().toISOString()
+        time: new Date().toISOString()
       }
-      
+
       setMessages(prevMessages => [...prevMessages, latestMessage]);
       try {
         // Send the message to the backend
         const response = await axios.post(endpoints.textMessage, newMessage);
-  
+
         // Handle response if necessary
         console.log('Message sent successfully:', response.data);
-  
+
         // Clear the input field after sending
         setMessage('');
-        
+
       } catch (error) {
         // Handle any errors that occur during the request
         console.error('Error sending message:', error);
       }
     }
-    
+
   };
 
   //   {
@@ -225,9 +230,15 @@ export const Chats = ({ name, contact_id }) => {
     setImageFiles([]);
   };
 
+  const handleRefreshContacts = () => {
+    fetchMessages();
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
+        <div className={styles.navbarLeft}>
+
         <a onClick={goBack} style={{ cursor: 'pointer' }}>
           <ArrowBackRounded sx={{ margin: 0, padding: 0 }} />
         </a>
@@ -235,6 +246,18 @@ export const Chats = ({ name, contact_id }) => {
           <img src={getImageUrl('img.jpeg')} alt="profile" />
         </div>
         <div>{name}</div>
+
+        </div>
+        <Tooltip title="Click to update the chats" componentsProps={{
+          tooltip: {
+            sx: {
+              fontSize: "16px"
+            },
+          },
+        }}>
+          <IconButton className={styles.refreshIcon} onClick={handleRefreshContacts}><RefreshIcon sx={{ color: "#3d3d3d", fontSize: "36px" }} /></IconButton>
+        </Tooltip>
+
       </div>
       <div ref={messageContainerRef} className={styles.messages}>
         {messages ? (messages.map((message) => (

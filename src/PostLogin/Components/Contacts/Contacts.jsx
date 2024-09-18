@@ -7,6 +7,8 @@ import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import axios from "axios";
 import endpoints from "../../../APIendpoints.jsx"
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { IconButton, Tooltip } from '@mui/material';
 
 export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
@@ -41,7 +43,7 @@ export const Contacts = () => {
         var { name, value } = e.target;
         if (name == "phone") {
             value = e.target.value.replace(/[^0-9]/g, '');
-              }
+        }
         setNewContact(prevState => ({
             ...prevState,
             [name]: value
@@ -50,18 +52,18 @@ export const Contacts = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-       console.log(newContact)
+        console.log(newContact)
         try {
             // Make the POST request
             const response = await axios.post(endpoints.addContact, newContact);
-    
+
             // Check if the response is successful (status code 200-299)
             if (response.status >= 200 && response.status < 300) {
                 // Update the contacts state
                 setContacts([...contacts, { ...newContact, Time: 'Now' }]);
-    
+
                 // Reset the form and close the modal
-                setNewContact({ name: '', phone: '', user_id : user_id });
+                setNewContact({ name: '', phone: '', user_id: user_id });
                 closeModal();
             } else {
                 console.error('Failed to add contact. Status:', response.status);
@@ -70,6 +72,10 @@ export const Contacts = () => {
             console.error('An error occurred while adding the contact:', error);
         }
     };
+
+    const handleRefreshContacts = () => {
+        fetchContacts();
+    }
 
     return (
         <div className={styles.container}>
@@ -81,6 +87,15 @@ export const Contacts = () => {
                         </div>
                         <div>{user_id}</div>
                     </div>
+                    <Tooltip title="Click to get the updated contacts" componentsProps={{
+                        tooltip: {
+                            sx: {
+                                fontSize: "16px"
+                            },
+                        },
+                    }}>
+                        <IconButton className={styles.refreshIcon} onClick={handleRefreshContacts}><RefreshIcon sx={{ color: "#3d3d3d", fontSize: "36px" }} /></IconButton>
+                    </Tooltip>
                 </div>
             </div>
             <div className={styles.contactList}>

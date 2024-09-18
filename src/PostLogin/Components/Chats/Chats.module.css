@@ -9,6 +9,17 @@
   border-top: 0.5px solid #ddd;
 }
 
+.navbarLeft{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  font-size: 20px;
+  align-items: center;
+  padding-left: 10px;
+  border-top: 0.5px solid #ddd;
+}
+
 .profilePic {
   display: flex;
   height: 60px;
