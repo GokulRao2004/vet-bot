@@ -14,7 +14,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 
-export const Chats = ({ name, contact_id }) => {
+export const Chats = ({ name, contact_id, phone }) => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState();
   const [message, setMessage] = useState('');
@@ -28,6 +28,7 @@ export const Chats = ({ name, contact_id }) => {
 
   console.log('user_id: ', user_id);
   console.log('isTemplate: ', isTemplate);
+  console.log('Phone: ', phone);
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
@@ -245,7 +246,14 @@ export const Chats = ({ name, contact_id }) => {
         <div className={styles.profilePic}>
           <img src={getImageUrl('img.jpeg')} alt="profile" />
         </div>
-        <div>{name}</div>
+        <div>
+          <div>
+            {name}
+          </div>
+          <p className={styles.phone}>
+            {phone}
+          </p>
+        </div>
 
         </div>
         <Tooltip title="Click to update the chats" componentsProps={{

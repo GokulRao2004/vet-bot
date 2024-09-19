@@ -238,3 +238,13 @@
 .templateButton:hover {
   background-color: rgba(0, 128, 0, 0.1); /* Light green background on hover */
 }
+
+
+.phone{
+  padding: 0;
+  margin: 0;
+  margin-top: -10px;
+  color: rgb(84, 84, 84);
+  font-size: 15px;
+
+}

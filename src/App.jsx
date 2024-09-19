@@ -118,7 +118,7 @@ const App = () => {
             <Route path="addvaccination" element={<AddVaccination />} />
             <Route path="adddeworming" element={<AddDeworming />} />
             <Route path="whatsapp" element={<Whatsapp />} />
-            <Route path="whatsapp/:userName/:contactId" element={<Whatsapp />} />
+            <Route path="whatsapp/:userName/:contactId/:phone" element={<Whatsapp />} />
           </Route>
         </Routes>
       </ThemeProvider>

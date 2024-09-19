@@ -9,8 +9,9 @@ import axios from "axios";
 import endpoints from "../../../APIendpoints.jsx"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { IconButton, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-export const Contacts = () => {
+export const Contacts = ( ) => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
@@ -77,6 +78,8 @@ export const Contacts = () => {
         fetchContacts();
     }
 
+
+
     return (
         <div className={styles.container}>
             <div className={styles.topBar}>
@@ -100,7 +103,10 @@ export const Contacts = () => {
             </div>
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
-                    <a key={index} href={`./whatsapp/${contact.name}/${contact.id}`}>
+                    <Link
+                        key={index} 
+                        to={`./${contact.name}/${contact.id}/${contact.phone}`}
+                        >
                         <div className={styles.contact}>
                             <div className={styles.profilePic}>
                                 <img src={getImageUrl(`img.jpeg`)} alt={contact.name} />
@@ -124,7 +130,7 @@ export const Contacts = () => {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 ))}
             </div>
 
