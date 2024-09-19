@@ -61,7 +61,7 @@ export const Contacts = ( ) => {
             // Check if the response is successful (status code 200-299)
             if (response.status >= 200 && response.status < 300) {
                 // Update the contacts state
-                setContacts([...contacts, { ...newContact, Time: 'Now' }]);
+                fetchContacts();
 
                 // Reset the form and close the modal
                 setNewContact({ name: '', phone: '', user_id: user_id });
