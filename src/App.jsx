@@ -42,7 +42,7 @@ const App = () => {
       const user_name = getUserNameFromJWT(token);
       if (token) {
         dispatch(addUserId(user_id))
-        dispatch(addUserName(user_id))
+        dispatch(addUserName(user_name))
         try {
           if (!isLoggedIn) {
             const response = await axios.post(endpoints.verifyToken, {

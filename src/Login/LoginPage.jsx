@@ -45,9 +45,10 @@ export const LoginPage = () => {
     try {
       // Decode the JWT token to get the payload
       const decodedToken = jwtDecode(token);
+      console.log('decodedToken: ', decodedToken);
 
 
-      // Extract the user ID from the payload
+      // Extract the user name from the payload
       const userName = decodedToken.user_name; // Adjust this based on your JWT structure
 
       return userName;
