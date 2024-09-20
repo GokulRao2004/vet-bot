@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './LoginPage.module.css';
 import { getImageUrl } from '../utils';
-import { loginRequest, loginSuccess, loginFailure, logout } from '../redux/reducers/loginReducer';
+import { loginRequest, loginSuccess, loginFailure, logout,addUserId,addUserName } from '../redux/reducers/loginReducer';
 import axios from 'axios';
 import endpoints from '../APIendpoints';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,22 @@ export const LoginPage = () => {
       const userId = decodedToken.user_id; // Adjust this based on your JWT structure
 
       return userId;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
+  }
+
+  function getUserNameFromJWT(token) {
+    try {
+      // Decode the JWT token to get the payload
+      const decodedToken = jwtDecode(token);
+
+
+      // Extract the user ID from the payload
+      const userName = decodedToken.user_name; // Adjust this based on your JWT structure
+
+      return userName;
     } catch (error) {
       console.error('Invalid token:', error);
       return null;
@@ -82,6 +98,7 @@ export const LoginPage = () => {
       if (response.status == 200) {
         localStorage.setItem('token', response.data.token);
         dispatch(loginSuccess(getUserIdFromJWT(response.data.token)));
+        dispatch(addUserName(getUserNameFromJWT(response.data.token)))
         navigate("/");
       } else {
         console.log(response.status)

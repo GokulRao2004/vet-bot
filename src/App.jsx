@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { addUserId, loginSuccess, logout, whatsappLogin } from './redux/reducers/loginReducer';
+import { addUserId, loginSuccess, logout, whatsappLogin, addUserName} from './redux/reducers/loginReducer';
 import { CssBaseline, ThemeProvider, CircularProgress, Box } from '@mui/material';
 import { createTheme } from '@mui/material';
 import { themeSettings } from './theme';
@@ -39,8 +39,10 @@ const App = () => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
       const user_id = getUserIdFromJWT(token);
+      const user_name = getUserNameFromJWT(token);
       if (token) {
         dispatch(addUserId(user_id))
+        dispatch(addUserName(user_id))
         try {
           if (!isLoggedIn) {
             const response = await axios.post(endpoints.verifyToken, {
@@ -92,6 +94,22 @@ const App = () => {
       const userId = decodedToken.user_id; // Adjust this based on your JWT structure
 
       return userId;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
+  }
+
+  function getUserNameFromJWT(token) {
+    try {
+      // Decode the JWT token to get the payload
+      const decodedToken = jwtDecode(token);
+
+
+      // Extract the user ID from the payload
+      const userName = decodedToken.user_name; // Adjust this based on your JWT structure
+
+      return userName;
     } catch (error) {
       console.error('Invalid token:', error);
       return null;

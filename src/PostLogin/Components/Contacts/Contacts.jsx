@@ -15,6 +15,7 @@ export const Contacts = ( ) => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
+    const userName = useSelector((state) => state.login.username)
     const [newContact, setNewContact] = useState({ name: '', phone: '', user_id: user_id });
     const isSidebarOpen = useSelector((state) => state.global.isSidebarOpen);
 
@@ -88,7 +89,7 @@ export const Contacts = ( ) => {
                         <div className={styles.profilePic}>
                             <img src={getImageUrl("img.jpeg")} alt="profile" />
                         </div>
-                        <div>{user_id}</div>
+                        <div>{userName}</div>
                     </div>
                     <Tooltip title="Click to get the updated contacts" componentsProps={{
                         tooltip: {

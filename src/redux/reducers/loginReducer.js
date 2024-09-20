@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     isLoggedIn : false,
     user: null,
+    username: null,
     error: null,
     isLoading : false,
     isLoggedIntoWhatsapp: false
@@ -42,11 +43,13 @@ const loginSlice = createSlice({
         addUserId : (state,action) => {
             state.user = action.payload
             state.isLoggedIntoWhatsapp = true
+        },
+        addUserName : (state,action) => {
+            state.username = action.payload
         }
-       
     }
 })
 
-export const { loginRequest, loginSuccess, loginFailure, logout, whatsappLogin,addUserId} = loginSlice.actions;
+export const { loginRequest, loginSuccess,addUserName , loginFailure, logout, whatsappLogin,addUserId} = loginSlice.actions;
 
 export default loginSlice.reducer
