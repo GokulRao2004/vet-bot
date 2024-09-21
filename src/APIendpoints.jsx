@@ -11,7 +11,7 @@ const endpoints = {
   template: `${apiBaseUrl}${backend_path}${config.endpoints.template}`,
   addContact: `${apiBaseUrl}${backend_path}${config.endpoints.addContact}`,
   textMessage: `${apiBaseUrl}${backend_path}${config.endpoints.textMessage}`,
-   
+  editProfile: `${apiBaseUrl}${backend_path}${config.endpoints.editProfile}`,
 };
 
 export default endpoints;

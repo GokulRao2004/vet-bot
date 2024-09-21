@@ -9,7 +9,8 @@ const config = {
     chats: "/chats",
     template: "/template",
     addContact :"/contact",
-    textMessage : "/text_message"
+    textMessage : "/text_message",
+    editProfile: "/edit_profile"
   }
 };
 

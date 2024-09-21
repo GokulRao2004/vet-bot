@@ -9,9 +9,10 @@ import axios from "axios";
 import endpoints from "../../../APIendpoints.jsx"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { IconButton, Tooltip } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Link } from 'react-router-dom';
 
-export const Contacts = ( ) => {
+export const Contacts = () => {
     const [contacts, setContacts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const user_id = useSelector((state) => state.login.user)
@@ -90,6 +91,21 @@ export const Contacts = ( ) => {
                             <img src={getImageUrl("img.jpeg")} alt="profile" />
                         </div>
                         <div>{userName}</div>
+                        <Link
+                            to="/whatsapp/editprofile"
+                        >
+                            <Tooltip title="Edit profile" componentsProps={{
+                                tooltip: {
+                                    sx: {
+                                        fontSize: "16px"
+                                    },
+                                },
+                            }}>
+                                <IconButton>
+                                    <EditOutlinedIcon sx={{ fontSize: "27px" }} />
+                                </IconButton>
+                            </Tooltip>
+                        </Link>
                     </div>
                     <Tooltip title="Click to get the updated contacts" componentsProps={{
                         tooltip: {
@@ -105,9 +121,9 @@ export const Contacts = ( ) => {
             <div className={styles.contactList}>
                 {contacts.map((contact, index) => (
                     <Link
-                        key={index} 
+                        key={index}
                         to={`./${contact.name}/${contact.id}/${contact.phone}`}
-                        >
+                    >
                         <div className={styles.contact}>
                             <div className={styles.profilePic}>
                                 <img src={getImageUrl(`img.jpeg`)} alt={contact.name} />
