@@ -22,7 +22,7 @@ import {
     VaccinesOutlined,
     WhatsApp
 } from "@mui/icons-material";
-
+import ArticleIcon from '@mui/icons-material/Article';
 import FlexBetween from '../FlexBetween';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -54,6 +54,10 @@ const navItems = [
     {
         text:"Whatsapp",
         icon:<WhatsApp/>,
+    },
+    {
+        text:"Template",
+        icon: <ArticleIcon/>
     }
 ]
 

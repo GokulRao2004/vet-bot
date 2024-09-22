@@ -18,6 +18,7 @@ import { LoginPage } from "./Login/LoginPage.jsx";
 import endpoints from './APIendpoints.jsx';
 import { jwtDecode } from "jwt-decode";
 import { EditProfile } from './PostLogin/Components/EditProfile/EditProfile.jsx';
+import { Template } from './PostLogin/Pages/Template/Template.jsx';
 
 const PdfViewerWrapper = () => {
   const { fileName } = useParams();
@@ -137,6 +138,8 @@ const App = () => {
             <Route path="addvaccination" element={<AddVaccination />} />
             <Route path="adddeworming" element={<AddDeworming />} />
             <Route path="whatsapp" element={<Whatsapp />} />
+            <Route path="template" element={<Template />} />
+            <Route path="template/editTemplate" element={<Template />} />
             <Route path="whatsapp/editprofile" element={<EditProfile/>} />
             <Route path="whatsapp/:userName/:contactId/:phone" element={<Whatsapp />} />
           </Route>

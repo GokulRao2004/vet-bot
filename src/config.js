@@ -10,7 +10,9 @@ const config = {
     template: "/template",
     addContact :"/contact",
     textMessage : "/text_message",
-    editProfile: "/edit_profile"
+    editProfile: "/edit_profile",
+    createTemplate: "/create_template",
+    getTemplate: "/get_template"
   }
 };
 
