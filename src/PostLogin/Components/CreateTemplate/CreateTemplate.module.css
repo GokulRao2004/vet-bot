@@ -1,11 +1,103 @@
 .navbar {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    font-size: 20px;
-    align-items: center;
-    padding-left: 10px;
-    border-top: 0.5px solid #ddd;
-    height: 60px
-  }
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  font-size: 20px;
+  align-items: center;
+  padding-left: 10px;
+  border-top: 0.5px solid #ddd;
+  height: 60px;
+}
+
+.outerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container,.btnContainer {
+  min-height: 50px;
+  background-color: #fff;
+  margin-top: 10px;
+  width: 95%;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.btnContainer{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.tempName{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 30px;
+}
+
+#templateName{
+  width: 60%;
+}
+
+input,select{
+  border-radius: 2px;
+  border: 0.5px solid black;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.label{
+  display: flex;
+  align-items: center;
+  gap:8px;
+
+}
+
+.optional{
+  font-size: 16px;
+  color: #454545;
+}
+
+.spacer{
+  padding: 20px;
+}
+
+.textArea{
+  font-size: 16px;
+  min-height:150px;
+  max-width: 100%;
+  resize: none;
+  padding: 5px 20px 5px 5px;
+}
+
+.btn {
+  min-width: 80px;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--color-dark);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  right: 0;
+}
+
+
+.btn:hover {
+  background-color: var(--color-darker); /* Change to a hover color if defined */
+}
+
+.btn:active::after {
+  transform: translate(-50%, -50%) scale(1); /* Scale up on click */
+}
+
+.error{
+  font-size: 20px;
+  color: red;
+}
