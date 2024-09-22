@@ -8,11 +8,10 @@ const config = {
     contacts: "/contacts",
     chats: "/chats",
     template: "/template",
+    isTemplate: "/isTemplate",
     addContact :"/contact",
     textMessage : "/text_message",
     editProfile: "/edit_profile",
-    createTemplate: "/create_template",
-    getTemplate: "/get_template"
   }
 };
 

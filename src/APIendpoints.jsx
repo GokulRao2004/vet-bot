@@ -9,11 +9,10 @@ const endpoints = {
   contacts: `${apiBaseUrl}${backend_path}${config.endpoints.contacts}`,
   chats: `${apiBaseUrl}${backend_path}${config.endpoints.chats}`,
   template: `${apiBaseUrl}${backend_path}${config.endpoints.template}`,
+  isTemplate: `${apiBaseUrl}${backend_path}${config.endpoints.isTemplate}`,
   addContact: `${apiBaseUrl}${backend_path}${config.endpoints.addContact}`,
   textMessage: `${apiBaseUrl}${backend_path}${config.endpoints.textMessage}`,
   editProfile: `${apiBaseUrl}${backend_path}${config.endpoints.editProfile}`,
-  createTemplate: `${apiBaseUrl}${backend_path}${config.endpoints.createTemplate}`,
-  getTemplate: `${apiBaseUrl}${backend_path}${config.endpoints.getTemplate}`
 };
 
 export default endpoints;

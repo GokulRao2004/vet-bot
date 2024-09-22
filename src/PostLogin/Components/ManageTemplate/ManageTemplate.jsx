@@ -1,15 +1,15 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useGlobalFilter, usePagination, useTable } from 'react-table';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
-import { FaEdit } from 'react-icons/fa'; 
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEdit } from 'react-icons/fa';
 import styles from "./ManageTemplate.module.css";
 import Header from "../Header/Header";
 import endpoints from '../../../APIendpoints';
 
 export const ManageTemplate = () => {
-    const [data, setData] = useState([]); 
-    const navigate = useNavigate(); 
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
     const COLUMNS = [
         { accessor: "template_name", Header: 'Template Name' },
@@ -24,18 +24,18 @@ export const ManageTemplate = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(endpoints.getTemplate);
+                const response = await axios.get(endpoints.template);
                 const formattedData = response.data.data.map(item => ({
                     template_name: item.name,
                     category: item.category,
                     language: item.language,
                     status: item.status,
-                    id: item.id, 
+                    id: item.id,
                     edit: (
-                        <div style={{ display: 'flex', justifyContent: 'center' , paddingRight:"50%"}}>
+                        <div style={{ display: 'flex', justifyContent: 'center', paddingRight: "50%" }}>
                             <FaEdit
-                                style={{ cursor: 'pointer', color: '#404040' , fontSize:"25px"}} 
-                                onClick={() => navigate(`./editTemplate?id=${item.id}`)} 
+                                style={{ cursor: 'pointer', color: '#404040', fontSize: "25px" }}
+                                onClick={() => navigate(`./editTemplate?id=${item.id}`)}
                             />
                         </div>
                     ),
@@ -70,6 +70,12 @@ export const ManageTemplate = () => {
     return (
         <div>
             <Header title="Manage Templates" />
+            <div className={styles.createBtnContainer}>
+                <Link
+                to={"/template/editTemplate"}>
+                    <button className={styles.createBtn}>Create Template</button>
+                </Link>
+            </div>
             <div className={styles.tableContainer}>
                 <table {...getTableProps()} className={styles.table}>
                     <thead className={styles.thead}>
@@ -86,7 +92,7 @@ export const ManageTemplate = () => {
                     <tbody {...getTableBodyProps()} className={styles.tbody}>
                         {page.length === 0 ? (
                             <tr className={styles.tr}>
-                                <td colSpan={COLUMNS.length} style={{textAlign:"center"}}>No data available</td>
+                                <td colSpan={COLUMNS.length} style={{ textAlign: "center" }}>No data available</td>
                             </tr>
                         ) : (
                             page.map(row => {

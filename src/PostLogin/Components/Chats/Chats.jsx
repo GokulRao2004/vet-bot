@@ -190,7 +190,7 @@ export const Chats = ({ name, contact_id, phone }) => {
 
   const handleTemplateMessage = async () => {
     try {
-      const response = await axios.post(endpoints.template, { params: { phone } }); // Adjust endpoint as necessary
+      const response = await axios.post(endpoints.isTemplate, { params: { phone } }); // Adjust endpoint as necessary
       if (response.status === 200) {
 
         setIsTemplate(false);
