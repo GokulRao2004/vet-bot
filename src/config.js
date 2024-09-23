@@ -11,7 +11,7 @@ const config = {
     isTemplate: "/isTemplate",
     addContact :"/contact",
     textMessage : "/text_message",
-    editProfile: "/edit_profile",
+    profile: "/profile",
   }
 };
 

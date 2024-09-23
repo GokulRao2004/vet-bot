@@ -1,5 +1,5 @@
 import { ArrowBackRounded } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./EditProfile.module.css";
 import { useSelector } from 'react-redux';
@@ -14,9 +14,27 @@ export const EditProfile = () => {
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [website, setWebsite] = useState('');
-    const [category, setCategory] = useState(''); // New state for category
+    const [category, setCategory] = useState('');
     const maxChars = 512;
 
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            try {
+                const response = await axios.get(endpoints.profile);
+                const { description, address, email, website, category } = response.data;
+                console.log('category: ', category);
+                setDescription(description || '');
+                setAddress(address || '');
+                setEmail(email || '');
+                setWebsite(website || '');
+                setCategory(category || '');
+            } catch (error) {
+                console.error('Error fetching profile data:', error);
+            }
+        };
+
+        fetchProfileData();
+    }, []);
 
     const goBack = () => {
         navigate('../whatsapp');
@@ -55,22 +73,21 @@ export const EditProfile = () => {
         };
 
         try {
-            const response = await axios.post(endpoints.editProfile, profileData, {
+            const response = await axios.post(endpoints.profile, profileData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
             console.log('Success:', response.data);
-            // Optionally reset form fields or navigate elsewhere
             setDescription("");
             setAddress("");
             setEmail("");
             setWebsite("");
-            setCategory(""); // Reset category
+            setCategory(""); 
+            navigate("/whatsapp")
         } catch (error) {
             console.error('Error during API call:', error);
-            // Handle error (e.g., show a notification)
         }
     };
 
@@ -93,26 +110,27 @@ export const EditProfile = () => {
                     <h2>Category</h2>
                     <select id="businessCategories" value={category} onChange={handleCategoryChange}>
                         <option value="">Select a category</option>
-                        <option value="automotive">Automotive</option>
-                        <option value="beauty_spa_salon">Beauty, Spa and Salon</option>
-                        <option value="clothing_apparel">Clothing and Apparel</option>
-                        <option value="education">Education</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="online_gambling_gaming">Online Gambling & Gaming</option>
-                        <option value="non_online_gambling_gaming">Non-Online Gambling & Gaming (E.g. Brick and Mortar)</option>
-                        <option value="event_planning">Event Planning and Service</option>
-                        <option value="food_grocery">Food and Grocery</option>
-                        <option value="alcoholic_beverages">Alcoholic Beverages</option>
-                        <option value="public_service">Public Service</option>
-                        <option value="hotel_lodging">Hotel and Lodging</option>
-                        <option value="medical_health">Medical and Health</option>
-                        <option value="over_the_counter_drugs">Over-the-Counter Drugs</option>
-                        <option value="non_profit">Non-profit</option>
-                        <option value="professional_services">Professional Services</option>
-                        <option value="shopping_retail">Shopping and Retail</option>
-                        <option value="travel_transportation">Travel and Transportation</option>
-                        <option value="restaurant">Restaurant</option>
-                        <option value="other">Other</option>
+                        <option value="OTHER">Other</option>
+                        <option value="AUTO">Automotive</option>
+                        <option value="BEAUTY">Beauty, Spa and Salon</option>
+                        <option value="APPAREL">Clothing and Apparel</option>
+                        <option value="EDU">Education</option>
+                        <option value="ENTERTAIN">Entertainment</option>
+                        <option value="EVENT_PLAN">Event Planning and Service</option>
+                        <option value="FINANCE">Finance</option>
+                        <option value="GROCERY">Food and Grocery</option>
+                        <option value="GOVT">Public Service</option>
+                        <option value="HOTEL">Hotel and Lodging</option>
+                        <option value="HEALTH">Medical and Health</option>
+                        <option value="NONPROFIT">Non-profit</option>
+                        <option value="PROF_SERVICES">Professional Services</option>
+                        <option value="RETAIL">Shopping and Retail</option>
+                        <option value="TRAVEL">Travel and Transportation</option>
+                        <option value="RESTAURANT">Restaurant</option>
+                        <option value="ALCOHOL">Alcoholic Beverages</option>
+                        <option value="ONLINE_GAMBLING">Online Gambling</option>
+                        <option value="PHYSICAL_GAMBLING">Physical Gambling</option>
+                        <option value="OTC_DRUGS">Over-the-Counter Drugs</option>
                     </select>
                 </div>
                 <div className={styles.description}>
