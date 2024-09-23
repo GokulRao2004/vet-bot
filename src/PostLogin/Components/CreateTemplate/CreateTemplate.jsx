@@ -7,6 +7,7 @@ import endpoints from '../../../APIendpoints'; // Adjust the path as necessary
 
 export const CreateTemplate = ({ id }) => {
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const [templateDetails, setTemplateDetails] = useState({
         templateName: '',
         language: '',
@@ -28,7 +29,13 @@ export const CreateTemplate = ({ id }) => {
     useEffect(() => {
         const fetchTemplateDetails = async () => {
             try {
-                const response = await axios.get(`${endpoints.template}/${id}`);
+                const response = await axios.get(`${endpoints.template}/${id}`,{
+                    
+                        headers: {
+                            'Authorization': `Bearer ${token}`, 
+                            
+                        }
+                });
                 console.log('response.data.name: ', response.data.data.category);
                 setTemplateDetails({
                     templateName: response.data.data.name || '',
@@ -107,6 +114,10 @@ export const CreateTemplate = ({ id }) => {
                 method: "POST",
                 url: url,
                 data: formattedData,
+                headers: {
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/json'
+                }
             });
             console.log("Response from server:", response.data);
             navigate('../template'); 

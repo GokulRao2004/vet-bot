@@ -8,6 +8,7 @@ import endpoints from '../../../APIendpoints';
 
 
 export const EditProfile = () => {
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const displayName = useSelector((state) => state.login.username);
     const [description, setDescription] = useState('');
@@ -20,7 +21,10 @@ export const EditProfile = () => {
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                const response = await axios.get(endpoints.profile);
+                const response = await axios.get(endpoints.profile, {
+                    headers: {
+                        'Authorization':`Bearer ${token}`
+                    }});
                 const { description, address, email, website, category } = response.data;
                 console.log('category: ', category);
                 setDescription(description || '');
@@ -76,6 +80,7 @@ export const EditProfile = () => {
             const response = await axios.post(endpoints.profile, profileData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
             });
 

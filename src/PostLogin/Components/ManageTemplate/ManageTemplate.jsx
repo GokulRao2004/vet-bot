@@ -10,7 +10,7 @@ import endpoints from '../../../APIendpoints';
 export const ManageTemplate = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-
+    const token = localStorage.getItem('token');
     const COLUMNS = [
         { accessor: "template_name", Header: 'Template Name' },
         { accessor: "category", Header: 'Category' },
@@ -24,7 +24,11 @@ export const ManageTemplate = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(endpoints.template);
+                const response = await axios.get(endpoints.template, {
+                    headers: {
+                      'Authorization': `Bearer ${token}`, 
+                      'Content-Type': 'application/json'  
+                    },});
                 const formattedData = response.data.data.map(item => ({
                     template_name: item.name,
                     category: item.category,
